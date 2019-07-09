@@ -81,6 +81,10 @@ Add the following content to the `post-receive` file.
     git --work-tree=/archive/$USER --git-dir=$HOME/archive.git checkout -f
     echo "Done."
 
+### Make `post-receive` executable.
+
+    $ chmod +x post-receive
+
 ### Grab a local copy of repository
 
     $ git clone ssh://<USER_NAME>@80.100.106.160/home/<USER_NAME>/archive.git dae.archive
