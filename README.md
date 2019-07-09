@@ -57,6 +57,18 @@ Allow /archive to be root directory.  Add the following to `/etc/apache2/apache2
 
     \# chmod -R 777 /archive
 
+### Updates to `000-default.conf`
+
+    \# nano /etc/apache2/sites-enabled/000-default.conf
+
+Enable user dir `~<USER_NAME>`, add
+
+    UserDir public_html
+
+Set document root to `/archive`, change `DocumentRoot`
+
+    DocumentRoot /archive
+
 ## Setup a user `git` flow
 
 ### Create user archive repository
