@@ -1,0 +1,8 @@
+[Unit]
+Description=DAE API
+
+[Service]
+ExecStart=/usr/bin/node /root/dae-api/server.js
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=MongoDB
+
+[Service]
+ExecStart=/usr/bin/mongod --dbpath /data
+
+[Install]
+WantedBy=multi-user.target
