@@ -1,0 +1,8 @@
+#!/bin/bash
+#unset GIT_INDEX_FILE
+echo "Hello hook ... $HOME"
+#git --work-tree=$HOME/public_html --git-dir=$HOME/archive.git checkout -f
+mkdir -p /archive/$USER
+git --work-tree=/archive/$USER --git-dir=$HOME/archive.git checkout -f
+echo "Done."
+

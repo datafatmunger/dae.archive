@@ -101,9 +101,14 @@ Add the following content to the `post-receive` file.
 
     $ git clone ssh://<USER_NAME>@80.100.106.160/home/<USER_NAME>/archive.git dae.archive
 
+## API setup
 
+curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
 
+sudo bash nodesource_setup.sh
 
+apt install nodejs npm mongodb
 
-
+mkdir /data
+mongod --dbpath /data &
 
