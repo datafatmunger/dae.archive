@@ -1,5 +1,4 @@
 const exec = require('child_process').exec
-  errors = require('../errors'),
   auth = require('../authorization')
 
 app.post('/upload', auth.authorization, function(req, res, next) {
