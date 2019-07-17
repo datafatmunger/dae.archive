@@ -42,6 +42,8 @@ Allow directory/file lists and browsing.
 Allow ~\<USER\_NAME\> style url access.
 
     \# a2enmod userdir
+    \# a2enmod proxy 
+    \# a2enmod proxy_http 
 
 ### Configure Apache
 
@@ -52,6 +54,11 @@ Allow /archive to be root directory.  Add the following to `/etc/apache2/apache2
             AllowOverride None
             Require all granted
     </Directory>
+
+Enable a proxy pass for the upstream node HTTP API server
+
+    ProxyPass "/api" "http://localhost:8000"
+    ProxyPassReverse "/api" "http://localhost:8000"
 
 ### Make `/archive` world readable.
 
@@ -103,23 +110,56 @@ Add the following content to the `post-receive` file.
 
 ## API setup
 
-curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+### Download nodejs
 
-sudo bash nodesource_setup.sh
+    $ curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
 
-apt install nodejs npm sqlite3
+### Install nodejs repos
 
-create table Users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT NOT NULL,
-  name TEXT,
-  hash TEXT,
-  salt TEXT,
-  CONSTRAINT email_unique UNIQUE (email)
-);
+    $sudo bash nodesource_setup.sh
 
-create table Tokens (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, name TEXT, token TEXT, series TEXT, FOREIGN KEY(user_id) REFERENCES Users(id), CONSTRAINT is_unique UNIQUE (user_id, name));
+### Install packages
 
+    $ sudo apt install nodejs npm sqlite3
+
+### Create sqlite3 database
+
+    $ sudo sqlite3 /data/dae.db
+
+### Create tables
+
+    create table Users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT NOT NULL,
+      name TEXT,
+      hash TEXT,
+      salt TEXT,
+      CONSTRAINT email_unique UNIQUE (email)
+    );
+
+    create table Tokens (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER,
+      name TEXT,
+      token TEXT,
+      series TEXT,
+      FOREIGN KEY(user_id) REFERENCES Users(id),
+      CONSTRAINT is_unique UNIQUE (user_id, name));
+
+## Create systemd unit file
+
+    $ sudo nano /etc/systemd/system/dae-api.service
+
+## Add the content
+
+    [Unit]
+    Description=DAE API
+
+    [Service]
+    ExecStart=/usr/bin/node /root/dae-api/server.js
+
+    [Install]
+    WantedBy=multi-user.target
 
 
 
