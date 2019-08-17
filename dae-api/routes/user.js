@@ -47,11 +47,8 @@ app.post('/users/login', async (req, res, next) => {
     const user = await users.authenticate(req.body.email, req.body.password)
     if(user) {
       req.session.userId = user.id
-      console.log('1')
       await tokens.remove(user.id, cookieName)
-      console.log('2')
       const token = await tokens.create(user.id, cookieName)
-      console.log('3')
       res.cookie(cookieName, tokens.cookieValue(token), tokens.expireDate())
       res.send(user)
     } else {
