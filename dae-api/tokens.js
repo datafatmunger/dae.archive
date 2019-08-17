@@ -12,7 +12,7 @@ exports.create = (userId, name) => {
     'VALUES (?, ?, ?, ?)')
   const token = randomToken()
   const series = randomToken()
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     db.serialize(() => {
       try {
         stmt.run(userId, name, token, series)

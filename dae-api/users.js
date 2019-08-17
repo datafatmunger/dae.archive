@@ -25,7 +25,7 @@ function createSystemUser(name, password, email) {
 }
 
 function getUser(email) {
-  const stmt = 'SELECT * FROM Users WHERE email = "' + email + '"'
+  const stmt = `SELECT * FROM Users WHERE email = "${email}"`
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.get(stmt, (err, row) => {
@@ -47,7 +47,7 @@ exports.create = (email, name, password) => {
       stmt.run(email, name, hash, salt)
       stmt.finalize()
       try {
-        await createSystemUser(name, password, email)
+        //await createSystemUser(name, password, email)
         resolve(getUser(email))
       } catch(err) {
         reject(err)
@@ -61,8 +61,7 @@ function serialize(row) {
 }
 
 exports.authenticate = (email, password) => {
-  const stmt = 'SELECT * FROM Users WHERE email = "' +
-    email + '"'
+  const stmt = `SELECT * FROM Users WHERE email = "${email}"`
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.get(stmt, (err, row) => {
@@ -77,7 +76,7 @@ exports.authenticate = (email, password) => {
 }
 
 exports.get = (id) => {
-  const stmt = 'SELECT * FROM Users WHERE id = ' + id
+  const stmt = `SELECT * FROM Users WHERE id = ${id}`
   return new Promise((resolve, reject) => {
     db.serialize(() => {
       db.get(stmt, (err, row) => {
@@ -99,7 +98,7 @@ function removeSystemUser(name) {
 }
 
 exports.remove = (id) => {
-  const stmt = 'DELETE FROM Users WHERE id = ' + id
+  const stmt = `DELETE FROM Users WHERE id = ${id}`
   return new Promise(async (resolve, reject) => {
     try {
       const user = await this.get(id)

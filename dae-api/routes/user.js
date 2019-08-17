@@ -4,14 +4,6 @@ const auth = require('../authorization'),
 
 const cookieName = 'dae.token'
 
-app.get('/users/:id', auth.authorization, async (req, res, next) => {
-  try {
-    res.send(await users.get(req.params.id))
-  } catch(err) {
-    next(err)
-  }
-})
-
 app.post('/users', async (req, res, next) => {
   try {
     res.send(
@@ -34,6 +26,14 @@ app.delete('/users/logout', auth.authorization, async (req, res, next) => {
   }
 })
 
+app.get('/users/:id', auth.authorization, async (req, res, next) => {
+  try {
+    res.send(await users.get(req.params.id))
+  } catch(err) {
+    next(err)
+  }
+})
+
 app.delete('/users/:id', auth.authorization, async (req, res, next) => {
   try {
     res.send(await users.remove(req.params.id))
@@ -44,11 +44,14 @@ app.delete('/users/:id', auth.authorization, async (req, res, next) => {
 
 app.post('/users/login', async (req, res, next) => {
   try {
-    let user = await users.authenticate(req.body.email, req.body.password)
+    const user = await users.authenticate(req.body.email, req.body.password)
     if(user) {
       req.session.userId = user.id
+      console.log('1')
       await tokens.remove(user.id, cookieName)
-      let token = await tokens.create(user.id, cookieName)
+      console.log('2')
+      const token = await tokens.create(user.id, cookieName)
+      console.log('3')
       res.cookie(cookieName, tokens.cookieValue(token), tokens.expireDate())
       res.send(user)
     } else {
