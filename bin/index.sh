@@ -26,16 +26,11 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
-    #echo $CONTENTS
-  fi
-
-  if [ -z "$CONTENTS" ]; then
-    JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\"}]"
   else
-    JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\", \"contents\": \"$CONTENTS\"}]"
+    CONTENTS=''
   fi
 
-  echo $JSON
+  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\", \"contents\": \"$CONTENTS\"}]"
 
   curl -d "$JSON" http://localhost:8983/solr/dae/update
 
