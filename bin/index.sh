@@ -15,14 +15,27 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   DATE=$(ls -l --time-style="+%Y-%m-%dT%H:%M:%SZ" "$line" | awk '{split($0,a," "); print a[6]}')
   #echo $DATE
 
-  CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
-  #echo $CONTENTS
-
-  ID="$(echo $DIR | sed 's/\//_/g')_$FILE"
+  ID="$(echo $DIR | \
+    sed 's/\//_/g')_$(echo $FILE | \
+    sed 's/\./_/g' | \
+    sed 's/ /_/g')"
   echo $ID
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\", \"contents\": \"$CONTENTS\"}]"
-  #echo $JSON
+  EXT=$(echo ${FILE##*.} | awk '{print tolower($0)}')
+  echo $EXT
+
+  if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
+    CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
+    #echo $CONTENTS
+  fi
+
+  if [ -z "$CONTENTS" ]; then
+    JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\"}]"
+  else
+    JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"path\": \"$DIR\", \"user\": \"$USER\", \"contents\": \"$CONTENTS\"}]"
+  fi
+
+  echo $JSON
 
   curl -d "$JSON" http://localhost:8983/solr/dae/update
 
