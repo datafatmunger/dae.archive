@@ -1,0 +1,50 @@
+{
+  "add-field": {
+    "name"        : "date",
+    "type"        : "pdate",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "name",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "path",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "user",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "contents",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "tags",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false 
+  }
+}
