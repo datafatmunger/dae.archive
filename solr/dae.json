@@ -40,14 +40,6 @@
     "required"    : false 
   },
   "add-field": {
-    "name"        : "location",
-    "type"        : "text_general",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : false,
-    "required"    : false 
-  },
-  "add-field": {
     "name"        : "tags",
     "type"        : "string",
     "indexed"     : true,
