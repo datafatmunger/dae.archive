@@ -6,8 +6,8 @@ app.post('/upload', auth.authorization, function(req, res, next) {
   try {
     for(const [key, file] of Object.entries(req.files)) {
       console.log(file)
-      const cmd = '/usr/local/bin/add_file.sh "' +
-        file.tempFilePath + ' ' +
+      const cmd = '/usr/local/bin/add_file.sh ' +
+        file.tempFilePath + ' "' +
         file.name + '" ' +
         req.user.name
       console.log('CMD: ', cmd)
