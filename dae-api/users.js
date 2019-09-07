@@ -47,7 +47,7 @@ exports.create = (email, name, password) => {
       stmt.run(email, name, hash, salt)
       stmt.finalize()
       try {
-        //await createSystemUser(name, password, email)
+        await createSystemUser(name, password, email)
         resolve(getUser(email))
       } catch(err) {
         reject(err)
