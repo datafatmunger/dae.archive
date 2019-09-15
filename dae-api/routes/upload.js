@@ -9,7 +9,8 @@ app.post('/upload', auth.authorization, function(req, res, next) {
       const cmd = '/usr/local/bin/add_file.sh ' +
         file.tempFilePath + ' "' +
         file.name + '" ' +
-        req.user.name
+        req.user.name + ' ' +
+        req.body.note || 'API added file'
       console.log('CMD: ', cmd)
       exec(cmd, (error, stdout, stderr) => {
         console.log(stdout)

@@ -19,3 +19,6 @@
 
     $ curl -X DELETE --cookie cookies http://localhost:8000/users/1
 
+## Upload file to archive
+
+    $ curl -F file=@foo --cookie cookies http://80.100.106.160/api/upload
