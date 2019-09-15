@@ -16,6 +16,22 @@
     "required"    : true
   },
   "add-field": {
+    "name"        : "base",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "ext",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
     "name"        : "path",
     "type"        : "string",
     "indexed"     : true,
