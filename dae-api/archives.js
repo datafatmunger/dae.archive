@@ -1,7 +1,7 @@
 
 const exec = require('child_process').exec
 
-exports.fork = (archive, user) => {
+exports.fork = (archive, username) => {
   return new Promise((resolve, reject) => {
     exec('/usr/local/bin/fork.sh ' +
       archive + ' ' +

@@ -4,7 +4,7 @@ const auth = require('../authorization'),
 app.post('/fork', auth.authorization, async (req, res, next) => {
   try {
     res.send({ success:
-      await archives.fork(req.user, req.body.archive)
+      await archives.fork(req.body.archive, req.user.name)
     })
   } catch(err) {
     next(err)
