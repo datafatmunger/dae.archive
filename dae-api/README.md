@@ -21,4 +21,4 @@
 
 ## Upload file to archive
 
-    $ curl -F file=@foo --cookie cookies http://80.100.106.160/api/upload
+    $ curl -F file=@foo --cookie cookies http://localhost:8000/upload
