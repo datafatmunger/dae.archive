@@ -34,6 +34,7 @@ app.use(fileUpload({
 }))
 require('./routes/user')
 require('./routes/upload')
+require('./routes/fork')
 
 app.use((err, req, res, next) => {
   console.error(err.stack)
