@@ -2,7 +2,11 @@ const sqlite3 = require('sqlite3').verbose(),
   exec = require('child_process').exec,
   crypto = require('crypto')
 
-const db = new sqlite3.Database('/data/dae.db')
+const fs = require('fs')
+configParser = require('./config-parser')
+const config = configParser.getConfig()
+
+const db = new sqlite3.Database(config.dataDir + '/dae.db')
 
 function createSalt() {
   return Math.round((new Date().valueOf() * Math.random())) + ''
@@ -14,7 +18,7 @@ function encryptPassword(password, salt) {
 
 function createSystemUser(name, password, email) {
   return new Promise((resolve, reject) => {
-    exec('/usr/local/bin/add_user.sh ' +
+    exec(config.binDir + '/add_user.sh ' +
       name + ' ' +
       password + ' ' +
       email, (error, stdout, stderr) => {
@@ -90,7 +94,7 @@ exports.get = (id) => {
 
 function removeSystemUser(name) {
   return new Promise((resolve, reject) => {
-    exec('/usr/local/bin/rm_user.sh ' + name, (err, stdout, stderr) => {
+    exec(config.binDir + '/rm_user.sh ' + name, (err, stdout, stderr) => {
       if(err) reject(err)
       else resolve(true)
     })

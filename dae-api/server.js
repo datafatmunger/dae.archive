@@ -5,7 +5,14 @@ const express = require('express'),
   cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
   SQLiteStore = require('connect-sqlite3')(session),
-  fs = require('fs')
+  fs = require('fs'),
+  configParser = require('./config-parser')
+
+const config = configParser.getConfig()
+const database = config.dataDir
+
+console.log(config)
+console.log(database)
 
 app = express()
 app.use(express.static('public'))
@@ -13,11 +20,12 @@ app.use(session({
   secret: 'popsecret',
   store: new SQLiteStore({
     db: 'dae.db',
-    dir: '/data'
+    dir: config.dataDir
   }),
   resave: true,
   saveUninitialized: true,
 }))
+
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }))
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(cookieParser())
