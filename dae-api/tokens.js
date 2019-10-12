@@ -1,6 +1,10 @@
 const sqlite3 = require('sqlite3').verbose()
+  
+const fs = require('fs')
+configParser = require('./config-parser')
+const config = configParser.getConfig()
 
-const db = new sqlite3.Database('/data/dae.db')
+const db = new sqlite3.Database(config.dataDir + '/dae.db')
 
 function randomToken() {
   return Math.round((new Date().valueOf() * Math.random())) + ''

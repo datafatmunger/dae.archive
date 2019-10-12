@@ -161,5 +161,14 @@ Add the following content to the `post-receive` file.
     [Install]
     WantedBy=multi-user.target
 
+## Image Processing with ImageMagick!
+
+## Make 'thumbs' subdirectory and convert images to thumbnails into that directory
+
+    $ mogrify -path ./thumbs/ -resize 100x100 *
+
+## Print the 5 most recurring pixels in an image (for searching / indexing)
+
+    $ convert FILENAME -format %c -depth 8 histogram:info:- | sort -r | head -5
 
 

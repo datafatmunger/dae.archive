@@ -22,3 +22,8 @@
 ## Upload file to archive
 
     $ curl -F file=@foo --cookie cookies http://localhost:8000/upload
+
+## Fork an archive to your own home directory
+
+    $ curl -H "Content-Type: application/json" -d '{"archive": "<USER-NAME>"}' --cookie cookies http://localhost:8000/api/fork
+
