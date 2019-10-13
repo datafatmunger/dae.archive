@@ -90,9 +90,9 @@ async function upload() {
       credentials: 'same-origin'
     })
     const result = await response.json()
-    showMessage('Success!')
+    showMsg('Success!')
   } catch (error) {
-    showMessage('Fail.', true)
+    showMsg('Fail.', true)
   }
 }
 
