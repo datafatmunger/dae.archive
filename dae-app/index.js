@@ -61,10 +61,12 @@ function showResults(res) {
   })
 }
 
-function showError(msg) {
-  const err = document.querySelector('main .error')
-  err.innerHTML = msg
-  err.style.display = 'block'
+function showMsg(txt, err = false) {
+  const msg = document.querySelector('main .msg')
+  msg.innerHTML = txt 
+  txt.style.display = 'block'
+  if(err) msg.classList.add('error')
+  else msg.classList.remove('error')
 }
 
 async function doSearch() {
@@ -88,9 +90,9 @@ async function upload() {
       credentials: 'same-origin'
     })
     const result = await response.json()
-    console.log('Success:', JSON.stringify(result))
+    showMessage('Success!')
   } catch (error) {
-    console.error('Error:', error)
+    showMessage('Fail.', true)
   }
 }
 
@@ -125,7 +127,7 @@ async function login() {
     email: email,
     password: pass
   })
-  if(res.error) showError(res.error)
+  if(res.error) showMsg(res.error, true)
   else showSearch()
 }
 
