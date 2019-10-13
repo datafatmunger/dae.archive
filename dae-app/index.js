@@ -64,7 +64,7 @@ function showResults(res) {
 function showMsg(txt, err = false) {
   const msg = document.querySelector('main .msg')
   msg.innerHTML = txt 
-  txt.style.display = 'block'
+  msg.style.display = 'block'
   if(err) msg.classList.add('error')
   else msg.classList.remove('error')
 }
