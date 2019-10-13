@@ -3,18 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+.error {
+  color: #f00;
+  display: none;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+}
+
+li {
+  margin: 21px;
+  cursor: pointer;
+}
+
+</style>
 </head>
 <body>
 <main></main>
-
 <!-- Login -->
 <template id="login">
 <div class="login">
   <fieldset>
     <header><legend>Login</legend></header>
-    <input type="text" name="email" placeholder="Email"/>
-    <input type="text" name="password" placeholder="Password"/>
+    <input type="text" name="email" placeholder="Email" value="jbg@peerparty.org"/>
+    <input type="text" name="password" placeholder="Password" value="1X8YshljFCBMMsyVqJ-GV09A5dvzoKAb"/>
     <button>Submit</button>
+    <p class="error">Error</p>
   </fieldset>
 </div>
 </template>
@@ -29,6 +47,38 @@
     <button>Submit</button>
   </fieldset>
 </div>
+</template>
+
+<!-- Search -->
+<template id="search">
+<div class="search">
+  <fieldset>
+    <header><legend>Search</legend></header>
+    <input type="text" name="search" placeholder="Search..."/>
+    <button>Submit</button>
+  </fieldset>
+  <div class="results"></div>
+</div>
+</template>
+
+<!-- Result -->
+<template id="res">
+<div class="res">
+  <h1><a></a></h1>
+  <p>😃 <span class="user"></span></p>
+  <p>📅 <span class="date"></span></p>
+  <hr/>
+</div>
+</template>
+
+<!-- Menu -->
+<template id="menu">
+<nav>
+  <ul>
+    <li class="search">Search</li>
+    <li class="upload">Upload</li>
+  </ul>
+</nav>
 </template>
 
 <script src="index.js"></script>

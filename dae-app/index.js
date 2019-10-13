@@ -1,32 +1,88 @@
 (function() {
 
-const url = 'http://80.100.106.160/api'
+const url = `${window.location.protocol}//${window.location.host}`
 
-function showScreen(template) {
+// UI Stuff - JBG
+
+function showElm(template, sel, empty = true) {
   const content = document.querySelector(`template#${template}`).content
-  const main = document.querySelector('main')
-  if(main.firstChild) main.removeChild(main.firstChild)
-  const screen = document.importNode(content, true)
-  main.appendChild(screen)
+  const elm = document.querySelector(sel)
+  if(empty) elm.innerHTML = ''
+  const node = document.importNode(content.firstElementChild, true)
+  elm.appendChild(node)
+  return node
+}
+
+function showLogin() {
+  showElm('login', 'main')
+  document.querySelector('main .login button').addEventListener('click', async e => {
+    await login()
+  })
 }
 
 function showUpload() {
-  showScreen('upload')
+  showMenu()
+  showElm('upload', 'main', false)
   document.querySelector('main .upload button').addEventListener('click', async e => {
     await upload()
   })
 }
 
+function showSearch() {
+  showMenu()
+  showElm('search', 'main', false)
+  document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
+  document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
+}
+
+function showMenu() {
+  showElm('menu', 'main')
+  const items = document.querySelectorAll('main nav li')
+  items.forEach(i => i.addEventListener('click', async e => {
+    const c = e.target.classList[0]
+    if(c === 'search') showSearch()
+    else if(c === 'upload') showUpload()
+    
+  }))
+}
+
+function showResults(res) {
+  // Remove old results - JBG
+  document.querySelectorAll('main .search .results .res').forEach(n => n.remove())
+
+  // Add new results - JBG
+  res.response.docs.forEach(d => {
+    const node = showElm('res', 'main .search .results', false)
+    const link = node.querySelector('a')
+    link.innerHTML = d.name
+    link.setAttribute('href', `${d.path.replace('/archive', '')}/${d.name}`)
+    node.querySelector('.user').innerHTML = d.user
+    node.querySelector('.date').innerHTML = d.date
+  })
+}
+
+function showError(msg) {
+  const err = document.querySelector('main .error')
+  err.innerHTML = msg
+  err.style.display = 'block'
+}
+
+async function doSearch() {
+  const txt = document.querySelector('main .search input[name="search"]').value
+  const res = await search(txt)
+  showResults(res)
+}
+
 async function upload() {
   const data = new FormData()
-  const note = document.querySelector('.upload input[name="note"]').value
-  const file = document.querySelector('.upload input[name="file"]')
+  const note = document.querySelector('main .upload input[name="note"]').value
+  const file = document.querySelector('main .upload input[name="file"]')
 
   data.append('note', note)
   data.append('file', file.files[0])
 
   try {
-    const response = await fetch(`${url}/upload`, {
+    const response = await fetch(`${url}/api/upload`, {
       method: 'POST',
       body: data,
       credentials: 'same-origin'
@@ -39,50 +95,43 @@ async function upload() {
 }
 
 async function postData(url = '', data = {}) {
-  const response = await fetch(url, {
+  const res = await fetch(url, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
     credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
+    headers: { 'Content-Type': 'application/json' },
     redirect: 'follow',
     referrer: 'no-referrer',
     body: JSON.stringify(data)
   })
-  return await response.json();
+  return await res.json();
 }
 
 async function checkAuth() {
-  const res = await fetch(`${url}/users/4`, {
-    credentials: 'same-origin'
-  })
-  console.log(res)
+  const res = await fetch(`${url}/api/users/4`, { credentials: 'same-origin' })
   return res.ok
 }
 
-async function login(email, pass) {
-  const res = await postData(`${url}/users/login`, {
+async function search(txt) {
+  const res = await fetch(`${url}/search?q=${txt}`, { credentials: 'same-origin' })
+  return await res.json()
+}
+
+async function login() {
+  const email = document.querySelector('main .login input[name="email"]').value
+  const pass = document.querySelector('main .login input[name="password"]').value
+  const res = await postData(`${url}/api/users/login`, {
     email: email,
     password: pass
   })
-  console.log(res)
+  if(res.error) showError(res.error)
+  else showSearch()
 }
 
-async function init() {
-  const ok = await checkAuth()
+async function init() { await checkAuth() ? showSearch() : showLogin() }
 
-  if(!ok) {
-    login('jbg@peerparty.org', '1X8YshljFCBMMsyVqJ-GV09A5dvzoKAb')
-  } else {
-    console.log("OK!")
-  }
-}
-
-//init()
-showUpload()
+init()
 
 })()
 
