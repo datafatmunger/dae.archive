@@ -117,7 +117,8 @@ async function postData(url = '', data = {}) {
 }
 
 async function checkAuth() {
-  const res = await fetch(`${url}/api/users/4`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/api/users/me`, { credentials: 'same-origin' })
+  console.log(res)
   return res.ok
 }
 
