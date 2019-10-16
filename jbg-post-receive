@@ -1,0 +1,22 @@
+#!/bin/bash
+#unset GIT_INDEX_FILE
+echo "Hello hook ... $HOME"
+#git --work-tree=$HOME/public_html --git-dir=$HOME/archive.git checkout -f
+mkdir -p /archive/$USER
+git --work-tree=/archive/$USER --git-dir=$HOME/archive.git checkout -f
+echo "Done."
+
+echo "Copying post-receive"
+cp /archive/$USER/jbg-post-receive /home/$USER/archive.git/hooks/post-receive
+echo "Done."
+
+# Deploy bin incase of updates to deploy - JBG
+echo "Copying bin files..."
+sudo cp -r /archive/$USER/bin/* /usr/local/bin
+echo "Done."
+
+# Run deploy - JBG
+echo "Running deploy.sh ..."
+sudo /usr/local/bin/deploy.sh
+echo "deploy.sh done."
+
