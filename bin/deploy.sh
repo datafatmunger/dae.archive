@@ -12,6 +12,7 @@ echo "Done."
 # Copy any new systemd service units - JBG
 echo "Deploying new systemd units..."
 cp -r /archive/jbg/systemd/* /etc/systemd/system
+systemctl daemon-reload
 echo "Done."
 
 # Set a new Solr schema, incase there was an update. - JBG
