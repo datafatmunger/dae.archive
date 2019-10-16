@@ -42,8 +42,9 @@ function showMenu() {
     const c = e.target.classList[0]
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
-    
   }))
+
+  document.querySelector('main nav li.archive a').setAttribute('href', `/${username}`)
 }
 
 function showResults(res) {
@@ -116,9 +117,12 @@ async function postData(url = '', data = {}) {
   return await res.json();
 }
 
+let username
+
 async function checkAuth() {
   const res = await fetch(`${url}/api/users/me`, { credentials: 'same-origin' })
-  console.log(res)
+  const data = await res.json()
+  username = data.name
   return res.ok
 }
 
