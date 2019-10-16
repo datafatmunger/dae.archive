@@ -2,6 +2,7 @@
 Description=DAE API
 
 [Service]
+WorkingDirectory=/root
 ExecStart=/usr/bin/node /root/dae-api/server.js
 
 [Install]
