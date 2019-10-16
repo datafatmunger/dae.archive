@@ -51,6 +51,10 @@ function showResults(res) {
   document.querySelectorAll('main .search .results .res').forEach(n => n.remove())
 
   if(res.response.numFound == 0) showMsg("0 results.") 
+  else {
+    const msg = document.querySelector('main .msg')
+    msg.style.display = 'none'
+  }
 
   // Add new results - JBG
   res.response.docs.forEach(d => {
