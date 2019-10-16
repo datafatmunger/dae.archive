@@ -16,6 +16,7 @@ echo "Done."
 # Set a new Solr schema, incase there was an update. - JBG
 echo "Setting new Solr schema..."
 /usr/local/bin/reset_solr.sh
+sleep 10s
 echo "Done."
 
 # Run the index
