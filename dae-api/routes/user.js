@@ -14,7 +14,7 @@ app.post('/users', async (req, res, next) => {
   }
 })
 
-app.get('/me', auth.authorization, async (req, res, next) => {
+app.get('/users/me', auth.authorization, (req, res, next) => {
   try {
     res.send(req.user)
   } catch(err) {
