@@ -18,3 +18,8 @@ echo "Setting new Solr schema..."
 /usr/local/bin/reset_solr.sh
 echo "Done."
 
+# Run the index
+echo "Indexing for search..."
+/usr/local/bin/index.sh
+echo "Done."
+
