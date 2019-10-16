@@ -50,6 +50,8 @@ function showResults(res) {
   // Remove old results - JBG
   document.querySelectorAll('main .search .results .res').forEach(n => n.remove())
 
+  if(res.response.numFound == 0) showMsg("0 results.") 
+
   // Add new results - JBG
   res.response.docs.forEach(d => {
     const node = showElm('res', 'main .search .results', false)

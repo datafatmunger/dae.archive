@@ -62,5 +62,13 @@
     "stored"      : true,
     "multiValued" : true,
     "required"    : false 
+  },
+  "add-field": {
+    "name"        : "type",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false 
   }
 }
