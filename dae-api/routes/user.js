@@ -14,6 +14,14 @@ app.post('/users', async (req, res, next) => {
   }
 })
 
+app.get('/users/me', auth.authorization, async (req, res, next) => {
+  try {
+    res.send(req.user)
+  } catch(err) {
+    next(err)
+  }
+})
+
 app.delete('/users/logout', auth.authorization, async (req, res, next) => {
   try {
     user = req.user
@@ -59,11 +67,4 @@ app.post('/users/login', async (req, res, next) => {
   }
 })
 
-app.get('/users/me', auth.authorization, async (req, res, next) => {
-  try {
-    res.send(req.user)
-  } catch(err) {
-    next(err)
-  }
-})
 
