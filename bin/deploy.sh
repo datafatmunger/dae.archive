@@ -2,6 +2,7 @@
 
 # Deploy API - JBG
 echo "Deploying API ..."
+cp /archive/jbg/config.json /root
 cp -r /archive/jbg/dae-api /root
 pushd /root/dae-api
 npm install
