@@ -2,7 +2,7 @@
 
 # Deploy API - JBG
 echo "Deploying API ..."
-cp -r /archive/jbg/dae-api /root/dae-api
+cp -r /archive/jbg/dae-api /root
 pushd /root/dae-api
 npm install
 popd
