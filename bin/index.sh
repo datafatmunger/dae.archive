@@ -33,20 +33,16 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     #echo $CONTENTS
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image $DIR/$FILE 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
-    echo "1 -------------------------------------------------------------" 
-    echo $TF_TAGS
   fi
 
   CONTENTS_JSON=""
-  if [ -z "$CONTENTS" ]; then
+  if [[ ! -z "$CONTENTS" ]]; then
     CONTENTS_JSON=", \"contents\": \"$CONTENTS\""
   fi
 
   TF_JSON=""
-  if [ -z "$TF_TAGS" ]; then
+  if [[ ! -z "$TF_TAGS" ]]; then
     TF_JSON=", \"tf_tags\": \"$TF_TAGS\""
-    echo "2 -------------------------------------------------------------" 
-    echo $TF_JSON
   fi
 
   JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON}]"
