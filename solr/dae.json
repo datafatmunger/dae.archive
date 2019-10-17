@@ -81,7 +81,7 @@
   },
   "add-field": {
     "name"        : "colors",
-    "type"        : "text",
+    "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
@@ -89,7 +89,7 @@
   },
   "add-field": {
     "name"        : "hex_colors",
-    "type"        : "text",
+    "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
