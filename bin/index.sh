@@ -40,7 +40,12 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     CONTENTS_JSON=", \"contents\": \"$CONTENTS\""
   fi
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"tf_tags\": $TF_TAGS, \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON}]"
+  TF_JSON=""
+  if [ -z "$TF_TAGS" ]; then
+    TF_JSON=", \"tf_tags\": \"$TF_TAGS\""
+  fi
+
+  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON}]"
 
   echo $JSON
 
