@@ -70,5 +70,29 @@
     "stored"      : true,
     "multiValued" : false,
     "required"    : false 
+  },
+  "add-field": {
+    "name"        : "tf_tags",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "colors",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "hex_colors",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false 
   }
 }
