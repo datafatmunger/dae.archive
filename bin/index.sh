@@ -28,6 +28,8 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   EXT=$(echo ${FILE##*.} | awk '{print tolower($0)}')
   echo $EXT
 
+  CONTENTS=""
+  TF_TAGS=""
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
     #echo $CONTENTS

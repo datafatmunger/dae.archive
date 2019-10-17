@@ -1,6 +1,7 @@
 import fileinput
 import re
 import json
+import sys
 
 tags = []
 for line in fileinput.input():
@@ -8,4 +9,4 @@ for line in fileinput.input():
     tags = tags + line.split(',')
     tags = list(map(lambda s: s.strip(), tags))
 
-print(json.dumps(tags))
+json.dumps(tags, sys.stdout)
