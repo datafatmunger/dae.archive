@@ -9,4 +9,4 @@ for line in fileinput.input():
     tags = tags + line.split(',')
     tags = list(map(lambda s: s.strip(), tags))
 
-json.dumps(tags, sys.stdout)
+print(json.dumps(tags).replace('"','\\"')
