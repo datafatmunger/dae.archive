@@ -31,7 +31,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
     #echo $CONTENTS
-  elif [ $EXT == 'png' ] || [ $EXT == 'gif' ]; then
+  elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image $DIR/$FILE 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   fi
 
