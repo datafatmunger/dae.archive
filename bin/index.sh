@@ -31,6 +31,8 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
     #echo $CONTENTS
+  elif [ $EXT == 'png' ] || [ $EXT == 'gif' ]; then
+    TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image $DIR/$FILE 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   fi
 
   CONTENTS_JSON=""
@@ -38,7 +40,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     CONTENTS_JSON=", \"contents\": \"$CONTENTS\""
   fi
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON}]"
+  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"tf_tags\": $TF_TAGS, \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON}]"
 
   echo $JSON
 
