@@ -73,7 +73,7 @@
   },
   "add-field": {
     "name"        : "tf_tags",
-    "type"        : "text",
+    "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
