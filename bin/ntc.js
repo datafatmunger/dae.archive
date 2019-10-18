@@ -1959,9 +1959,9 @@ rl.on('line', line => {
   colorCodes.push(line)
   colorNames.push(ntc.name(line))
   if (colorNames.length == 10) {
-    obj = { hex_colors: JSON.stringify(filter(colorCodes)), colors: JSON.stringify(filter(colorNames)) }
-    //str = JSON.stringify(obj).replace(/"/g, '\\"')
-    str = JSON.stringify(obj)
+    obj = { hex_colors: filter(colorCodes), colors: filter(colorNames) }
+    str = JSON.stringify(obj).replace(/"/g, '\\"')
+    //str = JSON.stringify(obj)
     str = str.substr(1)
     str = str.substring(0, str.length - 1)
     console.log(`, ${str}`)
