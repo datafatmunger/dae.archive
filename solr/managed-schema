@@ -436,24 +436,6 @@
     </analyzer>
   </fieldType>
 
-  <fieldType name="text" class="solr.TextField" omitNorms="false">
-    <analyzer type="index">
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.StopFilterFactory" words="stopwords.txt"/>
-      <filter class="solr.StandardFilterFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.PorterStemFilterFactory"/>
-      <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" side="front"/>
-    </analyzer>
-    <analyzer type="query">
-      <tokenizer class="solr.StandardTokenizerFactory"/>
-      <filter class="solr.StopFilterFactory" words="stopwords.txt"/>
-      <filter class="solr.StandardFilterFactory"/>
-      <filter class="solr.LowerCaseFilterFactory"/>
-      <filter class="solr.PorterStemFilterFactory"/>
-    </analyzer>
-  </fieldType>
-
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="_version_" type="plong" indexed="true" stored="true"/>
   <field name="content_type" type="string" indexed="true" stored="true"/>
