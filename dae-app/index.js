@@ -1,6 +1,7 @@
-let auth = false
 
 (function() {
+
+let auth
 
 const url = `${window.location.protocol}//${window.location.host}`
 //const url = `http://80.100.106.160`
