@@ -2,6 +2,7 @@
 
 const url = `${window.location.protocol}//${window.location.host}`
 //const url = `http://80.100.106.160`
+let auth
 
 // UI Stuff - JBG
 
@@ -46,7 +47,7 @@ function showMenu() {
     
 // Hides Upload + Personal Archive links whem user not logged in — KM
     
-    if(checkAuth() === true) {
+    if(auth) {
         uploadButton.classList.toggle('hidden')
         archiveButton.classList.toggle('hidden')
     } else {
@@ -122,14 +123,14 @@ async function feedMe(randomResult) {
     document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
     
     let randomItemContents = randomItem.tf_tags
-        if (randomItemContents.length >= 3) {
-            document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
-        }
-    
+    if (randomItemContents && randomItemContents.length >= 3) {
+        document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
+    }
+
     let randomItemColors = randomItem.colors
-        if (randomItemColors.length >= 2) {
-            document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
-        }
+    if (randomItemColors && randomItemColors.length >= 2) {
+        document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
+    }
 }
 
 async function doSearch() {
@@ -201,7 +202,8 @@ async function login() {
 }
 
 async function init() {
-  await checkAuth() ?  showSearch() : showLogin()
+  auth = await checkAuth()
+  auth ?  showSearch() : showLogin()
 }
 
 init()
