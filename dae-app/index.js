@@ -33,9 +33,10 @@ function showUpload() {
 function showSearch() {
   showMenu()
   showElm('search', 'main', false)
-  doSearch()
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
+  doSearch()
+  feedMe()
 }
 
 function showMenu() {
@@ -200,13 +201,7 @@ async function login() {
 }
 
 async function init() {
-  if(await checkAuth()) {
-    showSearch()
-    doSearch()
-    feedMe()
-  } else {
-    showLogin()
-  }
+  await checkAuth() ?  showSearch() : showLogin()
 }
 
 init()
