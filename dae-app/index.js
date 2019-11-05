@@ -1,6 +1,8 @@
 (function() {
 
-const url = `${window.location.protocol}//${window.location.host}`
+//const url = `${window.location.protocol}//${window.location.host}`
+const url = `http://80.100.106.160`
+
 
 // UI Stuff - JBG
 
@@ -14,7 +16,8 @@ function showElm(template, sel, empty = true) {
 }
 
 function showLogin() {
-  showElm('login', 'main')
+  showMenu()
+  showElm('login', 'main', false)
   document.querySelector('main .login button').addEventListener('click', async e => {
     await login()
   })
@@ -22,7 +25,7 @@ function showLogin() {
 
 function showUpload() {
   showMenu()
-  showElm('upload', 'main', false)
+  showElm('upload', 'main', false) 
   document.querySelector('main .upload button').addEventListener('click', async e => {
     await upload()
   })
@@ -31,20 +34,35 @@ function showUpload() {
 function showSearch() {
   showMenu()
   showElm('search', 'main', false)
+  doSearch()
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
 }
 
 function showMenu() {
   showElm('menu', 'main')
+    let uploadButton = document.querySelector('main nav li.upload')
+    let archiveButton = document.querySelector('main nav li.archive')
+    
+// Hides Upload + Personal Archive links whem user not logged in — KM
+    
+    if(checkAuth() === true) {
+        uploadButton.classList.toggle('hidden')
+        archiveButton.classList.toggle('hidden')
+    } else {
+        uploadButton.classList.toggle('hidden')
+        archiveButton.classList.toggle('hidden')
+    }
+    
   const items = document.querySelectorAll('main nav li')
   items.forEach(i => i.addEventListener('click', async e => {
     const c = e.target.classList[0]
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
+    else if(c === 'login') showLogin()
   }))
-
-  document.querySelector('main nav li.archive a').setAttribute('href', `/${username}`)
+  document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
+  document.querySelector('main nav li.archive a').innerHTML =`${username}` + "/"
 }
 
 function showResults(res) {
@@ -75,13 +93,49 @@ function showMsg(txt, err = false) {
   if(err) msg.classList.add('error')
   else msg.classList.remove('error')
 }
+    
+// Shows a random image and it's metadata upon reload — KM
+
+async function feedMe(randomResult) {
+    let allResults = await search('*')
+    let allFeedItems = allResults.response.docs
+    let FilteredFeedItems = allFeedItems.filter(function (el) {
+         return el.ext == 'png' || 
+                el.ext == 'jpeg' || 
+                el.ext == 'jpg' || 
+                el.ext == 'gif'     
+    })
+    let randomItem = FilteredFeedItems[Math.floor(Math.random()*FilteredFeedItems.length)]
+    console.log(randomItem)
+    
+    let randomItemAuthor = randomItem.user
+    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor
+    
+    let randomItemName = randomItem.name
+    document.querySelector('#itemName').innerHTML = '"' + randomItemName + '"'
+    
+    let randomItemContents = randomItem.tf_tags
+    document.querySelector('#itemContents').innerHTML = '"' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
+    
+    let randomItemColors = randomItem.colors
+    document.querySelector('#itemColors').innerHTML = '"' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'"'
+    
+    let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
+    document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
+    
+    let randomItemLink = randomItemIMGpath
+    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
+    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
+}
 
 async function doSearch() {
-  const txt = document.querySelector('main .search input[name="search"]').value
+// always display all items in archive — KM
+  let searchinput = document.querySelector('main .search input[name="search"]').value
+  const txt = searchinput === "" ? "*" : searchinput 
   const res = await search(txt)
   showResults(res)
 }
-
+    
 async function upload() {
   const data = new FormData()
   const note = document.querySelector('main .upload input[name="note"]').value
@@ -127,10 +181,10 @@ async function checkAuth() {
 }
 
 async function search(txt) {
-  const res = await fetch(`${url}/search?q=${txt}`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/search?q=${txt}&rows=100`, { credentials: 'same-origin' })
   return await res.json()
 }
-
+    
 async function login() {
   const email = document.querySelector('main .login input[name="email"]').value
   const pass = document.querySelector('main .login input[name="password"]').value
@@ -142,7 +196,12 @@ async function login() {
   else showSearch()
 }
 
-async function init() { await checkAuth() ? showSearch() : showLogin() }
+//async function init() { await checkAuth() ? showSearch() : showLogin() }
+async function init() {
+    showSearch()
+    doSearch()
+    feedMe()
+}
 
 init()
 

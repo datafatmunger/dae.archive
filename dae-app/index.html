@@ -3,28 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-
-.error {
-  color: #f00 !important; 
-}
-
-.msg {
-  color: #0f0;
-  display: none;
-}
-
-ul {
-  list-style: none;
-  display: flex;
-}
-
-li {
-  margin: 21px;
-  cursor: pointer;
-}
-
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <main></main>
@@ -32,10 +11,10 @@ li {
 <template id="login">
 <div class="login">
   <fieldset>
-    <header><legend>Login</legend></header>
+<!--    <header><legend>Login</legend></header>-->
     <input type="text" name="email" placeholder="Email"/>
-    <input type="text" name="password" placeholder="Password"/>
-    <button>Submit</button>
+    <input type="password" name="password" placeholder="Password"/>
+    <button> → </button>
     <p class="msg">Fail.</p>
   </fieldset>
 </div>
@@ -45,10 +24,10 @@ li {
 <template id="upload">
 <div class="upload">
   <fieldset>
-    <header><legend>Upload</legend></header>
+<!--    <header><legend>Upload</legend></header>-->
     <input type="file" name="file"/>
     <input type="text" name="note" placeholder="What is this?"/>
-    <button>Submit</button>
+    <button> → </button>
     <p class="msg">Success!</p>
   </fieldset>
 </div>
@@ -57,23 +36,29 @@ li {
 <!-- Search -->
 <template id="search">
 <div class="search">
+  <div id="feed">
+    <div class="feedItem" id="feeditem1">
+        <p><span id="itemAuthor"></span> uploaded a file named <span id="itemName"></span>, containing <span id="itemContents"></span>. The colors <span id="itemColors"></span> are common.</p>
+        <img id="feedItemIMG" src="" />
+        <a id="feedItemLink" href="#"></a>
+    </div>
+  </div>
   <fieldset>
-    <header><legend>Search</legend></header>
-    <input type="text" name="search" placeholder="Search..."/>
-    <button>Submit</button>
+    <input id="command" type="text" name="search" placeholder="Search for anything."/>
+    <button> → </button>
     <p class="msg">0 results.</p>
   </fieldset>
-  <div class="results"></div>
+  <div class="results">
+  </div>
 </div>
 </template>
-
+    
 <!-- Result -->
 <template id="res">
 <div class="res">
   <h1><a></a></h1>
-  <p>😃 <span class="user"></span></p>
-  <p>📅 <span class="date"></span></p>
-  <hr/>
+  <p class="resDetails"> 😃 <span class="user"></span> 📅 <span class="date"></span></p>
+<!--  <hr/>-->
 </div>
 </template>
 
@@ -81,9 +66,11 @@ li {
 <template id="menu">
 <nav>
   <ul>
-    <li class="search">Search</li>
-    <li class="upload">Upload</li>
-    <li class="archive"><a href="#">Archive</a></li>
+      <li class="title"><a href="./">archive.designacademy.nl</a></li>
+<!--    <li class="search">Search</li>-->
+    <li class="upload">upload/</li>
+    <li class="login">login/</li>
+    <li class="archive"><a href="#">myarchive/</a></li>
   </ul>
 </nav>
 </template>
