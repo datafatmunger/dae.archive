@@ -1,8 +1,9 @@
+let auth = false
+
 (function() {
 
 const url = `${window.location.protocol}//${window.location.host}`
 //const url = `http://80.100.106.160`
-let auth
 
 // UI Stuff - JBG
 
@@ -48,11 +49,11 @@ function showMenu() {
 // Hides Upload + Personal Archive links whem user not logged in — KM
     
     if(auth) {
-        uploadButton.classList.toggle('hidden')
-        archiveButton.classList.toggle('hidden')
+        uploadButton.classList.remove('hidden')
+        archiveButton.classList.remove('hidden')
     } else {
-        uploadButton.classList.toggle('hidden')
-        archiveButton.classList.toggle('hidden')
+        uploadButton.classList.add('hidden')
+        archiveButton.classList.add('hidden')
     }
     
   const items = document.querySelectorAll('main nav li')
