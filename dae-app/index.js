@@ -34,28 +34,28 @@ function showUpload() {
 }
 
 function showSearch() {
-  showMenu()
   showElm('search', 'main', false)
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
   doSearch()
   feedMe()
+  showMenu()
 }
 
 function showMenu() {
   showElm('menu', 'main')
-    let uploadButton = document.querySelector('main nav li.upload')
-    let archiveButton = document.querySelector('main nav li.archive')
+  let uploadButton = document.querySelector('main nav li.upload')
+  let archiveButton = document.querySelector('main nav li.archive')
     
 // Hides Upload + Personal Archive links whem user not logged in — KM
     
-    if(auth) {
-        uploadButton.classList.remove('hidden')
-        archiveButton.classList.remove('hidden')
-    } else {
-        uploadButton.classList.add('hidden')
-        archiveButton.classList.add('hidden')
-    }
+  if(auth) {
+    uploadButton.classList.remove('hidden')
+    archiveButton.classList.remove('hidden')
+  } else {
+    uploadButton.classList.add('hidden')
+    archiveButton.classList.add('hidden')
+  }
     
   const items = document.querySelectorAll('main nav li')
   items.forEach(i => i.addEventListener('click', async e => {
