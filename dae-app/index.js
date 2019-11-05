@@ -1,6 +1,7 @@
 (function() {
 
 const url = `${window.location.protocol}//${window.location.host}`
+//const url = `http://80.100.106.160`
 
 // UI Stuff - JBG
 
@@ -143,6 +144,7 @@ async function login() {
 }
 
 async function init() { await checkAuth() ? showSearch() : showLogin() }
+//async function init() { showSearch() }
 
 init()
 
