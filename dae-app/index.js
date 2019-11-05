@@ -202,6 +202,7 @@ async function login() {
   if(res.error) showMsg(res.error, true)
   else {
     auth = true
+    username = res.name
     showSearch()
   }
 }
