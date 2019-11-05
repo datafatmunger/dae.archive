@@ -199,17 +199,15 @@ async function login() {
   else showSearch()
 }
 
-<<<<<<< HEAD
-async function init() { await checkAuth() ? showSearch() : showLogin() }
-//async function init() { showSearch() }
-=======
-//async function init() { await checkAuth() ? showSearch() : showLogin() }
 async function init() {
+  if(await checkAuth()) {
     showSearch()
     doSearch()
     feedMe()
+  } else {
+    showLogin()
+  }
 }
->>>>>>> 35801f598d2f2415352b56723140a7e64544fdc5
 
 init()
 
