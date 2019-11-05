@@ -34,10 +34,10 @@ function showUpload() {
 }
 
 function showSearch() {
+  showMenu()
   showElm('search', 'main', false)
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
-  showMenu()
   feedMe()
   doSearch()
 }
@@ -200,7 +200,10 @@ async function login() {
     password: pass
   })
   if(res.error) showMsg(res.error, true)
-  else showSearch()
+  else {
+    auth = true
+    showSearch()
+  }
 }
 
 async function init() {
