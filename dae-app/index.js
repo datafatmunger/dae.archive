@@ -1,7 +1,7 @@
 (function() {
 
-//const url = `${window.location.protocol}//${window.location.host}`
-const url = `http://80.100.106.160`
+const url = `${window.location.protocol}//${window.location.host}`
+//const url = `http://80.100.106.160`
 
 
 // UI Stuff - JBG
@@ -114,18 +114,22 @@ async function feedMe(randomResult) {
     let randomItemName = randomItem.name
     document.querySelector('#itemName').innerHTML = '"' + randomItemName + '"'
     
-    let randomItemContents = randomItem.tf_tags
-    document.querySelector('#itemContents').innerHTML = '"' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
-    
-    let randomItemColors = randomItem.colors
-    document.querySelector('#itemColors').innerHTML = '"' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'"'
-    
     let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
     document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
     
     let randomItemLink = randomItemIMGpath
     document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
     document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
+    
+    let randomItemContents = randomItem.tf_tags
+        if (randomItemContents.length >= 3) {
+            document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
+        }
+    
+    let randomItemColors = randomItem.colors
+        if (randomItemColors.length >= 2) {
+            document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
+        }
 }
 
 async function doSearch() {
