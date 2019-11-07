@@ -3,8 +3,8 @@
 
 let auth
 
-const url = `${window.location.protocol}//${window.location.host}`
-//const url = `http://80.100.106.160`
+//const url = `${window.location.protocol}//${window.location.host}`
+const url = `http://80.100.106.160`
 
 // UI Stuff - JBG
 
@@ -19,10 +19,17 @@ function showElm(template, sel, empty = true) {
 
 function showLogin() {
   showMenu()
+  document.querySelector('main nav li.upload').classList.add('hidden')
+  document.querySelector('main nav li.login').classList.add('hidden')
+  document.querySelector('main nav li.archive').classList.add('hidden')
   showElm('login', 'main', false)
   document.querySelector('main .login button').addEventListener('click', async e => {
     await login()
   })
+  document.querySelector('main .login #pass').addEventListener('keyup', async e => { 
+    if(e.keyCode === 13) 
+        await login() 
+    })
 }
 
 function showUpload() {
@@ -35,6 +42,7 @@ function showUpload() {
 
 function showSearch() {
   showMenu()
+  document.querySelector('main nav li.login').classList.add('hidden')
   showElm('search', 'main', false)
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
@@ -112,10 +120,10 @@ async function feedMe(randomResult) {
     console.log(randomItem)
     
     let randomItemAuthor = randomItem.user
-    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor
+    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor + " uploaded a file named"
     
     let randomItemName = randomItem.name
-    document.querySelector('#itemName').innerHTML = '"' + randomItemName + '"'
+    document.querySelector('#itemName').innerHTML = ' "' + randomItemName + '"'
     
     let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
     document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
@@ -209,8 +217,12 @@ async function login() {
 
 async function init() {
   auth = await checkAuth()
-  auth ?  showSearch() : showLogin()
+  auth 
+       ? document.querySelector('main nav li.login').classList.add('hidden') 
+       : document.querySelector('main nav li.login').classList.remove('hidden')
 }
+    
+  showSearch()
 
 init()
 
