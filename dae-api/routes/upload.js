@@ -9,7 +9,6 @@ app.post('/upload', auth.authorization, function(req, res, next) {
   console.log(req.files)
   try {
     for(const [key, file] of Object.entries(req.files)) {
-      console.log(file)
       // Set a default note if necessary - JBG
       let note = req.body.note
       note = note && note.length ? note : 'API added file'
