@@ -156,7 +156,7 @@ async function upload() {
   const note = document.querySelector('main .upload input[name="note"]').value
   const file = document.querySelector('main .upload input[name="file"]')
 
-  data.append('note', note)
+  if(note && note.length > 0) data.append('note', note)
   data.append('file', file.files[0])
 
   try {
