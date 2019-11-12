@@ -10,11 +10,13 @@ app.post('/upload', auth.authorization, function(req, res, next) {
   try {
     for(const [key, file] of Object.entries(req.files)) {
       console.log(file)
+      let note = req.body.note
+      note = note && note.length ? note : 'API added file'
       const cmd = config.binDir + '/add_file.sh ' +
         file.tempFilePath + ' "' +
         file.name + '" ' +
         req.user.name + ' ' +
-        req.body.note || 'API added file'
+        note
       console.log('CMD: ', cmd)
       exec(cmd, (error, stdout, stderr) => {
         console.log(stdout)
