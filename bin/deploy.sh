@@ -23,7 +23,7 @@ sleep 10s
 echo "Done."
 
 # Run the index
-echo "Indexing for search..."
-/usr/local/bin/index.sh
-echo "Done."
+#echo "Indexing for search..."
+#/usr/local/bin/index.sh
+#echo "Done."
 
