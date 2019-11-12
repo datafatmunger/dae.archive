@@ -12,7 +12,7 @@ app.post('/upload', auth.authorization, function(req, res, next) {
       console.log(file)
       // Set a default note if necessary - JBG
       let note = req.body.note
-      note = note && note.length ? note : 'API added file'
+      note = note && note.length ? note : '"API added file"'
       const cmd = config.binDir + '/add_file.sh ' +
         file.tempFilePath + ' "' +
         file.name + '" ' +
