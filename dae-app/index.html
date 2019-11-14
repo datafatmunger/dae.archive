@@ -12,7 +12,7 @@
 <div class="login">
   <fieldset>
 <!--    <header><legend>Login</legend></header>-->
-    <input type="text" name="email" placeholder="Email"/>
+    <input type="text" name="email" id="email" placeholder="Email"/>
     <input type="password" name="password" id="pass" placeholder="Password"/>
     <button> → </button>
     <p class="msg">Fail.</p>
@@ -25,9 +25,9 @@
 <div class="upload">
   <fieldset>
 <!--    <header><legend>Upload</legend></header>-->
-    <input type="file" name="file"/>
-    <input type="text" name="note" placeholder="What is this?"/>
-    <button> → </button>
+    <input type="file" name="file" id="file" label="file"/>
+    <input type="text" name="note" id="note" placeholder="What is this?"/>
+    <button> ↑ </button>
     <p class="msg">Success!</p>
   </fieldset>
 </div>
@@ -36,7 +36,7 @@
 <!-- Search -->
 <template id="search">
 <div class="search">
-  <div id="feed">
+  <div id="feed" style="display: none">
     <div class="feedItem" id="feeditem1">
         <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>
         <img id="feedItemIMG" src="" />
@@ -68,9 +68,9 @@
   <ul>
       <li class="title"><a href="./">archive.designacademy.nl</a></li>
 <!--    <li class="search">Search</li>-->
-    <li class="upload">upload/</li>
-    <li class="login">login/</li>
-    <li class="archive"><a href="#">myarchive/</a></li>
+    <li class="upload">upload</li>
+    <li class="login">login</li>
+    <li class="archive"><a href="#">myArchive</a></li>
   </ul>
 </nav>
 </template>
