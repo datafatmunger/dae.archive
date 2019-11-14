@@ -230,13 +230,12 @@ async function login() {
 
 async function init() {
   auth = await checkAuth()
+  showSearch()
   auth 
        ? document.querySelector('main nav li.login').classList.add('hidden') 
        : document.querySelector('main nav li.login').classList.remove('hidden')
 }
     
-  showSearch()
-
 init()
 
 })()
