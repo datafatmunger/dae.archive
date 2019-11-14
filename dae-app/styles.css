@@ -25,9 +25,9 @@ body {
 a {
     margin: 0px;
     padding: 0px;
-    font-family: 'lining';
+    font-family: 'helvetica', sans-serif;
     font-size: 30px;
-    text-decoration: none;
+    font-weight: 600;
     word-break: break-all;
 }
 
@@ -42,7 +42,7 @@ a:visited {
 p {
     margin: 0px;
     padding: 0px;
-    font-family: 'Favorit';
+    font-family: 'helvetica', sans-serif;
     font-size: 30px;
     line-height: 1.1;
 }
@@ -52,7 +52,8 @@ ul {
     margin: 0px;
     list-style: none;
     width: 100%;
-    font-family: 'Lining';
+    font-family: 'helvetica', sans-serif;
+    text-decoration: underline;
     font-size: 30px;
     line-height: 1.1;
     
@@ -68,11 +69,12 @@ ul {
 li {
     cursor: pointer;
     padding-left: 15px;
+    font-weight: 600;
 }
 
 nav {
     margin: 20px;
-    
+    margin-bottom: 0px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -81,11 +83,19 @@ nav {
 nav li.title {
     align-self: flex-start;
     margin-right: auto;
-    padding-left: 0px;
+    padding-left: 25px;
 }
 
 nav li.title > a {
     color: black;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 #feed {
@@ -152,7 +162,7 @@ input[type="text"], input[type="password"] {
     max-width: 70vw;
     color: lightgray;
     margin: 20px;
-    font-family: 'Favorit';
+    font-family: 'helvetica', sans-serif;
     color: rgb(158,51,246);
     background-color: rgb(255, 255, 255, 1);
     height: 100%;
@@ -203,12 +213,54 @@ button, button:active, button:focus {
     cursor: pointer;
 }
 
+fieldset [type=file]{
+    cursor: pointer;
+    display: inline-block;
+    width: 220px;    
+    margin-left: 45px;
+    top: -10px;
+}
+
 .results {
     overflow: scroll;
     padding: 45px;
     column-count: 4;
     column-width: 20vw;
     column-gap: 20px;
+}
+
+.res {
+    display: inline-block;
+/*    white-space: nowrap;*/
+    overflow: hidden;
+}
+
+.res > h1 {
+    font-weight: 400;
+    line-height: 1.0;
+    margin: 0px;
+    margin-bottom: 5px;
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.resDetails{
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: black !important; 
+}
+
+.msg {
+    color: rgb(158,51,246);
+    display: none;
+    padding-left: 45px;
+}
+
+.hidden {
+    display: none;
 }
 
 @media screen and (max-width: 1400px) {
@@ -232,40 +284,10 @@ button, button:active, button:focus {
         max-height: 100vh;
     }
     p, a, body, li, input[type="text"] {
-        font-size: 25px;
+/*        font-size: 25px;*/
     }
     img {
         max-width: 300px;
         max-height: 200px;
     }
-}
-
-#res {
-    display: inline-block;
-}
-
-.res > h1 {
-    margin: 0px;
-    margin-bottom: 5px;
-    width: auto;
-    overflow: hidden;
-    word-wrap: break-word;
-}
-
-.resDetails{
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-
-.error {
-    color: #f00 !important; 
-}
-
-.msg {
-    color: #0f0;
-    display: none;
-}
-
-.hidden {
-    display: none;
 }

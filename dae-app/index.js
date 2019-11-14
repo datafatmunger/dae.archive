@@ -19,14 +19,18 @@ function showElm(template, sel, empty = true) {
 
 function showLogin() {
   showMenu()
-  document.querySelector('main nav li.upload').classList.add('hidden')
+//  document.querySelector('main nav li.upload').classList.add('hidden')
   document.querySelector('main nav li.login').classList.add('hidden')
-  document.querySelector('main nav li.archive').classList.add('hidden')
+//  document.querySelector('main nav li.archive').classList.add('hidden')
   showElm('login', 'main', false)
   document.querySelector('main .login button').addEventListener('click', async e => {
     await login()
   })
-  document.querySelector('main .login #pass').addEventListener('keyup', async e => { 
+  document.querySelector('#email').addEventListener('keyup', async e => { 
+    if(e.keyCode === 13) 
+        await login() 
+    })
+  document.querySelector('#pass').addEventListener('keyup', async e => { 
     if(e.keyCode === 13) 
         await login() 
     })
@@ -35,9 +39,18 @@ function showLogin() {
 function showUpload() {
   showMenu()
   showElm('upload', 'main', false) 
+  document.querySelector('main nav li.upload').innerHTML = 'search'
+  document.querySelector('main nav li.upload').addEventListener('click', async e => {
+    await showSearch()
+  })
+  document.querySelector('main nav li.login').classList.add('hidden')
   document.querySelector('main .upload button').addEventListener('click', async e => {
     await upload()
   })
+  document.querySelector('main .upload #note').addEventListener('keyup', async e => { 
+    if(e.keyCode === 13) 
+        await upload() 
+    })
 }
 
 function showSearch() {
@@ -46,7 +59,7 @@ function showSearch() {
   showElm('search', 'main', false)
   document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
   document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
-  feedMe()
+//  feedMe()
   doSearch()
 }
 
@@ -73,7 +86,7 @@ function showMenu() {
     else if(c === 'login') showLogin()
   }))
   document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
-  document.querySelector('main nav li.archive a').innerHTML =`${username}` + "/"
+  document.querySelector('main nav li.archive a').innerHTML =`${username}`
 }
 
 function showResults(res) {
@@ -107,41 +120,41 @@ function showMsg(txt, err = false) {
     
 // Shows a random image and it's metadata upon reload — KM
 
-async function feedMe(randomResult) {
-    let allResults = await search('*')
-    let allFeedItems = allResults.response.docs
-    let FilteredFeedItems = allFeedItems.filter(function (el) {
-         return el.ext == 'png' || 
-                el.ext == 'jpeg' || 
-                el.ext == 'jpg' || 
-                el.ext == 'gif'     
-    })
-    let randomItem = FilteredFeedItems[Math.floor(Math.random()*FilteredFeedItems.length)]
-    console.log(randomItem)
-    
-    let randomItemAuthor = randomItem.user
-    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor + " uploaded a file named"
-    
-    let randomItemName = randomItem.name
-    document.querySelector('#itemName').innerHTML = ' "' + randomItemName + '"'
-    
-    let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
-    document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
-    
-    let randomItemLink = randomItemIMGpath
-    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
-    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
-    
-    let randomItemContents = randomItem.tf_tags
-    if (randomItemContents && randomItemContents.length >= 3) {
-        document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
-    }
-
-    let randomItemColors = randomItem.colors
-    if (randomItemColors && randomItemColors.length >= 2) {
-        document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
-    }
-}
+//async function feedMe(randomResult) {
+//    let allResults = await search('*')
+//    let allFeedItems = allResults.response.docs
+//    let FilteredFeedItems = allFeedItems.filter(function (el) {
+//         return el.ext == 'png' || 
+//                el.ext == 'jpeg' || 
+//                el.ext == 'jpg' || 
+//                el.ext == 'gif'     
+//    })
+//    let randomItem = FilteredFeedItems[Math.floor(Math.random()*FilteredFeedItems.length)]
+//    console.log(randomItem)
+//    
+//    let randomItemAuthor = randomItem.user
+//    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor + " uploaded a file named"
+//    
+//    let randomItemName = randomItem.name
+//    document.querySelector('#itemName').innerHTML = ' "' + randomItemName + '"'
+//    
+//    let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
+//    document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
+//    
+//    let randomItemLink = randomItemIMGpath
+//    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
+//    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
+//    
+//    let randomItemContents = randomItem.tf_tags
+//    if (randomItemContents && randomItemContents.length >= 3) {
+//        document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
+//    }
+//
+//    let randomItemColors = randomItem.colors
+//    if (randomItemColors && randomItemColors.length >= 2) {
+//        document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
+//    }
+//}
 
 async function doSearch() {
 // always display all items in archive — KM
@@ -196,7 +209,7 @@ async function checkAuth() {
 }
 
 async function search(txt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=100`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/search?q=${txt}&rows=100&sort=date+desc`, { credentials: 'same-origin' })
   return await res.json()
 }
     
