@@ -11,6 +11,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   BASE="${FILE%.*}"
   SUBDIR=$(echo "$DIR" | sed -e 's/\/archive\/$USER//g')/
 
+
   #echo $USER
   #echo $DIR
   #echo $FILE
@@ -52,7 +53,6 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   fi
 
   TMP_ARCHIVE=/tmp/$USER.archive
-
   [ ! -d /tmp/$USER.archive ] && git clone /home/$USER/archive.git $TMP_ARCHIVE
   COMMIT_FILE_PATH="$TMP_ARCHIVE$SUBDIR$FILE"
   echo $COMMIT_FILE_PATH

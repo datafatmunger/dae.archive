@@ -160,7 +160,6 @@ rl.on('line', line => {
       hex_colors: filter(colorCodes).map(c => c.replace('#', '')),
       colors: filter(colorNames)
     }
-    //str = JSON.stringify(obj).replace(/"/g, '\\"')
     str = JSON.stringify(obj)
     str = str.substr(1)
     str = str.substring(0, str.length - 1)
