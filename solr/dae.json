@@ -94,5 +94,14 @@
     "stored"      : true,
     "multiValued" : true,
     "required"    : false 
+  },
+  "add-field": {
+    "name"        : "commits",
+    "type"        : "text_shingles",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false 
   }
 }
+

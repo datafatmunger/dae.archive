@@ -10,6 +10,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   EXT="${FILE##*.}"
   BASE="${FILE%.*}"
 
+
   #echo $USER
   #echo $DIR
   #echo $FILE
@@ -49,7 +50,12 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     COLOR_JSON=$(/usr/bin/convert "$DIR/$FILE" -resize 64x64 -unique-colors -format %c -depth 8 histogram:info:- | sort -r | head -10 | grep -o "#......" | node /usr/local/bin/ntc.js)
   fi
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON}]"
+  [ ! -d /tmp/$USER.archive ] && git clone /home/$USER/archive.git /tmp/$USER.archive
+  COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $FILE)
+  COMMITS_JSON=", \"commits\": $COMMITS"
+
+
+  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON $COMMITS_JSON}]"
 
   echo $JSON
 
@@ -57,4 +63,6 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
 done
 
+rm -rf /tmp/*.archive
 service solr restart
+

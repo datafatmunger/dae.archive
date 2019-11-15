@@ -1,7 +1,7 @@
 import git
-from functools import reduce
+import sys
 
-repo = git.Repo("/home/jbg/Development/dae.archive")
+repo = git.Repo(sys.argv[1])
 #commits = list(repo.iter_commits("master", max_count=5)))
 commits = list(repo.iter_commits("master"))
 
@@ -19,7 +19,7 @@ def get_file_commits(filename):
 
     return file_commits
 
-file_commits = get_file_commits('README.md')
+file_commits = get_file_commits(sys.argv[2])
 
 #print(file_commits)
 a = []
