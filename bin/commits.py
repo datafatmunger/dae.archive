@@ -15,9 +15,7 @@ def get_file_commits(filename):
     file_commits = []
     for commit in commits:
         if is_exists(filename, commit.hexsha):
-            # TODO: Check if filename is in created/changes ... if it is ... then do the line below otherwise, skip it - JBG
             file_commits.append(commit)
-
     return file_commits
 
 file_commits = get_file_commits(sys.argv[2])
