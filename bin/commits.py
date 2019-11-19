@@ -21,9 +21,8 @@ def get_file_commits(filename):
 
 file_commits = get_file_commits('README.md')
 
-#print(file_commits)
 a = []
-for commit in commits:
+for commit in file_commits:
     a.append(commit.message.strip())
 
 print(a)
