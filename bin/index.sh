@@ -9,12 +9,15 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   DIR=$(echo "$line"  | xargs -I{} dirname {})
   EXT="${FILE##*.}"
   BASE="${FILE%.*}"
+  SUBDIR=$(echo "$DIR" | sed -e 's/\/archive\/$USER//g')/
+
 
   #echo $USER
   #echo $DIR
   #echo $FILE
   #echo $EXT
   #echo $BASE
+  echo $SUBDIR
 
   DATE=$(ls -l --time-style="+%Y-%m-%dT%H:%M:%SZ" "$line" | awk '{split($0,a," "); print a[6]}')
   #echo $DATE
@@ -49,7 +52,15 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     COLOR_JSON=$(/usr/bin/convert "$DIR/$FILE" -resize 64x64 -unique-colors -format %c -depth 8 histogram:info:- | sort -r | head -10 | grep -o "#......" | node /usr/local/bin/ntc.js)
   fi
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON}]"
+  TMP_ARCHIVE=/tmp/$USER.archive
+  [ ! -d /tmp/$USER.archive ] && git clone /home/$USER/archive.git $TMP_ARCHIVE
+  COMMIT_FILE_PATH="$TMP_ARCHIVE$SUBDIR$FILE"
+  echo $COMMIT_FILE_PATH
+  COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $COMMIT_FILE_PATH)
+  COMMITS_JSON=", \"commits\": $COMMITS"
+
+
+  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON $COMMITS_JSON}]"
 
   echo $JSON
 
@@ -57,4 +68,6 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
 done
 
+rm -rf /tmp/*.archive
 service solr restart
+
