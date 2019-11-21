@@ -3,8 +3,8 @@
 
 let auth
 
-const url = `${window.location.protocol}//${window.location.host}`
-//const url = `http://80.100.106.160`
+//const url = `${window.location.protocol}//${window.location.host}`
+const url = `http://80.100.106.160`
 
 // UI Stuff - JBG
 
@@ -57,9 +57,9 @@ function showSearch() {
   showMenu()
   document.querySelector('main nav li.login').classList.add('hidden')
   showElm('search', 'main', false)
-  document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
-  document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
-//  feedMe()
+  document.querySelector('main .search button.go').addEventListener('click', async e => { doSearch() })
+  document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) 
+  doSearch() })
   doSearch()
 }
 
@@ -156,14 +156,41 @@ function showMsg(txt, err = false) {
 //    }
 //}
 
+
 async function doSearch() {
 // always display all items in archive — KM
   let searchinput = document.querySelector('main .search input[name="search"]').value
-  const txt = searchinput === "" ? "*" : searchinput 
-  const res = await search(txt)
+  const txt = searchinput === "" ? "*" : searchinput  
+  const srt = "&sort=date+desc"
+  const res = await search(txt, srt)
   showResults(res)
+  console.log(res, "brought to you by doSearch()")
 }
     
+let direction = true
+    
+async function pickSortCategory(sortCategory) {
+    let searchinput = document.querySelector('main .search input[name="search"]').value
+    const txt = searchinput === "" ? "*" : searchinput 
+    direction = !direction
+    let sortinput = sortCategory === "type" ? "&sort=ext+asc" : "&sort=" + sortCategory + (direction ? "+asc" : "+desc")
+    let srt = sortinput
+    const res = await search(txt, srt)
+    showResults(res)
+    console.log(res, "brought to you by doSort()")
+}
+    
+function doSort() {
+  const items = document.querySelectorAll('.sortCategory')
+  items.forEach(i => i.addEventListener('click', e => {
+    const c = e.target.classList[1]
+    if(c === 'name') pickSortCategory(c)
+    else if(c === 'type') pickSortCategory(c)
+    else if(c === 'date') pickSortCategory(c)
+  }))
+}
+
+ 
 async function upload() {
   const data = new FormData()
   const note = document.querySelector('main .upload input[name="note"]').value
@@ -208,10 +235,11 @@ async function checkAuth() {
   return res.ok
 }
 
-async function search(txt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=100&sort=date+desc`, { credentials: 'same-origin' })
+async function search(txt, srt) {
+  const res = await fetch(`${url}/search?q=${txt}&rows=100${srt}`, { credentials: 'same-origin' })
   return await res.json()
 }
+
     
 async function login() {
   const email = document.querySelector('main .login input[name="email"]').value
@@ -231,6 +259,7 @@ async function login() {
 async function init() {
   auth = await checkAuth()
   showSearch()
+  doSort()
   auth 
        ? document.querySelector('main nav li.login').classList.add('hidden') 
        : document.querySelector('main nav li.login').classList.remove('hidden')
