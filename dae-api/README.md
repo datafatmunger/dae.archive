@@ -23,6 +23,10 @@
 
     $ curl -F file=@foo --cookie cookies http://localhost:8000/upload
 
+## Remove a file from archive
+
+    $ curl -X DELETE --cookie cookies "http://localhost:8000/api/files/foo?note=delbar"
+
 ## Fork an archive to your own home directory
 
     $ curl -H "Content-Type: application/json" -d '{"archive": "<USER-NAME>"}' --cookie cookies http://localhost:8000/api/fork
