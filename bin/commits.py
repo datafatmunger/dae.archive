@@ -15,12 +15,10 @@ def get_file_commits(filename):
     for commit in commits:
         if is_exists(filename, commit.hexsha):
             file_commits.append(commit)
-
     return file_commits
 
 file_commits = get_file_commits(sys.argv[2])
 
-#print(file_commits)
 a = []
 for commit in file_commits:
     a.append(commit.message.strip())
