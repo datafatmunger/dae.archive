@@ -172,4 +172,3 @@ Add the following content to the `post-receive` file.
     $ convert FILENAME -format %c -depth 8 histogram:info:- | sort -r | head -5
 
 
-
