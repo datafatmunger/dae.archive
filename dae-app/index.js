@@ -121,7 +121,7 @@ function showMsg(txt, err = false) {
 // Shows a random image and it's metadata upon reload — KM
 
 //async function feedMe(randomResult) {
-//    let allResults = await search('*')
+//    let allResults = await search('*', '&sort=ext+asc')
 //    let allFeedItems = allResults.response.docs
 //    let FilteredFeedItems = allFeedItems.filter(function (el) {
 //         return el.ext == 'png' || 
@@ -236,7 +236,7 @@ async function checkAuth() {
 }
 
 async function search(txt, srt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=100${srt}`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/search?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
   return await res.json()
 }
 
@@ -260,6 +260,7 @@ async function init() {
   auth = await checkAuth()
   showSearch()
   doSort()
+//  feedMe()
   auth 
        ? document.querySelector('main nav li.login').classList.add('hidden') 
        : document.querySelector('main nav li.login').classList.remove('hidden')
