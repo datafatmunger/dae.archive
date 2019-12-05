@@ -130,7 +130,7 @@ function showMsg(txt, err = false) {
 //                el.ext == 'gif'     
 //    })
 //    let randomItem = FilteredFeedItems[Math.floor(Math.random()*FilteredFeedItems.length)]
-//    console.log(randomItem)
+////    console.log(randomItem)
 //    
 //    let randomItemAuthor = randomItem.user
 //    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor + " uploaded a file named"
@@ -156,6 +156,77 @@ function showMsg(txt, err = false) {
 //    }
 //}
 
+// display object contents and metadata in feed window
+    
+async function inspectFile() {
+    let searchinput = document.querySelector('main .search input[name="search"]').value
+    const txt = searchinput === "" ? "*" : searchinput  
+    const srt = "&sort=date+desc"
+    const allResults = await search(txt, srt)
+    let allFeedItems = allResults.response.docs
+    let randomItem = allFeedItems[Math.floor(Math.random()*allFeedItems.length)]    
+    let randomItemPath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
+    
+    if (randomItem.ext == 'png'|| 
+        randomItem.ext == 'jpeg' || 
+        randomItem.ext == 'jpg' || 
+        randomItem.ext == 'gif') {
+        document.querySelector('#feedItemIMG').setAttribute('src', randomItemPath)
+        document.querySelector('#feedItemIMG').style.display = 'block'
+        document.querySelector('#feedItemContents').style.display = 'none'
+    } else if (randomItem.hasOwnProperty('contents')) {
+        document.querySelector('#feedItemContents').innerHTML = randomItem.contents
+        document.querySelector('#feedItemIMG').style.display = 'none'
+        document.querySelector('#feedItemContents').style.display = 'block'
+    } else {
+        document.querySelector('#feedItemContents').innerHTML = "<p>Could not load file contents :( <br><a href=" + randomItemPath + ">" + randomItemPath + "</a></p>"
+        document.querySelector('#feedItemIMG').style.display = 'none'
+        document.querySelector('#feedItemContents').style.display = 'block'
+    }
+    
+    function syntaxHighlight(json) {
+        if (typeof json != 'string') {
+             json = JSON.stringify(json, undefined, 6);
+        }
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return ('<span class="' + cls + '">' + match + '</span>').replace(/\"/g, "")
+        });
+    }
+    document.querySelector('#feedItemMeta').innerHTML = syntaxHighlight(randomItem)
+    
+    console.log(randomItem)
+    searchThis()
+}
+     
+// run search and refrersh feed based on click metadata
+    
+function searchThis() {
+    items = document.querySelectorAll(".string")
+    items.forEach(i => i.addEventListener('click', async e => {
+        let searchQuery = e.target.innerHTML
+        console.log(searchQuery)
+        document.querySelector('main .search input[name="search"]').value = searchQuery
+        let newCheckPoint = document.createElement('span').innerHTML = searchQuery + " → "
+        document.querySelector('#feedItemTravelHistory').append(newCheckPoint)
+        const txt = searchQuery
+        const srt = "&sort=date+desc"
+        const res = await search(txt, srt)
+        showResults(res)
+        inspectFile()
+    }))
+}
 
 async function doSearch() {
 // always display all items in archive — KM
@@ -164,7 +235,6 @@ async function doSearch() {
   const srt = "&sort=date+desc"
   const res = await search(txt, srt)
   showResults(res)
-  console.log(res, "brought to you by doSearch()")
 }
     
 let direction = true
@@ -260,7 +330,7 @@ async function init() {
   auth = await checkAuth()
   showSearch()
   doSort()
-//  feedMe()
+  inspectFile()
   auth 
        ? document.querySelector('main nav li.login').classList.add('hidden') 
        : document.querySelector('main nav li.login').classList.remove('hidden')

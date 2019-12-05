@@ -36,12 +36,21 @@
 <!-- Search -->
 <template id="search">
 <div class="search">
-  <div id="feed" style="display: none">
+  <div id="feed" style="display: ">
     <div class="feedItem" id="feeditem1">
-        <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>
-        <img id="feedItemIMG" src="" />
-        <a id="feedItemLink" href="#"></a>
-    </div>
+<!--            <a id="feedItemLink" href="#"></a>-->
+<!--        <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>-->
+        <div class="feedItemDisplay">
+            <img id="feedItemIMG" src="" />
+            <div id="feedItemContents"></div>
+        </div>
+        <div class="feedItemDetails">
+            <p id="feedItemMeta"></p>
+        </div>
+        <div class="feedItemTravel">
+            <p id="feedItemTravelHistory"></p>
+        </div>
+      </div>
   </div>
   <fieldset>
     <input id="command" type="text" name="search" placeholder="Search for anything"/>
