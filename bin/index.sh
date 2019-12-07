@@ -31,13 +31,29 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   EXT=$(echo ${FILE##*.} | awk '{print tolower($0)}')
   echo $EXT
 
+  GIF_PATH=""
+  VID_PATH=""
+  IMG_PATH="$DIR/$FILE"
   CONTENTS=""
   TF_TAGS=""
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
     #echo $CONTENTS
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
-    TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image $DIR/$FILE 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
+    TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
+  elif [ $EXT == 'gif' ]; then
+    GIF_PATH="/tmp/$FILE"
+    IMG_PATH="/tmp/$BASE.jpg"
+    /usr/bin/gifsicle "$DIR/$FILE" '#0' > "$GIF_PATH"
+    /usr/bin/convert "$GIF_PATH" "$IMG_PATH"
+    TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
+  elif [ $EXT == 'mov' ] || [ $EXT == 'mp4' ]; then
+    VID_PATH="$DIR/$FILE"
+    IMG_PATH="/tmp/$BASE.jpg"
+    echo "VIDEO"
+    echo "/usr/local/bin/video.sh $VID_PATH $IMG_PATH"
+    /usr/local/bin/video.sh $VID_PATH $IMG_PATH
+    TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   fi
 
   CONTENTS_JSON=""
@@ -49,7 +65,14 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   COLOR_JSON=""
   if [[ ! -z "$TF_TAGS" ]]; then
     TF_JSON=", \"tf_tags\": $TF_TAGS"
-    COLOR_JSON=$(/usr/bin/convert "$DIR/$FILE" -resize 64x64 -unique-colors -format %c -depth 8 histogram:info:- | sort -r | head -10 | grep -o "#......" | node /usr/local/bin/ntc.js)
+    COLOR_JSON=$(/usr/bin/convert "$IMG_PATH" -resize 64x64 -unique-colors -format %c -depth 8 histogram:info:- | sort -r | head -10 | grep -o "#......" | node /usr/local/bin/ntc.js)
+  fi
+
+  if [[ ! -z "$GIF_PATH" ]]; then
+    rm "$GIF_PATH"
+    rm "$IMG_PATH"
+  elif [[ ! -z "$VID_PATH" ]]; then
+    rm "$IMG_PATH"
   fi
 
   TMP_ARCHIVE=/tmp/$USER.archive
