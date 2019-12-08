@@ -4,27 +4,53 @@
     <meta charset="utf-8">
     <title>Color Picker</title>
     <link href="color-picker.min.css" rel="stylesheet">
+<style>
+img {
+  max-width: 300px;
+}
+</style>
   </head>
   <body>
-    <p><input type="text"><img src=""/></p>
+    <p><input type="text"></p>
+    <p><img src=""/></p>
     <script src="color-picker.min.js"></script>
+    <script src="ntc.js"></script>
     <script>
 
     //const url = `${window.location.protocol}//${window.location.host}/search?q=`
 
     const url = `http://80.100.106.160/`
-    const search = `search?q=`
+    const hexq = `search?q=hex_colors:`
+    const cq = `search?q=colors:`
 
-    async function colorSearch(color) {
-      const res = await fetch(`${url}${search}color`)
-      const data = await res.json()
-      const docs = data.response.docs
+    function docImg(docs) {
       const doc = docs[Math.floor(Math.random() * docs.length)]
       console.log(doc)
       const path = doc.path.split('/').slice(2).join('/')
       const img = `${url}${path}/${doc.name}`
       console.log(img)
       document.querySelector('img').src = img 
+    }
+
+    async function colorSearch(color) {
+      const c = ntc.name(color)
+      const q = `${url}${cq}${c}`
+      console.log(q)
+      const res = await fetch(q)
+      const data = await res.json()
+      const docs = data.response.docs
+      if(docs.length > 0) docImg(docs) 
+      else document.querySelector('img').src = ""
+    }
+
+    async function hexSearch(color) {
+      const q = `${url}${hexq}${color.toUpperCase()}`
+      console.log(q)
+      const res = await fetch(q)
+      const data = await res.json()
+      const docs = data.response.docs
+      if(docs.length > 0) docImg(docs)
+      else colorSearch(color)
     }
 
     const picker = new CP(document.querySelector('input[type="text"]'))
