@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Color Picker</title>
+    <link href="color-picker.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <p><input type="text"><img src=""/></p>
+    <script src="color-picker.min.js"></script>
+    <script>
+
+    //const url = `${window.location.protocol}//${window.location.host}/search?q=`
+
+    const url = `http://80.100.106.160/`
+    const search = `search?q=`
+
+    async function colorSearch(color) {
+      const res = await fetch(`${url}${search}color`)
+      const data = await res.json()
+      const docs = data.response.docs
+      const doc = docs[Math.floor(Math.random() * docs.length)]
+      console.log(doc)
+      const path = doc.path.split('/').slice(2).join('/')
+      const img = `${url}${path}/${doc.name}`
+      console.log(img)
+      document.querySelector('img').src = img 
+    }
+
+    const picker = new CP(document.querySelector('input[type="text"]'))
+    picker.on("change", function(color) {
+
+      const cstr = `#${color}` 
+      this.source.value = cstr 
+      document.querySelector('body').style.background = cstr
+
+      colorSearch(color)
+
+    })
+
+    </script>
+  </body>
+</html>
+
