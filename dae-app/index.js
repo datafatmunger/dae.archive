@@ -200,7 +200,7 @@ async function upload() {
   data.append('file', file.files[0])
 
   try {
-    const response = await fetch(`${url}/api/upload`, {
+    const response = await fetch(`${url}/api/files`, {
       method: 'POST',
       body: data,
       credentials: 'same-origin'
