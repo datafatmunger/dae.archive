@@ -303,7 +303,7 @@ input#file {
     font-family: 'helvetica';
     font-weight: 600;
 }
-
+ 
 .results {
     overflow: scroll;
 /*    width: 100%;*/
