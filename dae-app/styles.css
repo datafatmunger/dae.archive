@@ -36,11 +36,15 @@ p {
     margin: 0px;
 }
 
-ul {
+nav ul {
     padding: 0px;
     margin: 0px;
     list-style: none;
     width: 100%;
+/*
+    position: sticky;
+    top: 30px;
+*/
     
     display: flex; 
     flex-wrap: wrap; 
@@ -308,15 +312,15 @@ input#file {
     overflow: scroll;
 /*    width: 100%;*/
     margin: 30px;
+    margin-top: 0;
     column-count: 4;
-    column-gap: 20px;
 }
 
 .res {
     display: inline-block;
 /*    white-space: nowrap;*/
     overflow: hidden;
-    width: 22vw;
+    width: 20vw;
 }
 
 .res h1 {
