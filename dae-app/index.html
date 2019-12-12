@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="color-picker.min.css" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<!--<link href="color-picker.min.css" rel="stylesheet">-->
 </head>
 <body>
 <main></main>
@@ -11,7 +13,7 @@
 <template id="login">
 <div class="login">
   <fieldset>
-<!--    <header><legend>Login</legend></header>-->
+<!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
     <input type="text" name="email" id="email" placeholder="Email"/>
     <input type="password" name="password" id="pass" placeholder="Password"/>
     <button> → </button>
@@ -32,14 +34,20 @@
   </fieldset>
 </div>
 </template>
+        
+<!--
+<script src="color-picker.min.js"></script>
+<script src="ntc.js"></script>
+-->
 
 <!-- Search -->
 <template id="search">
 <div class="search">
-  <div id="feed" style="display: ">
+<!--
+  <div id="feed">
     <div class="feedItem" id="feeditem1">
-<!--            <a id="feedItemLink" href="#"></a>-->
-<!--        <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>-->
+        <a id="feedItemLink" href="#"></a>
+        <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>
         <div class="feedItemDisplay">
             <img id="feedItemIMG" src="" />
             <div id="feedItemContents"></div>
@@ -50,14 +58,19 @@
         <div class="feedItemTravel">
             <p id="feedItemTravelHistory"></p>
         </div>
-      </div>
+        <p>Welcome to the archive of Design Academy Eindhoven.</p>
+    </div>
   </div>
+-->
   <fieldset>
     <input id="command" type="text" name="search" placeholder="Search for anything"/>
     <span>and sort by</span> <button class="sortCategory name">name↓</button><button class="sortCategory date">date↓</button> or <button class="sortCategory type">type↓</button>
     <button class="go"> → </button>
     <p class="msg">0 results.</p>
   </fieldset>
+<!--        <hr>-->
+
+<!--  <img id="wheel" src="wheel.png"/>-->
   <div class="results">
   </div>
 </div>
@@ -76,11 +89,12 @@
 <template id="menu">
 <nav>
   <ul>
-      <li class="title"><a href="./">archive.designacademy.nl</a></li>
-<!--    <li class="search">Search</li>-->
-    <li class="upload">upload</li>
+    <li class="title"><a href="./">archive.designacademy.nl</a></li>
+    <li class="browse"><a href="http://80.100.106.160">browse</a></li>
     <li class="login">login</li>
-    <li class="archive"><a href="#">myArchive</a></li>
+    <li class="archive"><a href="#"></a></li>
+    <li class="upload">upload</li>
+    <li class="what"><a href="">what?</a></li>
   </ul>
 </nav>
 </template>

@@ -41,7 +41,6 @@ ul {
     margin: 0px;
     list-style: none;
     width: 100%;
-    text-decoration: underline;
     
     display: flex; 
     flex-wrap: wrap; 
@@ -53,14 +52,30 @@ nav li {
     padding-left: 15px;
     cursor: pointer;
     font-weight: 600;
+    justify-content: flex-end;
+    text-decoration: underline;
 }
 
 nav li.title {
-    margin-right: auto;
     padding-left: 0px;
+    align-self: flex-start;
+    margin-right: auto;
 }
 
-nav li.title > a {
+nav li.title a {
+    color: black;
+}
+
+nav li.browse a {
+    border: 4px solid rgb(158,51,246);
+    padding: 2px 5px 4px 5px;
+}
+
+nav li.archive > a {
+    color: black;
+}
+
+nav li.what > a {
     color: black;
 }
 
@@ -76,8 +91,8 @@ nav li.title > a {
 }
 
 #feed {
-/*    height: auto;*/
-/*    max-height: 73vh;*/
+    height: 50vh;
+    max-height: 73vh;
     padding: 10px;
     border: 4px solid black;
     overflow: scroll;
@@ -90,7 +105,7 @@ nav li.title > a {
 }
 
 .feedItem {
-    align-self: center;
+    align-self: flex-start;
     width: 100%;
 /*    height: inherit;*/
     font-family: 'helvetica', sans-serif;
@@ -185,9 +200,21 @@ nav li.title > a {
 fieldset {
     border: none;
     position: sticky;
-    top: 0px;
-    height: 60px;
+    top: 30px;
     padding: 0px;
+    margin: 100px;
+    align-self: center;
+    text-align: center;
+}
+
+hr {
+    border: 0px;
+    width: 80%;
+    border-top: 4px solid black;
+    align-self: center;
+    position: sticky;
+    top: 120px;
+    
 }
 
 #command:focus {
@@ -201,8 +228,7 @@ input[type="text"], input[type="password"] {
     min-width: 23vw;
     max-width: 70vw;
     color: lightgray; 
-    margin-top: 30px;
-    margin-right: 20px;
+    margin-right: 10px;
     font-family: 'helvetica', sans-serif;
     color: rgb(158,51,246);
     background-color: rgb(255, 255, 255, 1);
@@ -217,6 +243,7 @@ input[type="text"], input[type="password"] {
     box-sizing: border-box;
     -webkit-transition: ease-out 0.5s;
     transition: ease-out 0.5s;
+    height: 60px;
 }
 
 input::placeholder {
@@ -251,7 +278,16 @@ button, button:active, button:focus {
     background-color: transparent;
     box-shadow: none;
     border: none;
+    outline: none;
     cursor: pointer;
+}
+
+#wheel {
+    display: inline-block;
+    height: 40px;
+    align-self: flex-end;
+/*    margin-bottom: -50px;*/
+    margin-top: -20px;
 }
 
 fieldset [type=file]{
@@ -262,9 +298,16 @@ fieldset [type=file]{
     top: -10px;
 }
 
+input#file {
+    vertical-align: middle;
+    font-family: 'helvetica';
+    font-weight: 600;
+}
+
 .results {
     overflow: scroll;
-    padding: 45px;
+/*    width: 100%;*/
+    margin: 30px;
     column-count: 4;
     column-gap: 20px;
 }
@@ -273,7 +316,7 @@ fieldset [type=file]{
     display: inline-block;
 /*    white-space: nowrap;*/
     overflow: hidden;
-    width: 20vw;
+    width: 22vw;
 }
 
 .res h1 {

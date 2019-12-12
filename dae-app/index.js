@@ -67,12 +67,14 @@ function showMenu() {
   showElm('menu', 'main')
   let uploadButton = document.querySelector('main nav li.upload')
   let archiveButton = document.querySelector('main nav li.archive')
+  let browseButton = document.querySelector('main nav li.browse')
     
 // Hides Upload + Personal Archive links whem user not logged in — KM
     
   if(auth) {
     uploadButton.classList.remove('hidden')
     archiveButton.classList.remove('hidden')
+      
   } else {
     uploadButton.classList.add('hidden')
     archiveButton.classList.add('hidden')
@@ -142,8 +144,8 @@ function showMsg(txt, err = false) {
 //    document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
 //    
 //    let randomItemLink = randomItemIMGpath
-//    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
-//    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
+////    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
+////    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
 //    
 //    let randomItemContents = randomItem.tf_tags
 //    if (randomItemContents && randomItemContents.length >= 3) {
@@ -158,85 +160,100 @@ function showMsg(txt, err = false) {
 
 // display object contents and metadata in feed window
     
-async function inspectFile() {
-    let searchinput = document.querySelector('main .search input[name="search"]').value
-    const txt = searchinput === "" ? "*" : searchinput  
-    const srt = "&sort=date+desc"
-    const allResults = await search(txt, srt)
-    let allFeedItems = allResults.response.docs
-    let randomItem = allFeedItems[Math.floor(Math.random()*allFeedItems.length)]    
-    let randomItemPath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
-    
-    if (randomItem.ext == 'png'|| 
-        randomItem.ext == 'jpeg' || 
-        randomItem.ext == 'jpg' || 
-        randomItem.ext == 'gif') {
-        document.querySelector('#feedItemIMG').setAttribute('src', randomItemPath)
-        document.querySelector('#feedItemIMG').style.display = 'block'
-        document.querySelector('#feedItemContents').style.display = 'none'
-    } else if (randomItem.hasOwnProperty('contents')) {
-        document.querySelector('#feedItemContents').innerHTML = randomItem.contents
-        document.querySelector('#feedItemIMG').style.display = 'none'
-        document.querySelector('#feedItemContents').style.display = 'block'
-    } else {
-        document.querySelector('#feedItemContents').innerHTML = "<p>Could not load file contents :( <br><a href=" + randomItemPath + ">" + randomItemPath + "</a></p>"
-        document.querySelector('#feedItemIMG').style.display = 'none'
-        document.querySelector('#feedItemContents').style.display = 'block'
-    }
-    
-    function syntaxHighlight(json) {
-        if (typeof json != 'string') {
-             json = JSON.stringify(json, undefined, 6);
-        }
-        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-            var cls = 'number';
-            if (/^"/.test(match)) {
-                if (/:$/.test(match)) {
-                    cls = 'key';
-                } else {
-                    cls = 'string';
-                }
-            } else if (/true|false/.test(match)) {
-                cls = 'boolean';
-            } else if (/null/.test(match)) {
-                cls = 'null';
-            }
-            return ('<span class="' + cls + '">' + match + '</span>').replace(/\"/g, "")
-        });
-    }
-    document.querySelector('#feedItemMeta').innerHTML = syntaxHighlight(randomItem)
-    
-    console.log(randomItem)
-    searchThis()
-}
+//async function inspectFile() {
+//    let searchinput = document.querySelector('main .search input[name="search"]').value
+//    const txt = searchinput === "" ? "*" : searchinput  
+//    const srt = "&sort=date+desc"
+//    const allResults = await search(txt, srt)
+//    let allFeedItems = allResults.response.docs
+//    let randomItem = allFeedItems.length == 0 ? "/km/UserUnfriendly.jpg" : allFeedItems[Math.floor(Math.random()*allFeedItems.length)]    
+//    let randomItemPath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
+//    
+//    if (randomItem.ext == 'png'|| 
+//        randomItem.ext == 'jpeg' || 
+//        randomItem.ext == 'jpg' || 
+//        randomItem.ext == 'gif') {
+//        document.querySelector('#feedItemIMG').setAttribute('src', randomItemPath)
+//        document.querySelector('#feedItemIMG').style.display = 'block'
+//        document.querySelector('#feedItemContents').style.display = 'none'
+//    } else if (randomItem.hasOwnProperty('contents')) {
+//        document.querySelector('#feedItemContents').innerHTML = randomItem.contents
+//        document.querySelector('#feedItemIMG').style.display = 'none'
+//        document.querySelector('#feedItemContents').style.display = 'block'
+//    } else {
+//        document.querySelector('#feedItemContents').innerHTML = "<p>Could not load file contents :( <br><a href=" + randomItemPath + ">" + randomItemPath + "</a></p>"
+//        document.querySelector('#feedItemIMG').style.display = 'none'
+//        document.querySelector('#feedItemContents').style.display = 'block'
+//    }
+//    
+//    function syntaxHighlight(json) {
+//        if (typeof json != 'string') {
+//             json = JSON.stringify(json, undefined, 6);
+//        }
+//        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+//            var cls = 'number';
+//            if (/^"/.test(match)) {
+//                if (/:$/.test(match)) {
+//                    cls = 'key';
+//                } else {
+//                    cls = 'string';
+//                }
+//            } else if (/true|false/.test(match)) {
+//                cls = 'boolean';
+//            } else if (/null/.test(match)) {
+//                cls = 'null';
+//            }
+//            return ('<span class="' + cls + '">' + match + '</span>').replace(/\"/g, "")
+//        });
+//    }
+//    document.querySelector('#feedItemMeta').innerHTML = syntaxHighlight(randomItem)
+//    
+////    console.log(randomItem)
+//    searchThis()
+//}
      
-// run search and refrersh feed based on click metadata
+// run search and refrersh feed based on clicked metadata or color
     
-function searchThis() {
-    items = document.querySelectorAll(".string")
-    items.forEach(i => i.addEventListener('click', async e => {
-        let searchQuery = e.target.innerHTML
-        console.log(searchQuery)
-        document.querySelector('main .search input[name="search"]').value = searchQuery
-        let newCheckPoint = document.createElement('span').innerHTML = searchQuery + " → "
-        document.querySelector('#feedItemTravelHistory').append(newCheckPoint)
-        const txt = searchQuery
-        const srt = "&sort=date+desc"
-        const res = await search(txt, srt)
-        showResults(res)
-        inspectFile()
-    }))
-}
+//function searchThis() {
+//    items = document.querySelectorAll(".string")
+//    items.forEach(i => i.addEventListener('click', async e => {
+//        let searchQuery = e.target.innerHTML
+//        document.querySelector('#command').value = searchQuery
+//        let newCheckPoint = document.createElement('span').innerHTML = searchQuery + " → "
+//        document.querySelector('#feedItemTravelHistory').append(newCheckPoint)
+//        const txt = searchQuery
+//        const srt = "&sort=date+desc"
+//        const res = await search(txt, srt)
+//        showResults(res)
+//        inspectFile()
+//    }))
+////    const picker = new CP(document.querySelector('#wheel'))
+////    picker.on("drag", async function(color) {
+////        const cstr = `#${color}` 
+////        this.source.value = cstr 
+////        document.querySelector('body').style.background = cstr
+////        let searchQuery = cstr
+////        document.querySelector('#command').value = searchQuery
+////        let newCheckPoint = document.createElement('span').innerHTML = searchQuery + " → "
+////        document.querySelector('#feedItemTravelHistory').append(newCheckPoint)
+////        const txt = searchQuery
+////        const srt = "&sort=date+desc"
+////        const res = await search(txt, srt)
+////        showResults(res)
+////        inspectFile()
+////    })
+//}
 
 async function doSearch() {
 // always display all items in archive — KM
-  let searchinput = document.querySelector('main .search input[name="search"]').value
-  const txt = searchinput === "" ? "*" : searchinput  
-  const srt = "&sort=date+desc"
-  const res = await search(txt, srt)
-  showResults(res)
+      let searchinput = document.querySelector('main .search input[name="search"]').value
+      const txt = searchinput === "" ? "*" : searchinput  
+      const srt = "&sort=date+desc"
+      const res = await search(txt, srt)
+      showResults(res)
 }
     
+
 let direction = true
     
 async function pickSortCategory(sortCategory) {
@@ -330,7 +347,11 @@ async function init() {
   auth = await checkAuth()
   showSearch()
   doSort()
-  inspectFile()
+//  inspectFile()
+//  feedMe()    
+//  window.setInterval(function() {
+//    feedMe()
+//  }, 15000)
   auth 
        ? document.querySelector('main nav li.login').classList.add('hidden') 
        : document.querySelector('main nav li.login').classList.remove('hidden')
