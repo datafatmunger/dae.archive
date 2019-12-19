@@ -19,9 +19,7 @@ function showElm(template, sel, empty = true) {
 
 function showLogin() {
   showMenu()
-//  document.querySelector('main nav li.upload').classList.add('hidden')
   document.querySelector('main nav li.login').classList.add('hidden')
-//  document.querySelector('main nav li.archive').classList.add('hidden')
   showElm('login', 'main', false)
   document.querySelector('main .login button').addEventListener('click', async e => {
     await login()
@@ -62,12 +60,17 @@ function showSearch() {
   doSearch() })
   doSearch()
 }
+    
+function showAbout() {
+  document.querySelector('.about').classList.toggle('visible')
+}
 
 function showMenu() {
   showElm('menu', 'main')
   let uploadButton = document.querySelector('main nav li.upload')
   let archiveButton = document.querySelector('main nav li.archive')
   let browseButton = document.querySelector('main nav li.browse')
+  let aboutButton = document.querySelector('main nav li.what')
     
 // Hides Upload + Personal Archive links whem user not logged in — KM
     
@@ -86,6 +89,7 @@ function showMenu() {
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
     else if(c === 'login') showLogin()
+    else if(c === 'what') showAbout()
   }))
   document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
   document.querySelector('main nav li.archive a').innerHTML =`${username}`
@@ -252,7 +256,6 @@ async function doSearch() {
       const res = await search(txt, srt)
       showResults(res)
 }
-    
 
 let direction = true
     
@@ -287,13 +290,13 @@ async function upload() {
   data.append('file', file.files[0])
 
   try {
-    const response = await fetch(`${url}/api/upload`, {
+    const response = await fetch(`${url}/api/files`, {
       method: 'POST',
       body: data,
       credentials: 'same-origin'
     })
     const result = await response.json()
-    showMsg('Success!')
+    showMsg('Success! Your file has been uploaded and will be indexed and searchable after 02:05am tomorrow.')
   } catch (error) {
     showMsg('Fail.', true)
   }
