@@ -31,6 +31,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   EXT=$(echo ${FILE##*.} | awk '{print tolower($0)}')
   echo $EXT
 
+  TXT_PATH=""
   GIF_PATH=""
   VID_PATH=""
   IMG_PATH="$DIR/$FILE"
@@ -39,6 +40,10 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
     CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
     #echo $CONTENTS
+  elif [ $EXT == 'pdf' ]; then
+    TXT_PATH="/tmp/$BASE.txt"
+    /usr/bin/pdftotext "$line" "$TXT_PATH"
+    CONTENTS=$(cat $TXT_PATH | sed 's/\"/\\\"/g')
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   elif [ $EXT == 'gif' ]; then
@@ -73,6 +78,8 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     rm "$IMG_PATH"
   elif [[ ! -z "$VID_PATH" ]]; then
     rm "$IMG_PATH"
+  elif [[ ! -z "$TXT_PATH" ]]; then
+    rm "$TXT_PATH"
   fi
 
   TMP_ARCHIVE=/tmp/$USER.archive
