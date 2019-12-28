@@ -3,7 +3,7 @@
 #bash $PWD/reset_solr.sh 
 
 json_escape () {
-    printf '%s' "$1" | python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+  python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
 }
 
 find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
