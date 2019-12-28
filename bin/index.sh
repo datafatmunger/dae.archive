@@ -50,7 +50,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   elif [ $EXT == 'pdf' ]; then
     TXT_PATH="/tmp/$BASE.txt"
     /usr/bin/pdftotext "$line" "$TXT_PATH"
-    CONTENTS=$(cat "$TXT_PATH" | sed 's/\"/\\\"/g')
+    CONTENTS=$(cat "$TXT_PATH" | json_escape)
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   elif [ $EXT == 'gif' ]; then
@@ -70,7 +70,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
   CONTENTS_JSON=""
   if [[ ! -z "$CONTENTS" ]]; then
-    CONTENTS_JSON=", \"contents\": \"$CONTENTS\""
+    CONTENTS_JSON=", \"contents\": $CONTENTS"
   fi
 
   TF_JSON=""
