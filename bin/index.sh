@@ -57,7 +57,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
     IMG_PATH="/tmp/$BASE.jpg"
     echo "VIDEO"
     echo "/usr/local/bin/video.sh $VID_PATH $IMG_PATH"
-    /usr/local/bin/video.sh $VID_PATH $IMG_PATH
+    /usr/local/bin/video.sh "$VID_PATH" "$IMG_PATH"
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   fi
 
