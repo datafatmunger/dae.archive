@@ -11,7 +11,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   BASE="${FILE%.*}"
   SUBDIR=$(echo "$DIR" | sed -e 's/\/archive\/$USER//g')/
 
-  if [ $FILE -eq ".DS_Store" ]; then
+  if [ "$FILE" == ".DS_Store" ]; then
     continue
   fi
 
