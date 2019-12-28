@@ -89,7 +89,8 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   [ ! -d /tmp/$USER.archive ] && git clone /home/$USER/archive.git $TMP_ARCHIVE
 #  COMMIT_FILE_PATH="$TMP_ARCHIVE$SUBDIR$FILE"
 #  echo $COMMIT_FILE_PATH
-  COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $FILE | sed 's/\'"'"'/\\"/g')
+  echo ">>>>>>" $TMP_ARCHIVE $FILE
+  COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $FILE)
   COMMITS_JSON=", \"commits\": $COMMITS"
 #  rm -rf $TMP_ARCHIVE
 
