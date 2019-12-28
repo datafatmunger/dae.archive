@@ -43,7 +43,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   elif [ $EXT == 'pdf' ]; then
     TXT_PATH="/tmp/$BASE.txt"
     /usr/bin/pdftotext "$line" "$TXT_PATH"
-    CONTENTS=$(cat $TXT_PATH | sed 's/\"/\\\"/g')
+    CONTENTS=$(cat "$TXT_PATH" | sed 's/\"/\\\"/g')
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   elif [ $EXT == 'gif' ]; then
@@ -88,7 +88,7 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 #  echo $COMMIT_FILE_PATH
   COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $FILE)
   COMMITS_JSON=", \"commits\": $COMMITS"
-
+  rm -rf $TMP_ARCHIVE
 
   JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON $COMMITS_JSON}]"
 
@@ -98,6 +98,6 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
 done
 
-rm -rf /tmp/*.archive
+#rm -rf /tmp/*.archive
 service solr restart
 
