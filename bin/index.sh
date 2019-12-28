@@ -2,6 +2,10 @@
 
 #bash $PWD/reset_solr.sh 
 
+json_escape () {
+    printf '%s' "$1" | python -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+}
+
 find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   #echo "$line"
   USER=$(echo "$line" | awk '{split($0,a,"/"); print a[3]}')
@@ -41,12 +45,12 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   CONTENTS=""
   TF_TAGS=""
   if [ $EXT == 'txt' ] || [ $EXT == 'md' ]; then
-    CONTENTS=$(cat $line | sed 's/\"/\\\"/g')
+    CONTENTS=$(cat $line | json_escape)
     #echo $CONTENTS
   elif [ $EXT == 'pdf' ]; then
     TXT_PATH="/tmp/$BASE.txt"
     /usr/bin/pdftotext "$line" "$TXT_PATH"
-    CONTENTS=$(cat "$TXT_PATH" | sed 's/\"/\\\"/g' | sed 's/'"'"'/\\'"'"'/g')
+    CONTENTS=$(cat "$TXT_PATH" | sed 's/\"/\\\"/g')
   elif [ $EXT == 'png' ] || [ $EXT == 'jpg' ]; then
     TF_TAGS=$(python3 /usr/local/bin/classify_image.py --image "$IMG_PATH" 2> /dev/null | python3 /usr/local/bin/parse_tf.py)
   elif [ $EXT == 'gif' ]; then
