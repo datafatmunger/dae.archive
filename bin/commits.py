@@ -23,5 +23,5 @@ a = []
 for commit in file_commits:
     a.append(commit.message.strip())
 
-print(a)
+print(str(a).replace("\'", "\""))
 

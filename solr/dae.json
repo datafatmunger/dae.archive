@@ -21,7 +21,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true
+    "required"    : false 
   },
   "add-field": {
     "name"        : "ext",
@@ -29,7 +29,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true
+    "required"    : false 
   },
   "add-field": {
     "name"        : "path",
@@ -81,7 +81,7 @@
   },
   "add-field": {
     "name"        : "colors",
-    "type"        : "text_shingles",
+    "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
@@ -89,7 +89,7 @@
   },
   "add-field": {
     "name"        : "hex_colors",
-    "type"        : "text_shingles",
+    "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
