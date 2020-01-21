@@ -68,10 +68,10 @@ nav li a {
 }
 .search {
     height: 95vh;
-    width: 95vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     z-index: -1;
 }
 fieldset {
@@ -153,15 +153,14 @@ input#file {
 }
  
 .results {
-    height: 100%;
+    align-self: center;
     width: 100%;
     margin-top: 0;
-    column-count: 4; 
+    column-count: 5; 
 }
 .res {
-    display: block;
-/*    overflow: hidden;*/
-    width: 20vw;
+    display: inline-grid;
+    width: 100%;
     margin-bottom: 20px;
 }
 .res h1 {
@@ -169,12 +168,10 @@ input#file {
     font-size: 20px;
     margin: 0px;
     margin-bottom: 2px;
-/*    width: 90%;*/
 }
 .resDetails{
     font-size: 14px;
 }
-
 .error {
     color: black !important; 
 }

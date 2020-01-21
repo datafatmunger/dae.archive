@@ -70,9 +70,9 @@ function showSorting() {
 }
     
 function moveSearchField(){ 
-    document.querySelector('.searchField').style.marginTop = '0px'
-    document.querySelector('.search').style.position = 'absolute'
-    document.querySelector('.search').style.top = '0px'
+    document.querySelector('.searchField').style.marginTop = '-30px'
+//    document.querySelector('.search').style.position = 'absolute'
+//    document.querySelector('.search').style.top = '0px'
 }
 
 function showAbout() {
