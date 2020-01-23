@@ -1,294 +1,145 @@
-html, body {
+html, body, p {
     margin: 0px;
-    padding: 0px;
 }
-
-body {
+html {
     height: 100vh;
-    margin: 0px;
+}
+body {
     padding: 30px;
     overflow: scroll;
-    background-color: lightgray;
+    background-color: #f8f8f8;
     font-family: 'helvetica', sans-serif;
-    line-height: 1.1;
-    font-size: 30px;
-    font-weight: 600;
+    line-height: 1;
+    font-size: 20px;
 }
-
 a {
-    margin: 0px;
-    padding: 0px;
-    line-height: 1.1;
-    font-size: 30px;
-    font-weight: 600;
     word-break: break-all;
+    text-decoration: none;
 }
-
+a:hover{
+    text-decoration: underline;
+}
 a:link {
-    color: rgb(158,51,246);
+    color: rgb(173, 0, 255);
 }
-
 a:visited {
-    color: rgb(158,51,246);
+    color: rgb(173, 0, 255);
 }
-
-p {
-    margin: 0px;
+nav {
+    position: sticky;
+    top: 30px;
 }
-
 nav ul {
     padding: 0px;
     margin: 0px;
     list-style: none;
     width: 100%;
-/*
-    position: sticky;
-    top: 30px;
-*/
-    
     display: flex; 
     flex-wrap: wrap; 
-    flex-direction: row;
-    height: 100%;
 }
-
 nav li {
     padding-left: 15px;
+}
+nav li:hover {
     cursor: pointer;
-    font-weight: 600;
-    justify-content: flex-end;
     text-decoration: underline;
 }
-
 nav li.title {
     padding-left: 0px;
     align-self: flex-start;
     margin-right: auto;
 }
-
-nav li.title a {
-    color: black;
+/*
+nav li a {
+    color: black !important;
 }
-
-nav li.browse a {
-    border: 4px solid rgb(158,51,246);
-    padding: 2px 5px 4px 5px;
-}
-
-nav li.archive > a {
-    color: black;
-}
-.about {
+*/
+.aboutText {
     display: none;
-    flex-direction: column;
-    align-items: center;
-    margin: 100px;
-    margin-bottom: 0px;
 }
-.visible {
-    display: flex;
-}
-.about pre {
-    padding: 40px;
-    border: 4px solid black;
+.aboutText pre {
+    margin: 0px;
+    padding: 100px;
+    max-width: 700px;
     font-family: 'helvetica', sans-serif;
+    line-height: 1.2;
+    font-size: 20px;
     white-space: pre-wrap;
-    width: 70%;
-    max-width: 1200px;
 }
 .search {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-/*    align-items: center;*/
-}
-
-.sortCategory {
-    text-decoration: underline;
-}
-
-#feed {
-    height: 50vh;
-    max-height: 73vh;
-    padding: 10px;
-    border: 4px solid black;
-    overflow: scroll;
-    margin-top: 30px;
-    
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.feedItem {
-    align-self: flex-start;
+    height: 95vh;
     width: 100%;
-/*    height: inherit;*/
-    font-family: 'helvetica', sans-serif;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 1.1;
-    text-align: left;
-    
-    display: flex;
-    flex-direction: row;
-}
-.string { 
-    color: green;
-    text-decoration: underline;
-    cursor: pointer;
-}
-.number { color: darkorange; }
-.boolean { color: blue; }
-.null { color: magenta; }
-.key { color: red; }
-
-.feedItemDisplay {
-    width: 34%;
-    margin: 10px;
-    padding: 10px;
-    height: inherit;
-    overflow: scroll;
-    
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    z-index: -1;
 }
-
-#feedItemContents {
-    display: none;
-    font-size: 12pt;
-    font-weight: 400;
-    max-width: 450px;
-    height: inherit;
-    max-height: 50vh;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-}
-
-#feedItemIMG {
-    display: none;
-    width: 400px;
-}
-
-.feedItemDetails {
-    width: 30%;
-    max-height:50vh;
-    margin: 10px;
-    padding: 10px;
-    padding-left: 60px;
-    padding-right: 60px;
-    overflow: scroll;
-    border-left: 3px dashed black;
-    border-right: 3px dashed black;
-}
-
-#feedItemMeta {
-    font-family: 'helvetica', sans-serif;
-    font-size: 18pt;
-    line-height: 1.2;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-}
-
-.feedItemTravel {
-    width: 34%;
-    margin: 10px;
-    padding: 10px;
-    height: inherit;
-    overflow: scroll;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#feedItemTravelHistory {
-    max-width: 450px;
-    height: inherit;
-    max-height: 50vh;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-}
-
 fieldset {
     border: none;
-    position: sticky;
-    top: 30px;
     padding: 0px;
     margin: 100px;
     align-self: center;
     text-align: center;
 }
-#command:focus {
-    padding-left: 20px;
-    color: rgb(158,51,246);
+.searchField {
+    position: sticky;
+    top: 20px;
+    margin-top: 25vh;
+    margin-bottom: 100px;
+    align-self: center;
+    text-align: center;
+    transition: ease 0.25s;
+    z-index: 3;
 }
-
+#command:focus {
+    color: rgb(173, 0, 255);
+}
 input[type="text"], input[type="password"] {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 15px;
     min-width: 23vw;
     max-width: 70vw;
-    color: lightgray; 
-    margin-right: 10px;
-    font-family: 'helvetica', sans-serif;
-    color: rgb(158,51,246);
-    background-color: rgb(255, 255, 255, 1);
-    height: 100%;
-    font-size: 30px;
-    border-width: 4px;
-    -webkit-border-color: black;
-    border-color: black;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
+    height: 40px;
+    background-color: #f8f8f8;
+    font-family: inherit;
+    font-size: inherit;
+    border: 2px solid black;
     border-radius: 100px;
     box-sizing: border-box;
-    -webkit-transition: ease-out 0.5s;
-    transition: ease-out 0.5s;
-    height: 60px;
+    -webkit-transition: ease 0.25s;
+    transition: ease 0.25s;
 }
-
 input::placeholder {
-    color: lightgray;
+    color: darkgray;
 }
-
-input:hover {
-    -webkit-border-color: rgb(158,51,246);
-    border-color: rgb(158,51,246);
-    border-width: 4px;
-    -webkit-transition: ease 0.5s;
-    transition: ease 0.5s;
-}
-
 input:focus {
-    border-radius: 0px;
-    -moz-box-shadow:    inset 0 0 10px rgb(158,51,246);
-    -webkit-box-shadow: inset 0 0 10px rgb(158,51,246);
-    box-shadow:         inset 0 0 10px rgb(158,51,246);
-    -webkit-transition: ease-out 0.5s;
-    transition: ease-out 0.5s;
-    -webkit-border-color: black;
-    border-color: black;
-    border-width: 4px;
+    border-color: rgb(173, 0, 255);
     outline: none;
 }
-
+input[type="text"]#note {
+    vertical-align: top;
+    height: 300px;
+    border-radius: 20px;
+}
+.sorting {
+    display: none;
+    text-align: left;
+    margin: 15px;
+    -webkit-transition: ease 0.25s;
+    transition: ease 0.25s;
+}
 button, button:active, button:focus {
-    height: 60px;
-    font-size: 30px;
-    font-weight: 700;
+    font-family: inherit;
+    font-size: inherit;
     background-color: transparent;
     box-shadow: none;
     border: none;
     outline: none;
     cursor: pointer;
 }
-
-fieldset [type=file]{
+button:hover {
+    text-decoration: underline;
+}
+fieldset [type=file] {
     cursor: pointer;
     display: inline-block;
     width: 220px;    
@@ -299,52 +150,39 @@ fieldset [type=file]{
 input#file {
     vertical-align: middle;
     font-family: 'helvetica';
-    font-weight: 600;
 }
  
 .results {
-    overflow: scroll;
-/*    width: 100%;*/
-    margin: 30px;
+    align-self: center;
+    width: 100%;
     margin-top: 0;
-    column-count: 4;
+    column-count: 5; 
 }
 
 .res {
-    display: inline-block;
-/*    white-space: nowrap;*/
-    overflow: hidden;
-    width: 20vw;
+    display: inline-grid;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .res h1 {
+    font-weight: 400;
+    font-size: 20px;
     margin: 0px;
-    margin-bottom: 5px;
-    margin-top: 20px;
-    width: 90%;
-    word-wrap: break-word;
-    line-height: 0.1;
+    margin-bottom: 2px;
 }
-
 .resDetails{
-    font-size: 15px;
-/*    margin-bottom: 20px;*/
+    font-size: 14px;
 }
-
 .error {
     color: black !important; 
 }
-
 .msg {
-    color: rgb(158,51,246);
+    color: rgb(173, 0, 255);
     display: none;
     padding: 45px;
 /*    max-width: 30vw;*/
 /*    text-align: left;*/
-}
-
-.hidden {
-    display: none;
 }
 
 @media screen and (max-width: 1400px) {
@@ -383,4 +221,11 @@ input#file {
         max-width: 300px;
         max-height: 200px;
     }
+}
+
+.hidden {
+    display: none;
+}
+.visible {
+    display: block;
 }

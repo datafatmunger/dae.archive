@@ -14,4 +14,4 @@ cp /root/post-receive /home/$1/archive.git/hooks/
 sudo -u $1 -H sh -c "git config --global user.email \"$3\""
 sudo -u $1 -H sh -c "git config --global user.name \"$1\""
 
-
+/usr/local/bin/add_file /archive/km/funwithcss/WelcometoYourArchive.md $1 "added README"
