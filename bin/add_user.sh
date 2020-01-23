@@ -15,4 +15,4 @@ sudo -u $1 -H sh -c "git config --global user.email \"$3\""
 sudo -u $1 -H sh -c "git config --global user.name \"$1\""
 
 /usr/local/bin/add_file.sh /archive/km/funwithcss/createUser/WelcometoYourArchive.md WelcomeToYourArchive.md $1 "added README"
-￼
+

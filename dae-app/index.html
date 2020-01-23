@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="color-picker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -64,26 +63,8 @@
     <li class="browse"><a href="http://80.100.106.160">userindex</a></li>
     <li class="login">login</li>
     <li class="upload">upload</li>
-    <li class="about">about</li>
+    <li class="about"><a href="about.html">about</a></li>
   </ul>
-  <div class="aboutText">
-      <pre>Welcome to the digital archive of Design Academy Eindhoven. We are currently in our first testing phase.
-
-All users can have their own repositories inside the archive.  
-All users with a repository can upload anything they want.
-All users own the contents of their respective repositories.
-Right now, the archive is stored on a server inside <a href="http://80.100.106.160/jbg">jbg</a>'s house, in Amsterdam.
-      
-The archive is based on <a href="https://git-scm.com/" target="_blank">git</a>, a version control system that stores and logs different versions of a folder and its contents.
-      
-Every day at 02:05, an <a href="http://80.100.106.160/jbg/bin/index.sh" target="_blank">indexing script</a> runs automatically, which creates and updates the metadata of all uploaded files. A file in our archive will typically have the following metadata: ID, name, path, author, extension, commit messages, and version.
-
-If a file is an image or video, its metadata will also include the predominant colours, as well as a list of tags that describe the visual contents of the file, as read by TensorFlow's <a href="https://www.tensorflow.org/" target="_blank">image tagging script</a>, that is based on <a href="https://www.tensorflow.org/datasets/catalog/overview" target="_blank">this dataset</a>.
-
-If a folder contains a file named "index.html", web browsers will render and display that webpage instead of the contents of the folder it's in.
-
-The archive is extensible. Users are encouraged to design and develop tools and extensions of the archive by using its API. Some examples of this include jbg's <a href="http://80.100.106.160/jbg/color" target="_blank">colour picker</a> and km's <a href="http://80.100.106.160/km/fun%20with%20css/meta-info-travel-dae-app/" target="_blank">metadata navigator.</a></pre>
-  </div>
 </nav>
 </template>
 
