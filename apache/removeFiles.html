@@ -1,0 +1,84 @@
+<style>
+    .indexcolremove {
+        width: 50px;
+        height: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    const protocol = `${window.location.protocol}`
+    const host = `${window.location.host}`
+    const url = `${protocol}//${host}`
+    const path = `${window.location.pathname}`
+    const header = document.getElementById('indextitle')
+    const allRows = Array.from(document.querySelectorAll('.even, .odd'))
+
+// replaces header with linked subpaths
+    
+    function createHeader() {
+        header.innerHTML = `<a href="${url}">userindex/</a> `
+        const pathParts = path.split('/')
+        const subs = pathParts.slice(1, -1)        
+        console.log(subs)
+        function buildSubHTML(sub) {
+            const subPATH = `${path.split(sub)[0]}${sub}`
+            const subHTML = `<a href="${url}${subPATH}">${sub}/</a> `
+            header.innerHTML += subHTML
+        }
+        subs.forEach(sub => buildSubHTML(sub)) 
+    }
+    
+// filters out folder rows
+    
+    const rows = allRows.filter(row => !row.innerHTML.includes('  - '))
+    
+// creates remove button 
+        
+    const removeButton = document.createElement("td")
+    removeButton.className = "indexcolremove"
+    removeButton.innerHTML = "🗑"
+
+// checks if user is logged in
+    
+    async function checkAuth() {
+      const res = await fetch(`${url}/api/users/me`, { credentials: 'same-origin' })
+      const data = await res.json()
+      username = data.name
+      return res.ok
+    } 
+    
+// makes DELETE request
+    
+    function removeFile(filename) {
+        const response = fetch(`${url}/api/files/${filename}`, {
+          method: 'DELETE',
+          credentials: 'same-origin'
+        })
+        console.log('removed:', filename)
+    }
+    
+// checks if user is in own directory or subdirectories
+// creates remove button 
+// calls DELETE request
+// hides deleted file row
+    
+    async function init() {
+        createHeader()
+        
+        auth = await checkAuth()
+        if (auth && path.includes(`/${username}/`)) { 
+            rows.forEach(i => i.appendChild(removeButton.cloneNode(true)))
+            const createdButtons = document.querySelectorAll('.indexcolremove')
+            createdButtons.forEach(i => i.addEventListener('click', function removeCorrespondingFile(event) {
+                const filename = event.target.parentElement.querySelector('.indexcolname a').innerHTML
+                removeFile(filename)
+                event.target.parentElement.style.display = "none" 
+            }))
+        }
+    }
+    
+    init()
+</script>
