@@ -139,7 +139,7 @@ button, button:active, button:focus {
 button:hover {
     text-decoration: underline;
 }
-fieldset [type=file]{
+fieldset [type=file] {
     cursor: pointer;
     display: inline-block;
     width: 220px;    
@@ -158,11 +158,13 @@ input#file {
     margin-top: 0;
     column-count: 5; 
 }
+
 .res {
     display: inline-grid;
     width: 100%;
     margin-bottom: 20px;
 }
+
 .res h1 {
     font-weight: 400;
     font-size: 20px;

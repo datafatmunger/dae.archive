@@ -58,18 +58,18 @@ function showSearch() {
   document.querySelector('main .search button.go').addEventListener('click', async e => { 
     doSearch() 
   })
-  document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13)
-  doSearch() })
-//  doSearch()
+  document.querySelector('main .search input').addEventListener('keyup', async e => {
+      if(e.keyCode === 13) doSearch()
+  })
 }
 
 function showSorting() {
     document.querySelector('.sorting').classList.add('visible')
-        console.log("visible?")
+    //console.log("visible?")
     document.querySelector('#query').innerHTML = document.querySelector('main .search input[name="search"]').value
 }
     
-function moveSearchField(){ 
+function moveSearchField() { 
     document.querySelector('.searchField').style.marginTop = '-30px'
 //    document.querySelector('.search').style.position = 'absolute'
 //    document.querySelector('.search').style.top = '0px'
@@ -141,7 +141,7 @@ function showMsg(txt, err = false) {
 async function doSearch() {
 // always display all items in archive — KM
       let searchinput = document.querySelector('main .search input[name="search"]').value
-      const txt = searchinput === "" ? "*" : searchinput
+      const txt = searchinput.length === 0 ? "*" : searchinput
       const srt = "&sort=date+desc"
       const res = await search(txt, srt)
       showSorting() 
@@ -153,7 +153,7 @@ let direction = true
 
 async function pickSortCategory(sortCategory) {
     let searchinput = document.querySelector('main .search input[name="search"]').value
-    const txt = searchinput === "" ? "*" : searchinput
+    const txt = searchinput.length === 0 ? "*" : searchinput
     direction = !direction
     let sortinput = sortCategory === "type" ? "&sort=ext+asc" : "&sort=" + sortCategory + (direction ? "+asc" : "+desc")
     let srt = sortinput
