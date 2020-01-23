@@ -49,13 +49,11 @@ nav li.title {
     align-self: flex-start;
     margin-right: auto;
 }
-/*
-nav li a {
+nav li.about a {
     color: black !important;
 }
-*/
 .aboutText {
-    display: none;
+    display: flex;
 }
 .aboutText pre {
     margin: 0px;

@@ -75,10 +75,6 @@ function moveSearchField() {
 //    document.querySelector('.search').style.top = '0px'
 }
 
-function showAbout() {
-  document.querySelector('.aboutText').classList.toggle('visible')
-}
-
 function showMenu() {
   showElm('menu', 'main')
   let uploadButton = document.querySelector('main nav li.upload')
@@ -103,7 +99,6 @@ function showMenu() {
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
     else if(c === 'login') showLogin()
-    else if(c === 'about') showAbout()
   }))
   document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
   document.querySelector('main nav li.archive a').innerHTML =`${username}`
