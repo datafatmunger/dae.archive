@@ -172,3 +172,12 @@ Add the following content to the `post-receive` file.
     $ convert FILENAME -format %c -depth 8 histogram:info:- | sort -r | head -5
 
 
+
+
+
+
+
+/usr/sbin/sshd -D
+
+git clone ssh://jbg@localhost:2222/~jbg/archive.git
+

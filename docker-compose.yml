@@ -1,0 +1,56 @@
+version: "3.1"
+services:
+
+  archive:
+    container_name: archive 
+    build:
+      context: .
+      dockerfile: docker/archive.dockerfile 
+    working_dir: /app
+    command: /usr/local/bin/run.sh 
+    #command: tail -f /dev/null
+    volumes:
+      - ./bin:/usr/local/bin
+      - ./vols/data:/data
+      - ./vols/archive:/archive
+      - ./vols/home:/home
+      - ./vols/tmp:/tmp
+      - ./dae-api:/app
+    ports:
+      - "2222:22"
+      - "3000:3000"
+    networks:
+      - dae
+
+  apache: 
+    container_name: apache
+    build:
+      context: .
+      dockerfile: docker/apache.dockerfile 
+    volumes:
+      - ./apache/apache2.conf:/etc/apache2/apache2.conf
+      - ./apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./vols/archive:/archive
+    command: "apachectl -DFOREGROUND"
+    ports:
+      - "8000:80"
+    networks:
+      - dae
+
+  solr:
+    container_name: solr
+    image: solr:latest
+    ports:
+     - "8983:8983"
+    volumes:
+      - solr:/var/solr
+      - ./bin:/dae
+      - ./solr/dae.json:/dae/dae.json
+      - ./solr/conf:/conf
+
+networks:
+  dae:
+
+volumes:
+  solr:
+

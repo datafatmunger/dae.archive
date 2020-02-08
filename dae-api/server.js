@@ -41,7 +41,7 @@ app.use(fileUpload({
   tempFileDir: '/tmp/'
 }))
 require('./routes/user')
-require('./routes/upload')
+require('./routes/file')
 require('./routes/fork')
 
 app.use((err, req, res, next) => {

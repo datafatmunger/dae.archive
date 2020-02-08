@@ -69,5 +69,5 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 done
 
 rm -rf /tmp/*.archive
-service solr restart
+#service solr restart
 
