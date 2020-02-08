@@ -20,7 +20,7 @@
 
 
 
-# Odd stuff ... remove me - JBG
+# Old stuff ... remove me - JBG
 
 ## sshd tweaks
 
