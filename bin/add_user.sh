@@ -9,7 +9,7 @@ sudo -u $1 -H sh -c "mkdir -p /home/$1/archive.git"
 
 pushd /home/$1/archive.git
 sudo -u $1 -H sh -c "git init --bare"
-cp /root/post-receive /home/$1/archive.git/hooks/
+cp /usr/local/bin/post-receive /home/$1/archive.git/hooks/
 
 sudo -u $1 -H sh -c "git config --global user.email \"$3\""
 sudo -u $1 -H sh -c "git config --global user.name \"$1\""
