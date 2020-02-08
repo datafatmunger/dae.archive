@@ -1,5 +1,27 @@
 # The DAE archive
 
+## Build containers
+
+    $ docker-compose up
+
+## Init Solr core
+
+    $ docker-compose exec solr bash
+
+    $ /dae/reset_solr.sh
+
+
+
+
+
+
+
+
+
+
+
+# Odd stuff ... remove me - JBG
+
 ## sshd tweaks
 
 Changed the following `sshd_config` configs for security purposes.  Basically only allows user logins with ssh keys.

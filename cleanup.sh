@@ -3,5 +3,6 @@
 docker-compose down
 docker rmi daearchive_archive
 docker rmi daearchive_apache
-rm -rf vols/home/*
-rm -rf vols/data/*
+sudo rm -rf vols/home/*
+sudo rm -rf vols/data/*
+sudo rm -rf dae-api/node_modules 
