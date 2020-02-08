@@ -19,26 +19,24 @@ function showElm(template, sel, empty = true) {
 
 function showLogin() {
   showMenu()
-//  document.querySelector('main nav li.upload').classList.add('hidden')
   document.querySelector('main nav li.login').classList.add('hidden')
-//  document.querySelector('main nav li.archive').classList.add('hidden')
   showElm('login', 'main', false)
   document.querySelector('main .login button').addEventListener('click', async e => {
     await login()
   })
-  document.querySelector('#email').addEventListener('keyup', async e => { 
-    if(e.keyCode === 13) 
-        await login() 
+  document.querySelector('#email').addEventListener('keyup', async e => {
+    if(e.keyCode === 13)
+        await login()
     })
-  document.querySelector('#pass').addEventListener('keyup', async e => { 
-    if(e.keyCode === 13) 
-        await login() 
+  document.querySelector('#pass').addEventListener('keyup', async e => {
+    if(e.keyCode === 13)
+        await login()
     })
 }
 
 function showUpload() {
   showMenu()
-  showElm('upload', 'main', false) 
+  showElm('upload', 'main', false)
   document.querySelector('main nav li.upload').innerHTML = 'search'
   document.querySelector('main nav li.upload').addEventListener('click', async e => {
     await showSearch()
@@ -47,9 +45,9 @@ function showUpload() {
   document.querySelector('main .upload button').addEventListener('click', async e => {
     await upload()
   })
-  document.querySelector('main .upload #note').addEventListener('keyup', async e => { 
-    if(e.keyCode === 13) 
-        await upload() 
+  document.querySelector('main .upload #note').addEventListener('keyup', async e => {
+    if(e.keyCode === 13)
+        await upload()
     })
 }
 
@@ -57,27 +55,44 @@ function showSearch() {
   showMenu()
   document.querySelector('main nav li.login').classList.add('hidden')
   showElm('search', 'main', false)
-  document.querySelector('main .search button').addEventListener('click', async e => { doSearch() })
-  document.querySelector('main .search input').addEventListener('keyup', async e => { if(e.keyCode === 13) doSearch() })
-//  feedMe()
-  doSearch()
+  document.querySelector('main .search button.go').addEventListener('click', async e => { 
+    doSearch() 
+  })
+  document.querySelector('main .search input').addEventListener('keyup', async e => {
+      if(e.keyCode === 13) doSearch()
+  })
+}
+
+function showSorting() {
+    document.querySelector('.sorting').classList.add('visible')
+    //console.log("visible?")
+    document.querySelector('#query').innerHTML = document.querySelector('main .search input[name="search"]').value
+}
+    
+function moveSearchField() { 
+    document.querySelector('.searchField').style.marginTop = '-30px'
+//    document.querySelector('.search').style.position = 'absolute'
+//    document.querySelector('.search').style.top = '0px'
 }
 
 function showMenu() {
   showElm('menu', 'main')
   let uploadButton = document.querySelector('main nav li.upload')
   let archiveButton = document.querySelector('main nav li.archive')
-    
+  let browseButton = document.querySelector('main nav li.browse')
+  let aboutButton = document.querySelector('main nav li.about')
+
 // Hides Upload + Personal Archive links whem user not logged in — KM
-    
+
   if(auth) {
     uploadButton.classList.remove('hidden')
     archiveButton.classList.remove('hidden')
+
   } else {
     uploadButton.classList.add('hidden')
     archiveButton.classList.add('hidden')
   }
-    
+
   const items = document.querySelectorAll('main nav li')
   items.forEach(i => i.addEventListener('click', async e => {
     const c = e.target.classList[0]
@@ -93,7 +108,7 @@ function showResults(res) {
   // Remove old results - JBG
   document.querySelectorAll('main .search .results .res').forEach(n => n.remove())
 
-  if(res.response.numFound == 0) showMsg("0 results.") 
+  if(res.response.numFound == 0) showMsg("0 results.")
   else {
     const msg = document.querySelector('main .msg')
     msg.style.display = 'none'
@@ -112,74 +127,62 @@ function showResults(res) {
 
 function showMsg(txt, err = false) {
   const msg = document.querySelector('main .msg')
-  msg.innerHTML = txt 
+  msg.innerHTML = txt
   msg.style.display = 'block'
   if(err) msg.classList.add('error')
   else msg.classList.remove('error')
 }
-    
-// Shows a random image and it's metadata upon reload — KM
-
-//async function feedMe(randomResult) {
-//    let allResults = await search('*')
-//    let allFeedItems = allResults.response.docs
-//    let FilteredFeedItems = allFeedItems.filter(function (el) {
-//         return el.ext == 'png' || 
-//                el.ext == 'jpeg' || 
-//                el.ext == 'jpg' || 
-//                el.ext == 'gif'     
-//    })
-//    let randomItem = FilteredFeedItems[Math.floor(Math.random()*FilteredFeedItems.length)]
-//    console.log(randomItem)
-//    
-//    let randomItemAuthor = randomItem.user
-//    document.querySelector('#itemAuthor').innerHTML = randomItemAuthor + " uploaded a file named"
-//    
-//    let randomItemName = randomItem.name
-//    document.querySelector('#itemName').innerHTML = ' "' + randomItemName + '"'
-//    
-//    let randomItemIMGpath = `${url}` + randomItem.path.replace('archive/','') + '/' + randomItem.name
-//    document.querySelector('#feedItemIMG').setAttribute('src', randomItemIMGpath)
-//    
-//    let randomItemLink = randomItemIMGpath
-//    document.querySelector('#feedItemLink').setAttribute('href', randomItemIMGpath)
-//    document.querySelector('#feedItemLink').innerHTML = randomItemIMGpath
-//    
-//    let randomItemContents = randomItem.tf_tags
-//    if (randomItemContents && randomItemContents.length >= 3) {
-//        document.querySelector('#itemContents').innerHTML = ', containing "' + randomItemContents[0] + '", "' + randomItemContents[1] + '", and ' + '"' +  randomItemContents[3] +'"'
-//    }
-//
-//    let randomItemColors = randomItem.colors
-//    if (randomItemColors && randomItemColors.length >= 2) {
-//        document.querySelector('#itemColors').innerHTML = '. The colors "' + randomItemColors[0] + '", and ' + '"' + randomItemColors[1] +'" are common.'
-//    }
-//}
 
 async function doSearch() {
 // always display all items in archive — KM
-  let searchinput = document.querySelector('main .search input[name="search"]').value
-  const txt = searchinput === "" ? "*" : searchinput 
-  const res = await search(txt)
-  showResults(res)
+      let searchinput = document.querySelector('main .search input[name="search"]').value
+      const txt = searchinput.length === 0 ? "*" : searchinput
+      const srt = "&sort=date+desc"
+      const res = await search(txt, srt)
+      showSorting() 
+      moveSearchField()
+      showResults(res)
 }
-    
+
+let direction = true
+
+async function pickSortCategory(sortCategory) {
+    let searchinput = document.querySelector('main .search input[name="search"]').value
+    const txt = searchinput.length === 0 ? "*" : searchinput
+    direction = !direction
+    let sortinput = sortCategory === "type" ? "&sort=ext+asc" : "&sort=" + sortCategory + (direction ? "+asc" : "+desc")
+    let srt = sortinput
+    const res = await search(txt, srt)
+    showResults(res)
+//    console.log(res, "brought to you by doSort()")
+}
+
+function doSort() {
+  const items = document.querySelectorAll('.sortCategory')
+  items.forEach(i => i.addEventListener('click', e => {
+    const c = e.target.classList[1]
+    if(c === 'name') pickSortCategory(c)
+    else if(c === 'type') pickSortCategory(c)
+    else if(c === 'date') pickSortCategory(c)
+  }))
+}
+
 async function upload() {
-  const data = new FormData()
   const note = document.querySelector('main .upload input[name="note"]').value
   const file = document.querySelector('main .upload input[name="file"]')
+  const data = new FormData()
 
   if(note && note.length > 0) data.append('note', note)
   data.append('file', file.files[0])
 
   try {
-    const response = await fetch(`${url}/api/upload`, {
+    const response = await fetch(`${url}/api/files`, {
       method: 'POST',
       body: data,
       credentials: 'same-origin'
     })
     const result = await response.json()
-    showMsg('Success!')
+    showMsg('Success! Your file has been uploaded and will be indexed and searchable after 02:05am tomorrow.')
   } catch (error) {
     showMsg('Fail.', true)
   }
@@ -208,11 +211,12 @@ async function checkAuth() {
   return res.ok
 }
 
-async function search(txt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=100&sort=date+desc`, { credentials: 'same-origin' })
+async function search(txt, srt) {
+  const res = await fetch(`${url}/search?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
   return await res.json()
 }
-    
+
+
 async function login() {
   const email = document.querySelector('main .login input[name="email"]').value
   const pass = document.querySelector('main .login input[name="password"]').value
@@ -225,18 +229,21 @@ async function login() {
     auth = true
     username = res.name
     showSearch()
+    doSort()
   }
 }
 
 async function init() {
-  auth = await checkAuth()
   showSearch()
-  auth 
-       ? document.querySelector('main nav li.login').classList.add('hidden') 
+//  uncomment below line to run empty search and display list of files on page load
+//  doSearch() 
+  doSort()
+  auth = await checkAuth()
+  auth
+       ? document.querySelector('main nav li.login').classList.add('hidden')
        : document.querySelector('main nav li.login').classList.remove('hidden')
 }
-    
+
 init()
 
 })()
-

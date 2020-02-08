@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <main></main>
@@ -11,10 +11,10 @@
 <template id="login">
 <div class="login">
   <fieldset>
-<!--    <header><legend>Login</legend></header>-->
+<!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
     <input type="text" name="email" id="email" placeholder="Email"/>
     <input type="password" name="password" id="pass" placeholder="Password"/>
-    <button> → </button>
+    <button>login</button>→
     <p class="msg">Fail.</p>
   </fieldset>
 </div>
@@ -24,30 +24,23 @@
 <template id="upload">
 <div class="upload">
   <fieldset>
-<!--    <header><legend>Upload</legend></header>-->
     <input type="file" name="file" id="file" label="file"/>
-    <input type="text" name="note" id="note" placeholder="What is this?"/>
-    <button> ↑ </button>
+    <input type="text" name="note" id="note" placeholder="What is this file about?"/>
+    <button>upload</button>↑
     <p class="msg">Success!</p>
   </fieldset>
 </div>
 </template>
-
+    
 <!-- Search -->
 <template id="search">
 <div class="search">
-  <div id="feed" style="display: none">
-    <div class="feedItem" id="feeditem1">
-        <p><span id="itemAuthor"></span><span id="itemName"></span><span id="itemContents"></span><span id="itemColors"></span></p>
-        <img id="feedItemIMG" src="" />
-        <a id="feedItemLink" href="#"></a>
-    </div>
-  </div>
-  <fieldset>
-    <input id="command" type="text" name="search" placeholder="Search for anything."/>
-    <button> → </button>
+  <div class="searchField">
+    <input id="command" type="text" name="search" placeholder="Search the DAE Archive"/>
+    <button class="go">Go</button>→
+      <p class="sorting">Sort "<span id="query"></span>" by <button class="sortCategory name">name</button><span>↓</span><button class="sortCategory date">date</button>↓ or <button class="sortCategory type">type</button>↓</p>
     <p class="msg">0 results.</p>
-  </fieldset>
+  </div>
   <div class="results">
   </div>
 </div>
@@ -57,8 +50,7 @@
 <template id="res">
 <div class="res">
   <h1><a></a></h1>
-  <p class="resDetails"> 😃 <span class="user"></span> 📅 <span class="date"></span></p>
-<!--  <hr/>-->
+  <p class="resDetails"> 😃 <span class="user"></span> 🕗 <span class="date"></span></p>
 </div>
 </template>
 
@@ -66,11 +58,12 @@
 <template id="menu">
 <nav>
   <ul>
-      <li class="title"><a href="./">archive.designacademy.nl</a></li>
-<!--    <li class="search">Search</li>-->
-    <li class="upload">upload</li>
+    <li class="title"><a href="./">DAE Archive</a></li>
+    <li class="archive"><a href="#"></a></li>
+    <li class="browse"><a href="http://80.100.106.160">userindex</a></li>
     <li class="login">login</li>
-    <li class="archive"><a href="#">myArchive</a></li>
+    <li class="upload">upload</li>
+    <li class="about"><a href="about.html">about</a></li>
   </ul>
 </nav>
 </template>
