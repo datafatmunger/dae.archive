@@ -6,6 +6,11 @@ if [ ! -d /home/jbg ]; then
   usermod -aG sudo jbg
 fi
 
+# Create jbg user, if doesn't exist - JBG
+if [ ! -f /data/dae.db ]; then
+  sqlite3 /data/dae.db < /init.sql
+fi
+
 # Init sshd, if needed - JBG
 if [ ! -d /var/run/sshd ]; then
   /usr/bin/ssh-keygen -A

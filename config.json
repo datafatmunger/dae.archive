@@ -1,5 +1,7 @@
 {
   "binDir": "/usr/local/bin",
-  "dataDir": "/data"
+  "dataDir": "/data",
+  "initPath": "/archive/jbg/dae-app/createUser",
+  "initFile": "WelcomeToYourArchive.md"
 }
 

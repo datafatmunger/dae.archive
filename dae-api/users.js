@@ -16,6 +16,22 @@ function encryptPassword(password, salt) {
   return crypto.createHmac('sha1', salt).update(password).digest('hex')
 }
 
+function initRepo(name) {
+  const cmd = `${config.binDir}/add_file.sh "${config.initPath}/${config.initFile}" "${config.initFile}" "${name}" "added README"`
+  console.log("INIT REPO", cmd)
+  return new Promise((resolve, reject) => {
+    exec(cmd, (error, stdout, stderr) => {
+        console.log(stdout)
+        console.log(stderr)
+        if(error) {
+          console.error(error)
+          reject(error)
+        }
+        resolve(true)
+      })
+  })
+}
+
 function createSystemUser(name, password, email) {
   return new Promise((resolve, reject) => {
     exec(config.binDir + '/add_user.sh ' +
@@ -52,6 +68,7 @@ exports.create = (email, name, password) => {
       stmt.finalize()
       try {
         await createSystemUser(name, password, email)
+        await initRepo(name)
         resolve(getUser(email))
       } catch(err) {
         reject(err)
