@@ -1,4 +1,5 @@
-const url = `http://80.100.106.160`
+//const url = `http://80.100.106.160`
+const url = `${window.location.protocol}//${window.location.host}`
 
 document.querySelector('input[name="password"]').addEventListener('keyup', async e => {
       if(e.keyCode === 13) createUser()
