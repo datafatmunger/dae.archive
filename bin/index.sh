@@ -102,10 +102,11 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
 
   echo $JSON
 
-  curl -d "$JSON" http://localhost:8983/solr/dae/update
+  curl -d "$JSON" http://solr:8983/solr/dae/update
 
 done
 
 rm -rf /tmp/*.archive
-#service solr restart
+
+curl "http://solr:8983/solr/admin/cores?action=RELOAD&core=dae"
 

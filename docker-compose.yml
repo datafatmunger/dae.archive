@@ -49,6 +49,8 @@ services:
       - ./bin:/dae
       - ./solr/dae.json:/dae/dae.json
       - ./solr/conf:/conf
+    networks:
+      - dae
 
 networks:
   dae:
