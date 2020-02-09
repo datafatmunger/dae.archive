@@ -7,7 +7,7 @@ if [ ! -d /home/jbg ]; then
 fi
 
 # Init sshd, if needed - JBG
-if [ ! -d /home/jbg ]; then
+if [ ! -d /var/run/sshd ]; then
   /usr/bin/ssh-keygen -A
   mkdir -p /var/run/sshd
 fi
