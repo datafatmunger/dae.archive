@@ -9,7 +9,7 @@ fi
 # Create wiki user, if doesn't exist - JBG
 if [ ! -d /home/wiki ]; then
   useradd -m wiki -s /bin/bash
-  usermod --password $(openssl passwd -1 password) $1
+  usermod --password $(openssl passwd -1 password) wiki 
 fi
 
 # Create jbg user, if doesn't exist - JBG
@@ -26,8 +26,17 @@ fi
 # Start sshd - JBG
 /usr/sbin/sshd
 
-pushd /app
+# Start wiki - JBG
+pushd /wiki/public
+if [ ! -d node_modules ]; then
+  npm install
+fi
 
+# Start dae-wiki - JBG
+npm run start &
+popd
+
+pushd /app
 if [ ! -d node_modules ]; then
   npm install sqlite3 --build-from-source
   npm install
