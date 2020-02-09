@@ -1,205 +1,69 @@
 # The DAE archive
 
-## Build containers
+## Running the archive
+
+### Build containers, start the containers
+
+The containers will only build the first time. Subsequent ups will simply run them.
 
     $ docker-compose up
 
-## Init Solr core
+## Additional one-time setup stuff 
+
+### Deploy this archive
+
+Since this archive contains dae-app and the index overlays, a `jbg` user was initialized and ready to receive this repository.
+
+    $ git remote add archive ssh://jbg@localhost:2222/~jbg/archive.git 
+
+    $ git push archive master
+
+### Create the Apache Solr core
 
     $ docker-compose exec solr bash
 
     $ /dae/reset_solr.sh
 
+### Setup the nightly index process
 
+    $ docker-compose exec archive bash
 
+    $ crontab -e
 
+Add the line:
 
+    5 2 * * * /usr/local/bin/index.sh
 
 
+## Nitty gritty details (for makers and hackers)
 
+Each folder contains a README.
 
+### docker-compose.yml
 
+Defines the containers, in this case 3 different containers, for the Debian based archive, Apache webserver, and Apache Solr (searching).
 
-# Old stuff ... remove me - JBG
+### cleanup.sh
 
-## sshd tweaks
+This is a helper script used during development to shread composed containers and artifacts between builds to test setup.
 
-Changed the following `sshd_config` configs for security purposes.  Basically only allows user logins with ssh keys.
+### config.json
 
-    ChallengeResponseAuthentication no
-    PasswordAuthentication no
-    UsePAM no
-    PermitRootLogin no
+Contains environment specific variables used by dae-api.
 
-## On machine user admin
+### init.sql
 
-### Creating a user
+Inital sqlite3 database state.
 
-Create a user and set the shell to bash.
+### Lenna.png
 
-    \# useradd -m <USER_NAME> -s /bin/bash
+Image used for testing imagemagick and tensorflow indexing.
 
-Set a password for the user.
+### sudoers
 
-    \# usermod --password <PASSWORD> <USER_NAME>
+Dropped into `/etc/sudoers` in the archive container. Allows users in the `sudo` group to `sudo`.
 
-### Deleting a user
+### test.pdf
 
-Deletes a user, the home directory and force deletes unowned files.
-
-    \# userdel -r -f <USER_NAME>
-
-## Apache setup
-
-### Install packages
-
-    \# apt install apache2
-
-### Enable relevant Apache modules
-
-Allow directory/file lists and browsing.
-
-    \# a2enmod autoindex
-
-Allow ~\<USER\_NAME\> style url access.
-
-    \# a2enmod userdir
-    \# a2enmod proxy 
-    \# a2enmod proxy_http 
-
-### Configure Apache
-
-Allow /archive to be root directory.  Add the following to `/etc/apache2/apache2.conf`.
-
-    <Directory /archive>
-            Options Indexes FollowSymLinks
-            AllowOverride None
-            Require all granted
-    </Directory>
-
-Enable a proxy pass for the upstream node HTTP API server
-
-    ProxyPass "/api" "http://localhost:8000"
-    ProxyPassReverse "/api" "http://localhost:8000"
-
-### Make `/archive` world readable.
-
-    \# chmod -R 777 /archive
-
-### Updates to `000-default.conf`
-
-    \# nano /etc/apache2/sites-enabled/000-default.conf
-
-Enable user dir `~<USER_NAME>`, add
-
-    UserDir public_html
-
-Set document root to `/archive`, change `DocumentRoot`
-
-    DocumentRoot /archive
-
-## Setup a user `git` flow
-
-### Create user archive repository
-
-    $ mkdir archive.git
-
-    $ cd archive.git
-
-    $ git init --bare
-
-### Add post receive hook
-
-Deploys a new archive on a `git push`.
-
-    $ nano archive.git/hooks/post-receive
-
-Add the following content to the `post-receive` file.
-
-    #!/bin/bash
-    echo "Hello hook ... $HOME"
-    mkdir -p /archive/$USER
-    git --work-tree=/archive/$USER --git-dir=$HOME/archive.git checkout -f
-    echo "Done."
-
-### Make `post-receive` executable.
-
-    $ chmod +x post-receive
-
-### Grab a local copy of repository
-
-    $ git clone ssh://<USER_NAME>@80.100.106.160/home/<USER_NAME>/archive.git dae.archive
-
-## API setup
-
-### Download nodejs
-
-    $ curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
-
-### Install nodejs repos
-
-    $sudo bash nodesource_setup.sh
-
-### Install packages
-
-    $ sudo apt install nodejs npm sqlite3
-
-### Create sqlite3 database
-
-    $ sudo sqlite3 /data/dae.db
-
-### Create tables
-
-    create table Users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      email TEXT NOT NULL,
-      name TEXT,
-      hash TEXT,
-      salt TEXT,
-      CONSTRAINT email_unique UNIQUE (email)
-    );
-
-    create table Tokens (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER,
-      name TEXT,
-      token TEXT,
-      series TEXT,
-      FOREIGN KEY(user_id) REFERENCES Users(id),
-      CONSTRAINT is_unique UNIQUE (user_id, name));
-
-## Create systemd unit file
-
-    $ sudo nano /etc/systemd/system/dae-api.service
-
-## Add the content
-
-    [Unit]
-    Description=DAE API
-
-    [Service]
-    ExecStart=/usr/bin/node /root/dae-api/server.js
-
-    [Install]
-    WantedBy=multi-user.target
-
-## Image Processing with ImageMagick!
-
-## Make 'thumbs' subdirectory and convert images to thumbnails into that directory
-
-    $ mogrify -path ./thumbs/ -resize 100x100 *
-
-## Print the 5 most recurring pixels in an image (for searching / indexing)
-
-    $ convert FILENAME -format %c -depth 8 histogram:info:- | sort -r | head -5
-
-
-
-
-
-
-
-/usr/sbin/sshd -D
-
-git clone ssh://jbg@localhost:2222/~jbg/archive.git
+Test pdf used to test indexing of PDFs.
 

@@ -2,7 +2,7 @@ FROM debian:latest
 MAINTAINER JBG <jbg@hacker.coffee>
 
 RUN apt-get update -y; \
-  apt-get install -y sqlite3 curl build-essential git sudo openssh-server python3-pip imagemagick
+  apt-get install -y sqlite3 curl build-essential git sudo openssh-server python3-pip imagemagick vim croni poppler-utils
 
 RUN pip3 install gitpython tensorflow
 
