@@ -2,6 +2,10 @@
 
 ## Running the archive
 
+### Check out the repository, and submodules
+
+    $ git clone --recurse-submodules https://github.com/datafatmunger/dae.archive.git
+
 ### Build containers, start the containers
 
 The containers will only build the first time. Subsequent ups will simply run them.

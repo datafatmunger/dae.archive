@@ -6,6 +6,12 @@ if [ ! -d /home/jbg ]; then
   usermod -aG sudo jbg
 fi
 
+# Create wiki user, if doesn't exist - JBG
+if [ ! -d /home/wiki ]; then
+  useradd -m wiki -s /bin/bash
+  usermod --password $(openssl passwd -1 password) $1
+fi
+
 # Create jbg user, if doesn't exist - JBG
 if [ ! -f /data/dae.db ]; then
   sqlite3 /data/dae.db < /init.sql

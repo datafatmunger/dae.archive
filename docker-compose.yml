@@ -16,11 +16,13 @@ services:
       - ./vols/home:/home
       - ./vols/tmp:/tmp
       - ./dae-api:/app
+      - ./dae-wiki:/wiki
       - ./config.json:/config.json
       - ./init.sql:/init.sql
     ports:
       - "2222:22"
       - "3000:3000"
+      - "5000:5000"
     networks:
       - dae
 
