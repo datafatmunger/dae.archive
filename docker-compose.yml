@@ -23,8 +23,6 @@ services:
       - "2222:22"
       - "3000:3000"
       - "5000:5000"
-    networks:
-      - dae
 
   apache: 
     container_name: apache
@@ -38,8 +36,6 @@ services:
     command: "apachectl -DFOREGROUND"
     ports:
       - "8000:80"
-    networks:
-      - dae
 
   solr:
     container_name: solr
@@ -52,11 +48,6 @@ services:
       - ./solr/dae.json:/dae/dae.json
       - ./solr/daewiki.json:/dae/daewiki.json
       - ./solr/conf:/conf
-    networks:
-      - dae
-
-networks:
-  dae:
 
 volumes:
   solr:
