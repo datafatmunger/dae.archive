@@ -10,15 +10,10 @@ services:
     command: /usr/local/bin/run.sh 
     #command: tail -f /dev/null
     volumes:
-      - ./bin:/usr/local/bin
       - ./vols/data:/data
       - ./vols/archive:/archive
       - ./vols/home:/home
       - ./vols/tmp:/tmp
-      - ./dae-api:/app
-      - ./dae-wiki:/wiki
-      - ./config.json:/config.json
-      - ./init.sql:/init.sql
     ports:
       - "2222:22"
       - "5000:5000"

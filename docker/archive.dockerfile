@@ -9,5 +9,14 @@ RUN pip3 install gitpython tensorflow
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -; \
   apt-get install -y nodejs
 
-ADD sudoers /etc/sudoers
+ADD bin /usr/local/bin
 
+ADD config.json /config.json
+
+ADD dae-api /app
+
+ADD dae-wiki /wiki
+
+ADD init.sql /init.sql
+
+ADD sudoers /etc/sudoers
