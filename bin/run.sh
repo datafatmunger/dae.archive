@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Configure user permissions for file uploads
+chmod a+wt /archive /tmp
+
 # Create jbg user, if doesn't exist - JBG
 if [ ! -d /home/jbg ]; then
   /usr/local/bin/add_user.sh jbg password jbg@example.com
