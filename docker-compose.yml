@@ -34,7 +34,7 @@ services:
       - ./vols/archive:/archive
     command: "apachectl -DFOREGROUND"
     ports:
-      - "8000:80"
+      - "80:80"
 
   solr:
     container_name: solr
