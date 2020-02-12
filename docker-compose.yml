@@ -29,8 +29,6 @@ services:
       context: .
       dockerfile: docker/apache.dockerfile 
     volumes:
-      - ./apache/apache2.conf:/etc/apache2/apache2.conf
-      - ./apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./vols/archive:/archive
     command: "apachectl -DFOREGROUND"
     ports:
