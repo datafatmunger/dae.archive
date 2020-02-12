@@ -21,7 +21,6 @@ services:
       - ./init.sql:/init.sql
     ports:
       - "2222:22"
-      - "3000:3000"
       - "5000:5000"
 
   apache: 
@@ -40,8 +39,6 @@ services:
   solr:
     container_name: solr
     image: solr:latest
-    ports:
-     - "8983:8983"
     volumes:
       - solr:/var/solr
       - ./bin:/dae
