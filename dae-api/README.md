@@ -11,9 +11,6 @@
 ## Get user
 
     $ curl --cookie cookies ${base_url}/users/1
-## Upload a file
-
-    $ curl -F file=@foo --cookie cookies ${base_url}/upload
 
 ## Remove a user
 
