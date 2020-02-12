@@ -2,23 +2,23 @@
 
 ## Create user
 
-    $ curl -H "Content-Type: application/json" -d '{"email": "jbg@example.com", "name": "jbg", "password": "password"}' ${base_url}/users
+    $ curl -H "Content-Type: application/json" -d '{"email": "jbg@example.com", "name": "jbg", "password": "password"}' ${base_url}/api/users
 
 ## Login
 
-    $ curl -H "Content-Type: application/json" -d '{"email": "jbg@example.com", "password": "password"}' --cookie-jar cookies ${base_url}/users/login
+    $ curl -H "Content-Type: application/json" -d '{"email": "jbg@example.com", "password": "password"}' --cookie-jar cookies ${base_url}/api/users/login
 
 ## Get user
 
-    $ curl --cookie cookies ${base_url}/users/1
+    $ curl --cookie cookies ${base_url}/api/users/1
 
 ## Remove a user
 
-    $ curl -X DELETE --cookie cookies ${base_url}/users/1
+    $ curl -X DELETE --cookie cookies ${base_url}/api/users/1
 
 ## Upload file to archive
 
-    $ curl -F file=@foo --cookie cookies ${base_url}/upload
+    $ curl -F file=@foo --cookie cookies ${base_url}/api/files
 
 ## Remove a file from archive
 
