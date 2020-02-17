@@ -13,10 +13,14 @@ ADD bin /usr/local/bin
 
 ADD config.json /config.json
 
-ADD dae-api /app
-
-ADD dae-wiki /wiki
-
 ADD init.sql /init.sql
 
 ADD sudoers /etc/sudoers
+
+ADD dae-api /app
+
+RUN cd /app && npm install sqlite3 && npm install
+
+ADD dae-wiki /wiki
+
+RUN cd /wiki/public && npm install
