@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: apache
+  name: apache
+  namespace: ingress-basic
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: apache
+    spec:
+      containers:
+      - args:
+        - apachectl
+        - -DFOREGROUND
+        image: reg24619.azurecr.io/daearchive_apache:v2
+        name: apache
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /archive
+          name: archive
+      restartPolicy: Always
+      volumes:
+      - name: archive
+        persistentVolumeClaim:
+          claimName: pvc-archive
+status: {}

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-home
+  namespace: ingress-basic
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  azureFile:
+    secretName: storage-secret
+    shareName: home
+    readOnly: false
+  mountOptions:
+    - dir_mode=0731
+    - file_mode=0724
+    - gid=1000
+    - mfsymlinks
+    - nobrl
+    - uid=1000

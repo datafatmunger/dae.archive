@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: archive
+  name: archive
+  namespace: ingress-basic
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: archive
+    spec:
+      containers:
+      - args:
+        - /usr/local/bin/run.sh
+        image: reg24619.azurecr.io/daearchive_archive:v21
+        name: archive
+        ports:
+        - containerPort: 22
+        - containerPort: 3000
+        - containerPort: 5000
+        resources: {}
+        volumeMounts:
+        - mountPath: /archive
+          name: archive
+        - mountPath: /data
+          name: data
+        - mountPath: /home
+          name: home
+        - mountPath: /tmp
+          name: tmp
+        workingDir: /app
+      restartPolicy: Always
+      volumes:
+      - name: archive
+        persistentVolumeClaim:
+          claimName: pvc-archive
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-data
+      - name: home
+        persistentVolumeClaim:
+          claimName: pvc-home
+      - name: tmp
+        persistentVolumeClaim:
+          claimName: pvc-tmp
+status: {}
