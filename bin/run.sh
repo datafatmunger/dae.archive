@@ -29,7 +29,7 @@ fi
 # Start wiki - JBG
 pushd /wiki/public
 if [ ! -d node_modules ]; then
-  npm install
+  npm install && npm run start
 fi
 
 # Start dae-wiki - JBG
