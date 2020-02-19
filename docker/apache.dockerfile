@@ -12,4 +12,4 @@ RUN a2enmod autoindex; \
 
 ADD apache/apache2.conf /etc/apache2/apache2.conf
 
-ADD apache/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+ADD apache/merged.conf /etc/apache2/sites-enabled/api_wiki_general.conf

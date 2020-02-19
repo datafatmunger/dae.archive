@@ -16,7 +16,6 @@ services:
       - ./vols/tmp:/tmp
     ports:
       - "2222:22"
-      - "5000:5000"
 
   apache: 
     container_name: apache
