@@ -15,7 +15,7 @@ spec:
         io.kompose.service: solr
     spec:
       containers:
-      - image: reg24619.azurecr.io/daearchive_solr:v2
+      - image: reg24619.azurecr.io/daearchive_solr:0219
         name: solr
         resources: {}
         volumeMounts:

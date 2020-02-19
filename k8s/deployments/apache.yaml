@@ -17,7 +17,7 @@ spec:
       - args:
         - apachectl
         - -DFOREGROUND
-        image: reg24619.azurecr.io/daearchive_apache:v2
+        image: reg24619.azurecr.io/daearchive_apache:0219
         name: apache
         ports:
         - containerPort: 80
