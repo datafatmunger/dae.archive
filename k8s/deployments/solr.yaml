@@ -24,8 +24,6 @@ spec:
       restartPolicy: Always
       volumes:
       - name: solr
-        azureFile:
-          secretName: storage-secret
-          shareName: solr
-          readOnly: false
+        persistentVolumeClaim:
+          claimName: pvc-solr
 status: {}

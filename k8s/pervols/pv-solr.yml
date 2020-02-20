@@ -13,9 +13,9 @@ spec:
     shareName: solr
     readOnly: false
   mountOptions:
-    - dir_mode=0777
-    - file_mode=0777
-    - gid=1000
+    - dir_mode=0750
+    - file_mode=0750
+    - gid=8983
     - mfsymlinks
     - nobrl
-    - uid=1000
+    - uid=8983
