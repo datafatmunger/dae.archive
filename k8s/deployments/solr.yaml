@@ -4,7 +4,7 @@ metadata:
   labels:
     io.kompose.service: solr
   name: solr
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   replicas: 1
   strategy:
@@ -15,7 +15,7 @@ spec:
         io.kompose.service: solr
     spec:
       containers:
-      - image: reg24619.azurecr.io/daearchive_solr:0219
+      - image: awimages.azurecr.io/daearchive_solr:latest
         name: solr
         resources: {}
         volumeMounts:

@@ -4,7 +4,7 @@ metadata:
   labels:
     io.kompose.service: apache
   name: apache
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   replicas: 1
   strategy: {}
@@ -17,7 +17,7 @@ spec:
       - args:
         - apachectl
         - -DFOREGROUND
-        image: reg24619.azurecr.io/daearchive_apache:0219
+        image: awimages.azurecr.io/daearchive_apache:latest
         name: apache
         ports:
         - containerPort: 80

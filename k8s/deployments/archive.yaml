@@ -4,7 +4,7 @@ metadata:
   labels:
     io.kompose.service: archive
   name: archive
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   replicas: 1
   strategy:
@@ -17,7 +17,7 @@ spec:
       containers:
       - args:
         - /usr/local/bin/run.sh
-        image: reg24619.azurecr.io/daearchive_archive:0219
+        image: awimages.azurecr.io/daearchive_archive:latest
         name: archive
         ports:
         - containerPort: 22
