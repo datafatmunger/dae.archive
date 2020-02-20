@@ -4,7 +4,7 @@ metadata:
   labels:
     io.kompose.service: archive
   name: archive
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   ports:
   - name: archive-ssh

@@ -4,7 +4,7 @@ metadata:
   labels:
     io.kompose.service: apache
   name: apache
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   ports:
   - name: apache-http
