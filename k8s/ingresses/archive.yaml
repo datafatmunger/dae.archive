@@ -9,21 +9,21 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: archive.dae
+  - host: searchdev.designacademy.nl
     http:
       paths:
       - backend:
           serviceName: apache
           servicePort: apache-http
         path: /(|$)(.*)
-  - host: api.archive.dae
+  - host: apidev.designacademy.nl
     http:
       paths:
       - backend:
           serviceName: apache
           servicePort: apache-http
         path: /(|$)(.*)
-  - host: wiki.archive.dae
+  - host: wikidev.designacademy.nl
     http:
       paths:
       - backend:
