@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-tmp
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   accessModes:
     - ReadWriteMany

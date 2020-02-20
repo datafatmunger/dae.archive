@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-archive
+  name: pvc-solr
   namespace: archive-wiki
 spec:
   accessModes:
@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: ""
-  volumeName: pv-archive
+  volumeName: pv-solr

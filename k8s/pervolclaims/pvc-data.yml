@@ -3,12 +3,12 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-data
-  namespace: ingress-basic
+  namespace: archive-wiki
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Gi
   storageClassName: ""
   volumeName: pv-data
