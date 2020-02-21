@@ -234,11 +234,11 @@ async function login() {
 }
 
 async function init() {
+  auth = await checkAuth()
   showSearch()
 //  uncomment below line to run empty search and display list of files on page load
 //  doSearch() 
   doSort()
-  auth = await checkAuth()
   auth
        ? document.querySelector('main nav li.login').classList.add('hidden')
        : document.querySelector('main nav li.login').classList.remove('hidden')
