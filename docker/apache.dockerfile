@@ -10,5 +10,6 @@ RUN a2enmod autoindex; \
   a2enmod proxy_http; \
   a2enmod headers
 
+ADD apache/apache2.conf /etc/apache2/apache2.conf
 
-
+ADD apache/merged.conf /etc/apache2/sites-enabled/api_wiki_general.conf

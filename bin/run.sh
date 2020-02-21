@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# debug
+set -o xtrace
+
+# Configure user permissions for file uploads
+chmod a+wt /archive /tmp
+
 # Create jbg user, if doesn't exist - JBG
 if [ ! -d /home/jbg ]; then
   /usr/local/bin/add_user.sh jbg password jbg@example.com
@@ -26,22 +32,14 @@ fi
 # Start sshd - JBG
 /usr/sbin/sshd
 
-# Start wiki - JBG
-pushd /wiki/public
-if [ ! -d node_modules ]; then
-  npm install
-fi
 
 # Start dae-wiki - JBG
+cd /wiki/public
+# this really deserves its own container,
+# so it can run in the foreground
 npm run start &
-popd
-
-pushd /app
-if [ ! -d node_modules ]; then
-  npm install sqlite3 --build-from-source
-  npm install
-fi
 
 # Start dae-api - JBG
+cd /app
 npm start
 
