@@ -30,3 +30,13 @@ spec:
           serviceName: apache
           servicePort: apache-http
         path: /(|$)(.*)
+  tls:
+  - hosts:
+    - apidev.designacademy.nl
+    secretName: tls-apidev
+  - hosts:
+    - searchdev.designacademy.nl
+    secretName: tls-searchdev
+  - hosts:
+    - wikidev.designacademy.nl
+    secretName: tls-wikidev
