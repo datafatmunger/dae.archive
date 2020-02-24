@@ -79,6 +79,9 @@ docker push awimages.azurecr.io/daearchive_apache:latest
 
 ### Kubernetes
 
+* create namespace for this project:
+`kubectl create namespace archive-wiki`
+
 * deploy persistent volumes:
 `for pv in k8s/pervols/*yml; do kubectl apply -f "$pv"; done`
 
@@ -111,21 +114,8 @@ key=$(echo -n "$storage_account_key" | base64)
 * install helm:
 `curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get-helm-3 | bash -o xtrace -`
 
-* configure helm:
-`helm repo add stable https://kubernetes-charts.storage.googleapis.com`
-
 * provision ingress controller:
-`kubectl create namespace archive-wiki`
-
-```
-helm install nginx-ingress stable/nginx-ingress \
---namespace archive-wiki \
---set controller.configMapNamespace=archive-wiki \
---set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
---set controller.replicaCount=2 \
---set controller.tcp.configMapNamespace \
---set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
-```
+`helm upgrade --install nginx-ingress k8s/charts/nginx-ingress --namespace archive-wiki --values k8s/charts/nginx-ingress/values.yaml`
 
 * deploy ingress:
 `kubectl apply -f k8s/ingresses/archive.yaml`
