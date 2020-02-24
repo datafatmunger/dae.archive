@@ -238,7 +238,8 @@ async function login() {
 }
 
 async function logout() {
-  const res = await postData(`${url}/api/users/logout`, { credentials: 'same-origin', method: 'DELETE' })
+  auth = false
+  const res = await fetch(`${url}/api/users/logout`, { credentials: 'same-origin', method: 'DELETE' })
   if(res.error) showMsg(res.error, true)
   else showLogin()
 }
