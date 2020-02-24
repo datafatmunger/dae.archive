@@ -122,11 +122,14 @@ key=$(echo -n "$storage_account_key" | base64)
 
 ### Test applications
 
+* set default namespace for kubectl commands:
+`kubectl config set-context $(kubectl config current-context) --namespace=archive-wiki`
+
 * connect to the solr pod, find the pods id:
-`kubectl --namespace archive-wiki get pods`
+`kubectl get pods`
 
 * run a shell in the container:
-`kubectl --namespace archive-wiki exec "$pod_name" -it -- /bin/bash`
+`kubectl exec "$pod_name" -it -- /bin/bash`
 
 (follow solr/create_cores.md, but skip the "docker exec solr" at the start of each command)
 
