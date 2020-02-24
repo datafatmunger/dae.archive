@@ -7,16 +7,19 @@
 </head>
 <body>
 <main></main>
+
 <!-- Login -->
 <template id="login">
 <div class="login">
-  <fieldset>
-<!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
-    <input type="text" name="email" id="email" placeholder="Email"/>
-    <input type="password" name="password" id="pass" placeholder="Password"/>
-    <button>login</button>→
-    <p class="msg">Fail.</p>
-  </fieldset>
+  <form id="loginform">
+    <fieldset>
+  <!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
+      <input type="text" name="email" id="email" placeholder="Email"/>
+      <input type="password" name="password" id="pass" placeholder="Password"/>
+      <input type="submit" value="login"/>→
+      <p class="msg">Fail.</p>
+    </fieldset>
+  </form>
 </div>
 </template>
 

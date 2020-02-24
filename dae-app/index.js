@@ -21,7 +21,9 @@ function showLogin() {
   showMenu()
   document.querySelector('main nav li.login').classList.add('hidden')
   showElm('login', 'main', false)
-  document.querySelector('main .login button').addEventListener('click', async e => {
+  document.querySelector('#loginform').addEventListener('submit', async e => {
+    e.preventDefault()
+    e.stopPropagation()
     await login()
   })
   document.querySelector('#email').addEventListener('keyup', async e => {
