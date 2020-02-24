@@ -22,7 +22,7 @@ app.get('/users/me', auth.authorization, (req, res, next) => {
   }
 })
 
-app.delete('/users/logout', auth.authorization, async (req, res, next) => {
+app.post('/users/logout', auth.authorization, async (req, res, next) => {
   try {
     user = req.user
     res.clearCookie(cookieName)
