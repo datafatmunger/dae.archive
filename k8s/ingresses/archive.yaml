@@ -4,6 +4,7 @@ metadata:
   name: aw-ingress
   namespace: archive-wiki
   annotations:
+    cert-manager.io/issuer: le-production
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
