@@ -120,6 +120,37 @@ key=$(echo -n "$storage_account_key" | base64)
 * deploy ingress:
 `kubectl apply -f k8s/ingresses/archive.yaml`
 
+#### Certificates
+
+* provision cert-manager's custom k8s resources:
+`kubectl apply -f k8s/resources/00-crds.yaml`
+
+* create namespace for cert-manager:
+`kubectl create namespace cert-manager`
+
+* provision cert-manager:
+`helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --version v0.13.1`
+
+* create le-staging issuer:
+`kubectl apply -f k8s/resources/issuer-staging.yml`
+
+* issue staging certificates:
+(add annotation to ingress: "cert-manager.io/issuer: le-staging")
+
+`kubectl apply -f k8s/ingresses/archive.yaml`
+
+(pre-existing certificates are replaced without user interaction)
+
+* create le-production issuer:
+`kubectl apply -f k8s/resources/issuer-production.yml`
+
+* issue production certificates:
+(update annotation in ingress: "cert-manager.io/issuer: le-production")
+
+`kubectl apply -f k8s/ingresses/archive.yaml`
+
+(pre-existing certificates are replaced without user interaction)
+
 ### Test applications
 
 * set default namespace for kubectl commands:
