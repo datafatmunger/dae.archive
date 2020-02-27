@@ -69,12 +69,12 @@ kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-adm
 * upload images to acr:
 
 ```
-docker image tag daearchive_apache:latest awimages.azurecr.io/daearchive_apache:latest
-docker image tag daearchive_solr:latest awimages.azurecr.io/daearchive_solr:latest
-docker image tag daearchive_archive:latest awimages.azurecr.io/daearchive_archive:latest
-docker push awimages.azurecr.io/daearchive_archive:latest
-docker push awimages.azurecr.io/daearchive_solr:latest
-docker push awimages.azurecr.io/daearchive_apache:latest
+docker image tag daearchive_apache:latest awimages.azurecr.io/daearchive_apache:20200227a
+docker image tag daearchive_solr:latest awimages.azurecr.io/daearchive_solr:20200227a
+docker image tag daearchive_archive:latest awimages.azurecr.io/daearchive_archive:20200227a
+docker push awimages.azurecr.io/daearchive_archive:20200227a
+docker push awimages.azurecr.io/daearchive_solr:20200227a
+docker push awimages.azurecr.io/daearchive_apache:20200227a
 ```
 
 ### Kubernetes
@@ -150,6 +150,47 @@ key=$(echo -n "$storage_account_key" | base64)
 `kubectl apply -f k8s/ingresses/archive.yaml`
 
 (pre-existing certificates are replaced without user interaction)
+
+#### Application releases
+
+The release of applications is controlled by _deployments_. An auditable, and rollbackable method of updating applications on Kubernetes is as follows:
+
+* create a new container image version
+
+* tag the new container image (i.e. 20200227a; the ISO date + an incremental suffix)
+
+* push the new container image to the registry
+
+* update the deployment manifest:
+(this example is abbreviated to emphasize the relevant changes)
+
+```
+ spec:
+   template:
+     metadata:
+       labels:
+         io.kompose.service: archive
+-        version: "20200223c"
++        version: "20200227a"
+     spec:
+       containers:
+-        image: awimages.azurecr.io/daearchive_apache:20200223c
++        image: awimages.azurecr.io/daearchive_apache:20200227a
+```
+
+* set default namespace for kubectl commands:
+`kubectl config set-context $(kubectl config current-context) --namespace=archive-wiki`
+
+* apply the changes to the deployment:
+`kubectl apply -f k8s/deployments/archive.yaml`
+
+* commit, and push your changes to the git repository for future reference
+
+* [optional] check the status of the release:
+`kubectl rollout status deployment/archive`
+
+* [emergency] roll back to the previous release:
+`kubectl rollout undo deployment/archive`
 
 ### Test applications
 
