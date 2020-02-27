@@ -21,7 +21,9 @@ function showLogin() {
   showMenu()
   document.querySelector('main nav li.login').classList.add('hidden')
   showElm('login', 'main', false)
-  document.querySelector('main .login button').addEventListener('click', async e => {
+  document.querySelector('#loginform').addEventListener('submit', async e => {
+    e.preventDefault()
+    e.stopPropagation()
     await login()
   })
   document.querySelector('#email').addEventListener('keyup', async e => {
@@ -81,16 +83,18 @@ function showMenu() {
   let archiveButton = document.querySelector('main nav li.archive')
   let browseButton = document.querySelector('main nav li.browse')
   let aboutButton = document.querySelector('main nav li.about')
+  let logoutButton = document.querySelector('main nav li.logout')
 
 // Hides Upload + Personal Archive links whem user not logged in — KM
 
   if(auth) {
     uploadButton.classList.remove('hidden')
     archiveButton.classList.remove('hidden')
-
+    logoutButton.classList.remove('hidden')
   } else {
     uploadButton.classList.add('hidden')
     archiveButton.classList.add('hidden')
+    logoutButton.classList.add('hidden')
   }
 
   const items = document.querySelectorAll('main nav li')
@@ -98,7 +102,8 @@ function showMenu() {
     const c = e.target.classList[0]
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
-    else if(c === 'login') showLogin()
+    //else if(c === 'login') showLogin()
+    else if(c === 'logout') await logout()
   }))
   document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
   document.querySelector('main nav li.archive a').innerHTML =`${username}`
@@ -216,7 +221,6 @@ async function search(txt, srt) {
   return await res.json()
 }
 
-
 async function login() {
   const email = document.querySelector('main .login input[name="email"]').value
   const pass = document.querySelector('main .login input[name="password"]').value
@@ -233,12 +237,19 @@ async function login() {
   }
 }
 
+async function logout() {
+  auth = false
+  const res = await fetch(`${url}/api/users/logout`, { credentials: 'same-origin', method: 'DELETE' })
+  if(res.error) showMsg(res.error, true)
+  else showLogin()
+}
+
 async function init() {
+  auth = await checkAuth()
   showSearch()
 //  uncomment below line to run empty search and display list of files on page load
 //  doSearch() 
   doSort()
-  auth = await checkAuth()
   auth
        ? document.querySelector('main nav li.login').classList.add('hidden')
        : document.querySelector('main nav li.login').classList.remove('hidden')

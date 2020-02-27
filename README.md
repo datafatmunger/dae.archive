@@ -38,7 +38,6 @@ Add the line:
 
     5 2 * * * /usr/local/bin/index.sh
 
-
 ## Nitty gritty details (for makers and hackers)
 
 Each folder contains a README.
