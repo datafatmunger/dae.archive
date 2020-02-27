@@ -10,21 +10,12 @@ services:
     command: /usr/local/bin/run.sh 
     #command: tail -f /dev/null
     volumes:
-      - ./bin:/usr/local/bin
       - ./vols/data:/data
       - ./vols/archive:/archive
       - ./vols/home:/home
       - ./vols/tmp:/tmp
-      - ./dae-api:/app
-      - ./dae-wiki:/wiki
-      - ./config.json:/config.json
-      - ./init.sql:/init.sql
     ports:
       - "2222:22"
-      - "3000:3000"
-      - "5000:5000"
-    networks:
-      - dae
 
   apache: 
     container_name: apache
@@ -32,30 +23,18 @@ services:
       context: .
       dockerfile: docker/apache.dockerfile 
     volumes:
-      - ./apache/apache2.conf:/etc/apache2/apache2.conf
-      - ./apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./vols/archive:/archive
     command: "apachectl -DFOREGROUND"
     ports:
       - "80:80"
-    networks:
-      - dae
 
   solr:
     container_name: solr
-    image: solr:latest
-    ports:
-     - "8983:8983"
+    build:
+      context: .
+      dockerfile: docker/solr.dockerfile
     volumes:
       - solr:/var/solr
-      - ./bin:/dae
-      - ./solr/dae.json:/dae/dae.json
-      - ./solr/conf:/conf
-    networks:
-      - dae
-
-networks:
-  dae:
 
 volumes:
   solr:
