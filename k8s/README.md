@@ -53,7 +53,7 @@ az configure --defaults acr=awimages
 * create AKS cluster:
 
 ```
-az aks create --resource-group archive-wiki --name awcluster01 --attach-acr awimages --generate-ssh-keys --kubernetes-version 1.15.7 --load-balancer-sku standard --network-plugin azure --node-count 1 --node-vm-size Standard_A4_v2
+az aks create --resource-group archive-wiki --name awcluster01 --attach-acr awimages --generate-ssh-keys --kubernetes-version 1.15.7 --load-balancer-sku standard --network-plugin azure --node-count 1 --node-vm-size Standard_B2s
 az aks get-credentials --name awcluster01
 kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
 ```
@@ -62,7 +62,7 @@ kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-adm
 `az aks browse --name awcluster01`
 
 * create file shares:
-`for share in archive data home solr tmp; do az storage share create --account-name hothns --name "$share" --quota 1; done`
+`for share in archive data solr tmp; do az storage share create --account-name hothns --name "$share" --quota 1; done`
 
 ### Container images
 

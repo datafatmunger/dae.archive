@@ -30,10 +30,12 @@ spec:
         - mountPath: /data
           name: data
         - mountPath: /home
-          name: home
+          name: home-disk
         - mountPath: /tmp
           name: tmp
         workingDir: /app
+      nodeSelector:
+        storagetier: Premium_LRS
       restartPolicy: Always
       volumes:
       - name: archive
@@ -42,9 +44,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: pvc-data
-      - name: home
+      - name: home-disk
         persistentVolumeClaim:
-          claimName: pvc-home
+          claimName: pvc-home-disk
       - name: tmp
         persistentVolumeClaim:
           claimName: pvc-tmp

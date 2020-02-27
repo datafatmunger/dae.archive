@@ -1,14 +1,12 @@
----
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
-  name: pvc-home
+  name: pvc-home-disk
   namespace: archive-wiki
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ""
-  volumeName: pv-home
+  storageClassName: managed-premium
