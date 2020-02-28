@@ -36,7 +36,7 @@
     "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
-    "multivalued" : false,
+    "multiValued" : false,
     "required"    : true
   },
   "add-field": {
@@ -52,7 +52,7 @@
     "type"        : "pint",
     "indexed"     : true,
     "stored"      : true,
-    "multivalued" : false,
+    "multiValued" : false,
     "required"    : true
   },
   "add-field": {
@@ -70,6 +70,14 @@
     "stored"      : true,
     "multiValued" : false,
     "required"    : true 
+  },
+  "add-field": {
+    "name"        : "path",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
   },
   "add-field": {
     "name"        : "commits",
