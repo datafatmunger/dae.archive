@@ -125,7 +125,7 @@ input[type="text"]#note {
     -webkit-transition: ease 0.25s;
     transition: ease 0.25s;
 }
-button, button:active, button:focus {
+input[type=submit], button, button:active, button:focus {
     font-family: inherit;
     font-size: inherit;
     background-color: transparent;
@@ -134,7 +134,7 @@ button, button:active, button:focus {
     outline: none;
     cursor: pointer;
 }
-button:hover {
+input[type=submit]:hover, button:hover {
     text-decoration: underline;
 }
 fieldset [type=file] {

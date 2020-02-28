@@ -7,16 +7,19 @@
 </head>
 <body>
 <main></main>
+
 <!-- Login -->
 <template id="login">
 <div class="login">
-  <fieldset>
-<!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
-    <input type="text" name="email" id="email" placeholder="Email"/>
-    <input type="password" name="password" id="pass" placeholder="Password"/>
-    <button>login</button>→
-    <p class="msg">Fail.</p>
-  </fieldset>
+  <form id="loginform">
+    <fieldset>
+  <!--    <header><legend>Please enter your email and password in order to login.</legend></header>-->
+      <input type="text" name="email" id="email" placeholder="Email"/>
+      <input type="password" name="password" id="pass" placeholder="Password"/>
+      <input type="submit" value="Go" class="go"/>→
+      <p class="msg">Fail.</p>
+    </fieldset>
+  </form>
 </div>
 </template>
 
@@ -36,7 +39,7 @@
 <template id="search">
 <div class="search">
   <div class="searchField">
-    <input id="command" type="text" name="search" placeholder="Search the DAE Archive"/>
+    <input id="command" type="text" name="search" placeholder="Search the archive"/>
     <button class="go">Go</button>→
       <p class="sorting">Sort "<span id="query"></span>" by <button class="sortCategory name">name</button><span>↓</span><button class="sortCategory date">date</button>↓ or <button class="sortCategory type">type</button>↓</p>
     <p class="msg">0 results.</p>
@@ -58,12 +61,13 @@
 <template id="menu">
 <nav>
   <ul>
-    <li class="title"><a href="./">DAE Archive</a></li>
+    <li class="title"><a href="./">80.100.106.160</a></li>
     <li class="archive"><a href="#"></a></li>
     <li class="browse"><a href="http://80.100.106.160">userindex</a></li>
-    <li class="login">login</li>
+    <li class="login"><a href="/auth/signin">login</a></li>
     <li class="upload">upload</li>
     <li class="about"><a href="about.html">about</a></li>
+    <li class="logout">logout</li>
   </ul>
 </nav>
 </template>
