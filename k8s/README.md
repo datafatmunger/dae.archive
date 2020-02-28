@@ -17,7 +17,11 @@ The _Container Instances_ service is not meant to host clusters of containers, a
 
 ### Storage
 
-When running docker compose in local development environments, the local storage is used to map storage volumes. In Azure however, we need to select Azure storage account type storage to map to the containers. There is a simple way of specifying an Azure file share in a Kubernetes deployment. However, that method lacks control over the mount options of the volume. Sadly, the default mount options do not allow for symlinks to be created. The node processes rely on creating symlinks and are therefore incompatible with the default mount options. Luckily, there is another method of mapping the Azure storage to the Kubernetes cluster: persistent volumes. By configuring persistent volume objects in the Kubernetes cluster we can configure the mount options of the file shares. That way we can enable symlink support, and control default ownership and permissions.
+When running docker compose in local development environments, the local storage is used to map storage volumes. In Azure however, we need to select _Azure storage account_ type storage to map to the containers.
+
+There is a simple way of specifying an _Azure Files_ share in a Kubernetes deployment. However, that method lacks control over the mount options of the volume. Sadly, the default mount options do not allow for symlinks to be created. Luckily, there is another method of mapping file shares to the Kubernetes cluster: persistent volumes. By configuring persistent volume objects in the Kubernetes cluster we can configure the mount options of the file shares. That way we can enable symlink support, and control (hardcoded) ownership and permissions.
+
+But if we desire full unix filesystem capabilities, without hardcoded ownership and permissions, we must use _Azure Disks_ storage. Using such storage comes with a few constraints. Disks are only available in the _Premium Storage_ tier. To use premium storage in AKS we require a Kubernetes node of a select set of VM sizes. Not every VM size supports premium storage use. Another limitation of using premium storage is reflected in the storage replication options: only locally redundant storage (LRS) is available. And finally, _Azure Disks_ volumes can only be accessed by one pod at a time, while _Azure Files_ volumes can be shared across multiple pods.
 
 ## Instructions
 
