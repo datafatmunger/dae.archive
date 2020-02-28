@@ -15,13 +15,13 @@ spec:
     metadata:
       labels:
         io.kompose.service: apache
-        version: "20200227a"
+        version: "20200228g"
     spec:
       containers:
       - args:
         - apachectl
         - -DFOREGROUND
-        image: awimages.azurecr.io/daearchive_apache:latest
+        image: awimages.azurecr.io/daearchive_apache:20200228g
         name: apache
         ports:
         - containerPort: 80
