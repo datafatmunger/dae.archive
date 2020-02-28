@@ -81,16 +81,18 @@ function showMenu() {
   let archiveButton = document.querySelector('main nav li.archive')
   let browseButton = document.querySelector('main nav li.browse')
   let aboutButton = document.querySelector('main nav li.about')
+  let logoutButton = document.querySelector('main nav li.logout')
 
 // Hides Upload + Personal Archive links whem user not logged in — KM
 
   if(auth) {
     uploadButton.classList.remove('hidden')
     archiveButton.classList.remove('hidden')
-
+    logoutButton.classList.remove('hidden')
   } else {
     uploadButton.classList.add('hidden')
     archiveButton.classList.add('hidden')
+    logoutButton.classList.add('hidden')
   }
 
   const items = document.querySelectorAll('main nav li')
@@ -99,6 +101,7 @@ function showMenu() {
     if(c === 'search') showSearch()
     else if(c === 'upload') showUpload()
     else if(c === 'login') showLogin()
+    else if(c === 'logout') await logout()
   }))
   document.querySelector('main nav li.archive a').setAttribute('href', `${url}/${username}`)
   document.querySelector('main nav li.archive a').innerHTML =`${username}`
@@ -216,6 +219,16 @@ async function search(txt, srt) {
   return await res.json()
 }
 
+async function logout() {
+  const res = await fetch(`${url}/api/users/logout`, {
+    credentials: 'same-origin',
+    method: 'DELETE'
+  })
+  const data = await res.json()
+  auth = false
+  showSearch()
+  return res.ok
+}
 
 async function login() {
   const email = document.querySelector('main .login input[name="email"]').value
@@ -234,11 +247,11 @@ async function login() {
 }
 
 async function init() {
+  auth = await checkAuth()
   showSearch()
 //  uncomment below line to run empty search and display list of files on page load
 //  doSearch() 
   doSort()
-  auth = await checkAuth()
   auth
        ? document.querySelector('main nav li.login').classList.add('hidden')
        : document.querySelector('main nav li.login').classList.remove('hidden')
