@@ -196,18 +196,45 @@ The release of applications is controlled by _deployments_. An auditable, and ro
 * [emergency] roll back to the previous release:
 `kubectl rollout undo deployment/archive`
 
-### Test applications
+### Test and troubleshoot applications
 
-* set default namespace for kubectl commands:
+#### View logs
+
+* configure azure-cli defaults (to shorten subsequent commands):
+`az configure --defaults acr=awimages group=archive-wiki location=westeurope`
+
+* connect to the Kubernetes dashboard:
+`az aks browse --name awcluster01`
+
+* view container logs (like `docker logs`)
+  * navigate in the web browser to:
+    http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/#!/deployment/archive-wiki/archive?namespace=archive-wiki
+  * click the _Logs_ button on the replica set line
+  * in the logs view, consider clicking the clockwise arrow to enable auto refresh
+
+#### Open shell in container
+
+* configure azure-cli defaults (to shorten subsequent commands):
+`az configure --defaults acr=awimages group=archive-wiki location=westeurope`
+
+* kubectl login:
+`az aks get-credentials --name awcluster01`
+
+* set default namespace for kubectl commands (to shorten subsequent commands):
 `kubectl config set-context $(kubectl config current-context) --namespace=archive-wiki`
 
-* connect to the solr pod, find the pods id:
+* find the pods id:
 `kubectl get pods`
 
 * run a shell in the container:
 `kubectl exec "$pod_name" -it -- /bin/bash`
 
-(follow solr/create_cores.md, but skip the "docker exec solr" at the start of each command)
+#### Configure Solr for first use
 
-* test api:
-(follow dae-api/README.md, but save the user deletion for last)
+* open a shell in the solr container (as noted above)
+
+* follow solr/create_cores.md, but skip the "docker exec solr" at the start of each command
+
+#### Test API
+
+* follow dae-api/README.md, but save the user deletion for last
