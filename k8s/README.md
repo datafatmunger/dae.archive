@@ -27,48 +27,18 @@ But if we desire full unix filesystem capabilities, without hardcoded ownership 
 
 ### Basics
 
-* set default subscription:
-`az account set --subscription 016078a2-b058-43a8-b355-e81ea70882dd`
+* switch to the directory containing **setup_azure_base.sh**
 
-* set default location:
-`az configure --defaults location=westeurope`
+* run **setup_azure_base.sh**
 
-* create resource group:
-
-```
-az group create --resource-group archive-wiki
-az configure --defaults group=archive-wiki
-```
-
-* create Storage Account:
-`az storage account create --name hothns --access-tier hot --enable-hierarchical-namespace --sku Standard_GZRS`
-
-* create ACR registry:
-
-```
-az acr create --name awimages --sku Standard
-az configure --defaults acr=awimages
-```
-
-(ensure docker daemon is running, and client is available)
-
-`az acr login`
-
-* create AKS cluster:
-
-```
-az aks create --resource-group archive-wiki --name awcluster01 --attach-acr awimages --generate-ssh-keys --kubernetes-version 1.15.7 --load-balancer-sku standard --network-plugin azure --node-count 1 --node-vm-size Standard_B2s
-az aks get-credentials --name awcluster01
-kubectl create clusterrolebinding kubernetes-dashboard --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
-```
+* ensure docker daemon is running, and docker client is available
 
 * browse Kubernetes dashboard in web browser (ties up your terminal):
 `az aks browse --name awcluster01`
 
-* create file shares:
-`for share in archive data solr tmp; do az storage share create --account-name hothns --name "$share" --quota 1; done`
-
 ### Container images
+
+* log in to the container registry: `az acr login`
 
 * upload images to acr:
 
@@ -83,77 +53,38 @@ docker push awimages.azurecr.io/daearchive_apache:20200227a
 
 ### Kubernetes
 
-* create namespace for this project:
-`kubectl create namespace archive-wiki`
+* switch to the directory containing **setup_k8s_base.sh**
 
-* deploy persistent volumes:
-`for pv in k8s/pervols/*yml; do kubectl apply -f "$pv"; done`
-
-(consider sleeping for 1 minute)
-
-* deploy persistent volume claims:
-`for pvc in k8s/pervolclaims/*yml; do kubectl apply -f "$pvc"; done`
-
-* prepare storage secret, read key from:
-`az storage account keys list --account-name hothns`
-
-```
-account=$(echo -n "$storage_account_name" | base64)
-key=$(echo -n "$storage_account_key" | base64)
-```
-
-(insert $account, $key into k8s/secrets/storage-secret.yaml)
-
-* deploy storage secret:
-`kubectl apply -f k8s/secrets/storage-secret.yaml`
-
-* deploy services:
-`for manifest in k8s/services/*yaml; do kubectl apply -f "$manifest"; done`
-
-* apply deployments:
-`for manifest in k8s/deployments/*.yaml; do kubectl apply -f "$manifest"; done`
+* run **setup_k8s_base.sh**
 
 #### Ingress
 
-* install helm:
-`curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get-helm-3 | bash -o xtrace -`
+* switch to the directory containing **setup_k8s_ingress.sh**
 
-* provision ingress controller:
-`helm upgrade --install nginx-ingress k8s/charts/nginx-ingress --namespace archive-wiki --values k8s/charts/nginx-ingress/values.yaml`
-
-* deploy ingress:
-`kubectl apply -f k8s/ingresses/archive.yaml`
+* run **setup_k8s_ingress.sh**
 
 #### Certificates
 
-* provision cert-manager's custom k8s resources:
-`kubectl apply -f k8s/resources/00-crds.yaml`
+* switch to the directory containing **setup_k8s_certificates.sh**
 
-* create namespace for cert-manager:
-`kubectl create namespace cert-manager`
-
-* provision cert-manager:
-`helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --version v0.13.1`
-
-* create le-staging issuer:
-`kubectl apply -f k8s/resources/issuer-staging.yml`
+* run **setup_k8s_certificates.sh**
 
 * issue staging certificates:
-(add annotation to ingress: "cert-manager.io/issuer: le-staging")
+  * (add annotation to ingress: "cert-manager.io/issuer: le-staging")
+  * `kubectl apply -f ingresses/archive.yaml`
 
-`kubectl apply -f k8s/ingresses/archive.yaml`
+  (pre-existing certificates are replaced without user interaction)
 
-(pre-existing certificates are replaced without user interaction)
-
-* create le-production issuer:
-`kubectl apply -f k8s/resources/issuer-production.yml`
+* check whether Let's Encrypt staging certificates were successfully provisioned  
+  (these will provoke a warning of unrecognized issuer in your web browser)
 
 * issue production certificates:
-(update annotation in ingress: "cert-manager.io/issuer: le-production")
+  * (update annotation in ingress: "cert-manager.io/issuer: le-production")
+  * `kubectl apply -f ingresses/archive.yaml`
 
-`kubectl apply -f k8s/ingresses/archive.yaml`
+  (pre-existing certificates are replaced without user interaction)
 
-(pre-existing certificates are replaced without user interaction)
+* check whether Let's Encrypt production certificates were successfully provisioned
 
 #### Application releases
 
@@ -165,7 +96,7 @@ The release of applications is controlled by _deployments_. An auditable, and ro
 
 * push the new container image to the registry
 
-* update the deployment manifest:
+* update the archive deployment manifest (k8s/deployments/archive.yaml):
 (this example is abbreviated to emphasize the relevant changes)
 
 ```
@@ -183,7 +114,7 @@ The release of applications is controlled by _deployments_. An auditable, and ro
 ```
 
 * set default namespace for kubectl commands:
-`kubectl config set-context $(kubectl config current-context) --namespace=archive-wiki`
+`kubectl config set-context --current --namespace=archive-wiki`
 
 * apply the changes to the deployment:
 `kubectl apply -f k8s/deployments/archive.yaml`
@@ -200,28 +131,27 @@ The release of applications is controlled by _deployments_. An auditable, and ro
 
 #### View logs
 
-* configure azure-cli defaults (to shorten subsequent commands):
-`az configure --defaults acr=awimages group=archive-wiki location=westeurope`
+* configure azure-cli defaults (to shorten subsequent commands):  
+  `az configure --defaults acr=awimages group=archive-wiki location=westeurope`
 
 * connect to the Kubernetes dashboard:
 `az aks browse --name awcluster01`
 
 * view container logs (like `docker logs`)
-  * navigate in the web browser to:
-    http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/#!/deployment/archive-wiki/archive?namespace=archive-wiki
+  * navigate in the web browser to the [deployment section](http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/#!/deployment/archive-wiki/archive?namespace=archive-wiki) of the Kubernetes dashboard
   * click the _Logs_ button on the replica set line
   * in the logs view, consider clicking the clockwise arrow to enable auto refresh
 
 #### Open shell in container
 
-* configure azure-cli defaults (to shorten subsequent commands):
-`az configure --defaults acr=awimages group=archive-wiki location=westeurope`
+* configure azure-cli defaults (to shorten subsequent commands):  
+  `az configure --defaults acr=awimages group=archive-wiki location=westeurope`
 
 * kubectl login:
 `az aks get-credentials --name awcluster01`
 
-* set default namespace for kubectl commands (to shorten subsequent commands):
-`kubectl config set-context $(kubectl config current-context) --namespace=archive-wiki`
+* set default namespace for kubectl commands (to shorten subsequent commands):  
+  `kubectl config set-context --current --namespace=archive-wiki`
 
 * find the pods id:
 `kubectl get pods`
