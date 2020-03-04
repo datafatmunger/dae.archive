@@ -3,7 +3,9 @@
 
 let auth
 
+// this results in a CORS error when opening the app from filesystem:
 const url = `${window.location.protocol}//${window.location.host}`
+
 //const url = `http://80.100.106.160`
 
 // UI Stuff - JBG
