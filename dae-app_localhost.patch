@@ -1,0 +1,28 @@
+diff --git a/dae-app/index.html b/dae-app/index.html
+index 52b9167..c96472d 100644
+--- a/dae-app/index.html
++++ b/dae-app/index.html
+@@ -64,7 +64,7 @@
+     <li class="title"><a href="./">80.100.106.160</a></li>
+     <li class="archive"><a href="#"></a></li>
+     <li class="browse"><a href="http://80.100.106.160">userindex</a></li>
+-    <li class="login"><a href="/auth/signin">login</a></li>
++    <li class="login"><a href="http://localhost/auth/signin">login</a></li>
+     <li class="upload">upload</li>
+     <li class="about"><a href="about.html">about</a></li>
+     <li class="logout">logout</li>
+diff --git a/dae-app/index.js b/dae-app/index.js
+index 28172a1..78d31bf 100644
+--- a/dae-app/index.js
++++ b/dae-app/index.js
+@@ -4,9 +4,10 @@
+ let auth
+ 
+ // this results in a CORS error when opening the app from filesystem:
+-const url = `${window.location.protocol}//${window.location.host}`
++//const url = `${window.location.protocol}//${window.location.host}`
+ 
+ //const url = `http://80.100.106.160`
++const url = `http://localhost`
+ 
+ // UI Stuff - JBG
