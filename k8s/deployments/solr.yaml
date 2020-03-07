@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: solr
+  name: solr
+  namespace: archive-wiki
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: solr
+    spec:
+      containers:
+      - image: awimages.azurecr.io/daearchive_solr:latest
+        name: solr
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/solr
+          name: solr
+      restartPolicy: Always
+      volumes:
+      - name: solr
+        persistentVolumeClaim:
+          claimName: pvc-solr
+status: {}

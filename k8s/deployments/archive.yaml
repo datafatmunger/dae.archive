@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: archive
+  name: archive
+  namespace: archive-wiki
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        io.kompose.service: archive
+    spec:
+      containers:
+      - args:
+        - /usr/local/bin/run.sh
+        image: awimages.azurecr.io/daearchive_archive:latest
+        name: archive
+        ports:
+        - containerPort: 22
+        - containerPort: 3000
+        - containerPort: 5000
+        resources: {}
+        volumeMounts:
+        - mountPath: /archive
+          name: archive
+        - mountPath: /data
+          name: data
+        - mountPath: /home
+          name: home-disk
+        - mountPath: /tmp
+          name: tmp
+        workingDir: /app
+      nodeSelector:
+        storagetier: Premium_LRS
+      restartPolicy: Always
+      volumes:
+      - name: archive
+        persistentVolumeClaim:
+          claimName: pvc-archive
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-data
+      - name: home-disk
+        persistentVolumeClaim:
+          claimName: pvc-home-disk
+      - name: tmp
+        persistentVolumeClaim:
+          claimName: pvc-tmp
+status: {}
