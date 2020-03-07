@@ -16,6 +16,8 @@ services:
       - ./vols/tmp:/tmp
     ports:
       - "2222:22"
+      - "3000:3000"
+      - "5000:5000"
 
   apache: 
     container_name: apache
@@ -30,6 +32,8 @@ services:
 
   solr:
     container_name: solr
+    ports:
+      - "8983:8983"
     build:
       context: .
       dockerfile: docker/solr.dockerfile

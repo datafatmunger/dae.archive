@@ -1,6 +1,10 @@
 # The DAE archive
 
-## Running the archive
+## Start containers
+
+    $ docker-compose up
+
+# Old stuff ... 
 
 ### Check out the repository, and submodules
 
