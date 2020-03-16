@@ -3,8 +3,7 @@
 
 let auth
 
-//const url = `${window.location.protocol}//${window.location.host}`
-const url = `http://80.100.106.160`
+const url = `${window.location.protocol}//${window.location.host}`
 
 // UI Stuff - JBG
 
