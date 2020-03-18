@@ -3,7 +3,8 @@
 echo 'ADD USER: ' + $1 $2 $3
 
 useradd -m $1 -s /bin/bash
-usermod --password $2 $1
+#usermod --password $2 $1
+usermod --password $(openssl passwd -1 $2) $1
 
 sudo -u $1 -H sh -c "mkdir -p /home/$1/archive.git"
 

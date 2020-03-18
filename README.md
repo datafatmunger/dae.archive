@@ -44,6 +44,7 @@ Allow ~\<USER\_NAME\> style url access.
     \# a2enmod userdir
     \# a2enmod proxy 
     \# a2enmod proxy_http 
+    \# a2enmod headers
 
 ### Configure Apache
 
