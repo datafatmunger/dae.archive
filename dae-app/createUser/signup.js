@@ -18,7 +18,7 @@ async function createUser() {
   
   if (email && name && password &&
       email.indexOf('@') &&
-      password.length > 7) {
+      password.length > 8) {
   
       const res = await postData(`${url}/api/users`, {
         email: email,
