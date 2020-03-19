@@ -1,17 +1,5 @@
 # The DAE archive
 
-## Start containers
-
-    $ docker-compose up
-
-
-
-
-
-
-
-# Old stuff ... 
-
 ## sshd tweaks
 
 Changed the following `sshd_config` configs for security purposes.  Basically only allows user logins with ssh keys.
