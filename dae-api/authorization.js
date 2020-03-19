@@ -22,12 +22,17 @@ const oauth2 = require('simple-oauth2').create({
 })
 
 exports.authorization = async (req, res, next) => {
-  console.log("AUTH", req.user)
   // Passport auth check - JBG
   if(req.user) {
-    req.user.name = req.user.profile.displayName
-    next()
-  } 
+    const user = await users.getUser(req.user.profile.email)
+    // See if user has system user - JBG
+    if(user) {
+      req.user.name = user.name 
+      next()
+    }
+    // No system user, suggest making one - JBG
+    else res.status(301).send({location: '/search/createUser'})
+  }
   // Cookie auth - JBG
   else if(req.session && req.session.userId) {
     try {
@@ -64,7 +69,6 @@ function updateTokens(tokens) {
     })
   })
 }
-
 
 // Configure passport - JBG
 const storage = {}

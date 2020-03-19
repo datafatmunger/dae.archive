@@ -16,9 +16,11 @@ async function createUser() {
   const name = document.querySelector('input[name="name"]').value
   const password = document.querySelector('input[name="password"]').value
   
-  if (email && name && password &&
+  if (email &&
+      name &&
+      password &&
       email.indexOf('@') &&
-      password.length > 8) {
+      password.length > 7) {
   
       const res = await postData(`${url}/api/users`, {
         email: email,

@@ -45,7 +45,7 @@ function execSystemUser(name, password, email) {
   })
 }
 
-function getUser(email) {
+exports.getUser = (email) => {
   return new Promise((resolve, reject) => {
     client.connect().then(client => {
       const db = client.db('dae')
@@ -81,8 +81,8 @@ exports.create = (email, name, password) => {
             if (err) reject(err)
             else {
               try {
-                //await execSystemUser(user.name, password, user.email)
-                //await initRepo(name)
+                await execSystemUser(user.name, password, user.email)
+                await initRepo(name)
                 resolve(getUser(email))
               } catch(err) {
                 reject(err)

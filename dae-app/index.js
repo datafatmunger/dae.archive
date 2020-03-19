@@ -210,6 +210,9 @@ let username
 async function checkAuth() {
   const res = await fetch(`${url}/api/users/me`, { credentials: 'same-origin' })
   const data = await res.json()
+
+  console.log('ME', data)
+
   username = data.name
   return res.ok
 }
