@@ -49,5 +49,5 @@ app.use((err, req, res, next) => {
   res.status(500).send(JSON.stringify({ error: err.message }))
 })
 
-app.listen(8000)
+app.listen(3000)
 
