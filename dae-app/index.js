@@ -215,7 +215,7 @@ async function checkAuth() {
 }
 
 async function search(txt, srt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/solr?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
   return await res.json()
 }
 
