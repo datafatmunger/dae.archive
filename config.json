@@ -1,5 +1,8 @@
 {
 	"binDir": "/usr/local/bin",
-	"dataDir": "/data"
+	"dataDir": "/data",
+        "mongo": {
+          "uri": "mongodb://localhost:27017/dae"
+        }
 }
 

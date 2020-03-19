@@ -2,14 +2,12 @@ const mongodb = require('mongodb'),
       MongoClient = mongodb.MongoClient,
       ObjectId = mongodb.ObjectID,
       exec = require('child_process').exec,
-      crypto = require('crypto')
+      crypto = require('crypto'),
+      fs = require('fs'),
+      configParser = require('./config-parser')
 
-const fs = require('fs')
-configParser = require('./config-parser')
 const config = configParser.getConfig()
-
-const uri = 'mongodb://localhost:27017/dae'
-const client = new MongoClient(uri, {useUnifiedTopology: true})
+const client = new MongoClient(config.mongo.uri, {useUnifiedTopology: true})
 
 function createSalt() {
   return Math.round((new Date().valueOf() * Math.random())) + ''
