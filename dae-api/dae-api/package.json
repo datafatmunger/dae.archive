@@ -1,0 +1,31 @@
+{
+  "name": "dae-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jbg",
+  "dependencies": {
+    "@microsoft/microsoft-graph-client": "^2.0.0",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "connect-sqlite3": "^0.9.11",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
+    "express-session": "^1.16.2",
+    "hbs": "^4.1.0",
+    "http-errors": "~1.6.3",
+    "isomorphic-fetch": "^2.2.1",
+    "method-override": "^3.0.0",
+    "moment": "^2.24.0",
+    "morgan": "~1.9.1",
+    "passport-azure-ad": "^4.2.0",
+    "simple-oauth2": "^3.1.0",
+    "sqlite3": "^4.1.1"
+  }
+}
