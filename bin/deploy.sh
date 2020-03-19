@@ -9,6 +9,13 @@ npm install
 popd
 echo "Done."
 
+# Deploy Apache conigs - JBG
+echo "Deploying Apache configs ..."
+cp /archive/jbg/apache/apache2.conf /etc/apache2 
+cp /archive/jbg/apache/000-default.conf /etc/apache2/sites-available
+apache2ctl restart
+echo "Done."
+
 # Copy any new systemd service units - JBG
 echo "Deploying new systemd units..."
 cp -r /archive/jbg/systemd/* /etc/systemd/system
