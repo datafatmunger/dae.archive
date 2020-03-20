@@ -30,7 +30,7 @@ async function createUser() {
 
       console.log("TEST", res, res.status)
 
-      if(res.status === 200) {
+      if(res.ok) {
         showMsg(`Success! You can find your repository and some instructions here:<br><br><a href="${url}/${name}/"> ${url}/${name}/</a>`)
         document.querySelector('.msg').style.color = 'black'
       } else {
