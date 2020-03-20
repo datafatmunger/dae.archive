@@ -79,7 +79,7 @@ exports.create = (email, name, password) => {
             email: email,
             name: name,
             salt: salt,
-            password: hash
+            hash: hash
           }
           db.collection('users').insertOne(user, async (err, res) => {
             if (err) reject(err)
@@ -107,7 +107,7 @@ exports.authenticate = (email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await getUser(email)
-      if(user &&encryptPassword(password, user.salt) === user.password)
+      if(user && encryptPassword(password, user.salt) === user.hash)
         resolve(user)
       else reject(new Error('Authentication failure'))
     } catch(err) {
