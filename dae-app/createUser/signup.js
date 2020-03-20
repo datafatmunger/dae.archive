@@ -44,7 +44,7 @@ async function createUser() {
   }
 
 async function postData(url = '', data = {}) {
-  const res = await fetch(url, {
+  return await fetch(url, {
     method: 'POST',
     mode: 'cors',
     cache: 'no-cache',
@@ -54,5 +54,4 @@ async function postData(url = '', data = {}) {
     referrer: 'no-referrer',
     body: JSON.stringify(data)
   })
-  return await res.json();
 }
