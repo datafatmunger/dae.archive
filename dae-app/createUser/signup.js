@@ -28,7 +28,7 @@ async function createUser() {
         password: password
       })
 
-      console.log("TEST", res)
+      console.log("TEST", res, res.status)
 
       if(res.status === 200) {
         showMsg(`Success! You can find your repository and some instructions here:<br><br><a href="${url}/${name}/"> ${url}/${name}/</a>`)
