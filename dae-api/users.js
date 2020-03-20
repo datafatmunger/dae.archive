@@ -45,7 +45,7 @@ function execSystemUser(name, password, email) {
   })
 }
 
-exports.getUser = (email) => {
+function getUser(email) {
   return new Promise((resolve, reject) => {
     client.connect().then(client => {
       const db = client.db('dae')
@@ -55,6 +55,10 @@ exports.getUser = (email) => {
       })
     })
   })
+}
+
+exports.getUser = (email) => {
+  return getUser(email)
 }
 
 // This code is bad and I feel bad about it :( - JBG
