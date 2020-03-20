@@ -57,6 +57,10 @@ function getUser(email) {
   })
 }
 
+exports.getUser = (email) => {
+  return getUser(email)
+}
+
 // This code is bad and I feel bad about it :( - JBG
 
 exports.create = (email, name, password) => {
@@ -75,14 +79,14 @@ exports.create = (email, name, password) => {
             email: email,
             name: name,
             salt: salt,
-            password: hash
+            hash: hash
           }
           db.collection('users').insertOne(user, async (err, res) => {
             if (err) reject(err)
             else {
               try {
-                //await execSystemUser(user.name, password, user.email)
-                //await initRepo(name)
+                await execSystemUser(user.name, password, user.email)
+                await initRepo(name)
                 resolve(getUser(email))
               } catch(err) {
                 reject(err)
@@ -103,7 +107,7 @@ exports.authenticate = (email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       const user = await getUser(email)
-      if(user &&encryptPassword(password, user.salt) === user.password)
+      if(user && encryptPassword(password, user.salt) === user.hash)
         resolve(user)
       else reject(new Error('Authentication failure'))
     } catch(err) {
