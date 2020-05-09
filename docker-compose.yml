@@ -1,11 +1,11 @@
 version: "3.1"
 services:
 
-  archive:
-    container_name: archive 
+  apps:
+    container_name: dae-apps 
     build:
       context: .
-      dockerfile: docker/archive.dockerfile 
+      dockerfile: docker/apps.dockerfile 
     working_dir: /app
     command: /usr/local/bin/run.sh 
     #command: tail -f /dev/null
@@ -20,7 +20,7 @@ services:
       - "5000:5000"
 
   apache: 
-    container_name: apache
+    container_name: dae-apache
     build:
       context: .
       dockerfile: docker/apache.dockerfile 
@@ -31,7 +31,7 @@ services:
       - "80:80"
 
   solr:
-    container_name: solr
+    container_name: dae-solr
     ports:
       - "8983:8983"
     build:

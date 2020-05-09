@@ -1,6 +1,6 @@
-### docker/archive.dockerfile
+### docker/apps.dockerfile
 
-Defines the dependencies for the archive container.
+Defines the dependencies for the apps container.
 
 ### docker/apache.dockerfile
 

@@ -3,9 +3,13 @@
 
 let auth
 
+<<<<<<< HEAD
 // this results in a CORS error when opening the app from filesystem:
 const url = `${window.location.protocol}//${window.location.host}`
 
+=======
+const url = `${window.location.protocol}//${window.location.host}`
+>>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
 //const url = `http://80.100.106.160`
 
 // UI Stuff - JBG
@@ -214,12 +218,15 @@ let username
 async function checkAuth() {
   const res = await fetch(`${url}/api/users/me`, { credentials: 'same-origin' })
   const data = await res.json()
+
+  console.log('ME', data)
+
   username = data.name
   return res.ok
 }
 
 async function search(txt, srt) {
-  const res = await fetch(`${url}/search?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
+  const res = await fetch(`${url}/solr?q=${txt}&rows=300${srt}`, { credentials: 'same-origin' })
   return await res.json()
 }
 

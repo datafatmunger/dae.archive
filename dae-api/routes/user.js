@@ -54,10 +54,10 @@ app.post('/users/login', async (req, res, next) => {
   try {
     const user = await users.authenticate(req.body.email, req.body.password)
     if(user) {
-      req.session.userId = user.id
-      await tokens.remove(user.id, cookieName)
-      const token = await tokens.create(user.id, cookieName)
-      res.cookie(cookieName, tokens.cookieValue(token), tokens.expireDate())
+      req.session.userId = user._id
+      //await tokens.remove(user.id, cookieName)
+      //const token = await tokens.create(user.id, cookieName)
+      //res.cookie(cookieName, tokens.cookieValue(token), tokens.expireDate())
       res.send(user)
     } else {
       next(new Error('Unauthorized'))

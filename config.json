@@ -2,6 +2,11 @@
   "binDir": "/usr/local/bin",
   "dataDir": "/data",
   "initPath": "/archive/jbg/dae-app/createUser",
-  "initFile": "WelcomeToYourArchive.md"
+  "initFile": "WelcomeToYourArchive.md",
+  "binDir": "/usr/local/bin",
+  "dataDir": "/data",
+  "mongo": {
+    "uri": "mongodb://localhost:27017/dae"
+  }
 }
 
