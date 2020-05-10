@@ -1,0 +1,86 @@
+body {
+  margin: 0px;
+  padding: 30px;
+  overflow: scroll;
+  background-color: #f8f8f8;
+  font-family: 'helvetica', sans-serif;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  margin: 0px;
+  padding: 0px;
+  word-break: break-all;
+  text-decoration: none;
+}
+
+a:link {
+  color: rgb(173, 0, 255);
+}
+
+a:visited {
+  color: rgb(173, 0, 255);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p, #indextitle {
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 40px;
+  font-family: 'helvetica', sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.1;
+}
+
+tr.indexhead a {
+  color: black;
+  height: 60px;
+  font-family: 'helvetica', sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+}
+
+#indexlist {
+  border-spacing: 0px;
+  width: 100%;
+}
+
+td, th {
+  text-align: center;
+  font-family: 'helvetica';
+  font-size: 20px;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0px;
+  background-color: black;
+  height: 2px;
+}
+
+tr.odd, tr.even {
+  height: 30px;
+}
+
+tr.odd:hover, tr.even:hover {
+  background-color: lightgray;
+}
+
+td.indexcolicon {
+  width: 30px; 
+}
+
+.indexcolname {
+  text-align: left;
+}
+
+.indexcollastmod, .indexcolsize, .indexcoldesc {
+  font-size: 14px;
+}
