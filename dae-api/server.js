@@ -46,7 +46,7 @@ app = express()
 app.use(express.static('public'))
 app.use(session({
   secret: 'popsecret',
-  store: new MongoStore({ url: 'mongodb://localhost/dae' }),
+  store: new MongoStore({ url: config.mongo.uri }),
   resave: true,
   saveUninitialized: true,
   unset: 'destroy'

@@ -6,7 +6,7 @@
   "binDir": "/usr/local/bin",
   "dataDir": "/data",
   "mongo": {
-    "uri": "mongodb://localhost:27017/dae"
+    "uri": "mongodb://mongodb:27017/dae"
   }
 }
 

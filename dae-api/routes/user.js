@@ -1,8 +1,5 @@
 const auth = require('../authorization'),
-  users = require('../users'),
-  tokens = require('../tokens')
-
-const cookieName = 'dae.token'
+  users = require('../users')
 
 app.post('/users', async (req, res, next) => {
   try {
@@ -25,8 +22,6 @@ app.get('/users/me', auth.authorization, (req, res, next) => {
 app.delete('/users/logout', auth.authorization, async (req, res, next) => {
   try {
     user = req.user
-    res.clearCookie(cookieName)
-    await tokens.remove(user.id, cookieName)
     req.session.destroy(() => {})
     res.send(user)
   } catch(err) {
@@ -55,9 +50,6 @@ app.post('/users/login', async (req, res, next) => {
     const user = await users.authenticate(req.body.email, req.body.password)
     if(user) {
       req.session.userId = user._id
-      //await tokens.remove(user.id, cookieName)
-      //const token = await tokens.create(user.id, cookieName)
-      //res.cookie(cookieName, tokens.cookieValue(token), tokens.expireDate())
       res.send(user)
     } else {
       next(new Error('Unauthorized'))

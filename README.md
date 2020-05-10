@@ -44,22 +44,10 @@ Deletes a user, the home directory and force deletes unowned files.
 ### Enable relevant Apache modules
 
 Allow directory/file lists and browsing.
->>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
-
-    $ git clone --recurse-submodules https://github.com/datafatmunger/dae.archive.git
-
-### Build containers, start the containers
-
-<<<<<<< HEAD
-The containers will only build the first time. Subsequent ups will simply run them.
-=======
     \# a2enmod userdir
     \# a2enmod proxy 
     \# a2enmod proxy_http 
     \# a2enmod headers
->>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
-
-    $ docker-compose up
 
 ## Additional one-time setup stuff 
 

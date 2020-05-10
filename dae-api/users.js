@@ -33,11 +33,7 @@ function initRepo(name) {
   })
 }
 
-<<<<<<< HEAD
-function createSystemUser(name, password, email) {
-=======
 function execSystemUser(name, password, email) {
->>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
   return new Promise((resolve, reject) => {
     exec(config.binDir + '/add_user.sh ' +
       name + ' ' +
@@ -72,18 +68,6 @@ exports.create = (email, name, password) => {
   const hash = encryptPassword(password, salt)
 
   return new Promise((resolve, reject) => {
-<<<<<<< HEAD
-    db.serialize(async () => {
-      stmt.run(email, name, hash, salt)
-      stmt.finalize()
-      try {
-        await createSystemUser(name, password, email)
-        await initRepo(name)
-        resolve(getUser(email))
-      } catch(err) {
-        reject(err)
-      }
-=======
     client.connect().then(client => {
       const db = client.db('dae')
       db.collection('users').findOne(
@@ -111,7 +95,6 @@ exports.create = (email, name, password) => {
           })
         }
       })
->>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
     })
   })
 }

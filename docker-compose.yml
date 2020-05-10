@@ -40,6 +40,11 @@ services:
     volumes:
       - solr:/var/solr
 
+  mongodb:
+    container_name: dae-mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
 volumes:
   solr:
 

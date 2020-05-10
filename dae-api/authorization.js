@@ -145,6 +145,5 @@ exports.getOIDC = () => {
     passReqToCallback: false,
     scope: process.env.OAUTH_SCOPES.split(' ')
    }, signInComplete)
->>>>>>> db3f836a513dbf164699124b1e9fa58e4c40ab0a
 }
 
