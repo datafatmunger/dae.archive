@@ -19,6 +19,6 @@ ADD dae-api /app
 
 RUN cd /app && npm install
 
-ADD dae-wiki /wiki
+# ADD dae-wiki /wiki
 
-RUN cd /wiki/public && npm install
+# RUN cd /wiki/public && npm install

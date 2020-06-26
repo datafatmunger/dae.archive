@@ -34,10 +34,10 @@ fi
 
 
 # Start dae-wiki - JBG
-cd /wiki/public
+# cd /wiki/public
 # this really deserves its own container,
 # so it can run in the foreground
-npm run start &
+# npm run start &
 
 # Start dae-api - JBG
 cd /app
