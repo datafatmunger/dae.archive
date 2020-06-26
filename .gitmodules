@@ -1,3 +1,6 @@
 [submodule "dae-wiki"]
 	path = dae-wiki
 	url = https://github.com/afincato/dae-wiki
+[submodule "dae-archive"]
+	path = dae-archive
+	url = https://github.com/oortnetwork/dae-archive-app
