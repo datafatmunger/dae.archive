@@ -1149,7 +1149,7 @@
        See http://wiki.apache.org/solr/GuessingFieldTypes
     -->
   <updateRequestProcessorChain name="files-update-processor">
-    <!-- UUIDUpdateProcessorFactory will generate an id if none is present in the incoming document -->
+    <!-- UUIDUpdate will generate an id if none is present in the incoming document -->
     <processor class="solr.UUIDUpdateProcessorFactory" />
     <processor class="solr.RemoveBlankFieldUpdateProcessorFactory"/>
     <processor class="solr.FieldNameMutatingUpdateProcessorFactory">
