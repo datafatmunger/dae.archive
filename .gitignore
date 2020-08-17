@@ -5,3 +5,4 @@ dae-api/package-lock.json
 dae-api/dae.db
 dae-api/cookies
 .env
+.DS_Store
