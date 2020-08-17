@@ -88,6 +88,30 @@
     "required"    : false
   },
   "add-field": {
+    "name"        : "degree",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "student_name",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "project_title",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false
+  },
+  "add-field": {
     "name"        : "award",
     "type"        : "text_general",
     "indexed"     : true,
