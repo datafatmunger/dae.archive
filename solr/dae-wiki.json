@@ -1,12 +1,12 @@
 {
-  "add-field": {
-    "name"        : "title",
-    "type"        : "string",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : false,
-    "required"    : true
-  },
+  // "add-field": {
+  //   "name"        : "title",
+  //   "type"        : "string",
+  //   "indexed"     : true,
+  //   "stored"      : true,
+  //   "multiValued" : false,
+  //   "required"    : true
+  // },
   "add-field": {
     "name"        : "location",
     "type"        : "string",
@@ -66,6 +66,14 @@
   "add-field": {
     "name"        : "study_year",
     "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "graduation_year",
+    "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : true,
