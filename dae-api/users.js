@@ -116,6 +116,21 @@ exports.authenticate = (email, password) => {
   })
 }
 
+exports.ls = () => {
+  return new Promise((resolve, reject) => {
+    client.connect().then(client => {
+      const db = client.db('dae')
+      db.collection('users').find({}, (err, res) => {
+        if(err) reject(err)
+        else res.toArray((err, res) => {
+          if(err) reject(err)
+          resolve(res)
+        })
+      })
+    })
+  })
+}
+
 exports.get = (id) => {
   return new Promise((resolve, reject) => {
     client.connect().then(client => {

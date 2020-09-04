@@ -1,6 +1,14 @@
 const auth = require('../authorization'),
   users = require('../users')
 
+app.get('/users', auth.authorization, async (req, res, next) => {
+  try {
+    res.send(await users.ls())
+  } catch(err) {
+    next(err)
+  }
+})
+
 app.post('/users', async (req, res, next) => {
   try {
     res.send(
