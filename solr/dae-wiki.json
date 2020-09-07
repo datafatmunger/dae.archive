@@ -17,7 +17,7 @@
   },
   "add-field": {
     "name"        : "core",
-    "type"        : "booleans",
+    "type"        : "boolean",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
@@ -25,7 +25,39 @@
   },
   "add-field": {
     "name"        : "nav",
-    "type"        : "booleans",
+    "type"        : "pint",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "menu_toggle",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "menu_pos",
+    "type"        : "pint",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "core",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true 
+  },
+  "add-field": {
+    "name"        : "nav",
+    "type"        : "boolean",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
@@ -33,7 +65,7 @@
   },
   "add-field": {
     "name"        : "menu",
-    "type"        : "booleans",
+    "type"        : "boolean",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
@@ -56,11 +88,19 @@
     "required"    : false
   },
   "add-field": {
+    "name"        : "department",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
     "name"        : "position_at_dae",
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -68,23 +108,7 @@
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
-    "required"    : false
-  },
-  "add-field": {
-    "name"        : "graduation_year",
-    "type"        : "string",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : true,
-    "required"    : false
-  },
-  "add-field": {
-    "name"        : "department",
-    "type"        : "text_general",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -92,7 +116,7 @@
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -100,7 +124,7 @@
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -108,7 +132,15 @@
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "graduation_year",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -116,7 +148,7 @@
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
-    "multiValued" : true,
+    "multiValued" : false,
     "required"    : false
   },
   "add-field": {
@@ -144,7 +176,7 @@
     "required"    : false
   },
   "add-field": {
-    "name"        : "text_all",
+    "name"        : "text_full",
     "type"        : "text_general",
     "indexed"     : true,
     "stored"      : true,
@@ -153,6 +185,22 @@
   },
   "add-field": {
     "name"        : "image_url",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "image_transclusion",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "posted_on",
     "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
