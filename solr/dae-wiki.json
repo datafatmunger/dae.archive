@@ -21,7 +21,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true 
+    "required"    : false
   },
   "add-field": {
     "name"        : "nav",
@@ -48,28 +48,12 @@
     "required"    : false 
   },
   "add-field": {
-    "name"        : "core",
-    "type"        : "boolean",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : false,
-    "required"    : true 
-  },
-  "add-field": {
-    "name"        : "nav",
-    "type"        : "boolean",
-    "indexed"     : true,
-    "stored"      : true,
-    "multiValued" : false,
-    "required"    : true 
-  },
-  "add-field": {
     "name"        : "menu",
     "type"        : "boolean",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true 
+    "required"    : false 
   },
   "add-field": {
     "name"        : "template",
@@ -77,7 +61,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true 
+    "required"    : false
   },
   "add-field": {
     "name"        : "category",
@@ -157,7 +141,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true 
+    "required"    : false 
   },
   "add-field": {
     "name"        : "status",
@@ -165,7 +149,7 @@
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
-    "required"    : true
+    "required"    : false
   },
   "add-field": {
     "name"        : "text_intro",
