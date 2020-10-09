@@ -14,3 +14,5 @@ ADD apache/apache2.conf /etc/apache2/apache2.conf
 
 ADD apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
+ADD dae-app /app
+
