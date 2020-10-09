@@ -1,6 +1,9 @@
-[submodule "dae-wiki"]
-	path = dae-wiki
-	url = https://github.com/afincato/dae-wiki
 [submodule "dae-bin"]
 	path = dae-bin
 	url = https://github.com/datafatmunger/dae-bin.git
+[submodule "dae-app"]
+	path = dae-app
+	url = https://github.com/datafatmunger/dae-app.git
+[submodule "dae-api"]
+	path = dae-api
+	url = https://github.com/datafatmunger/dae-api.git
