@@ -1,35 +1,39 @@
 version: "3.1"
 services:
 
-  # archive:
-  #   container_name: archive 
-  #   build:
-  #     context: .
-  #     dockerfile: docker/archive.dockerfile 
-  #   working_dir: /app
-  #   command: /usr/local/bin/run.sh 
-  #   #command: tail -f /dev/null
-  #   volumes:
-  #     - ./vols/data:/data
-  #     - ./vols/archive:/archive
-  #     - ./vols/home:/home
-  #     - ./vols/tmp:/tmp
-  #   ports:
-  #     - "2222:22"
+  apps:
+    container_name: dae-apps 
+    build:
+      context: .
+      dockerfile: docker/apps.dockerfile 
+    working_dir: /app
+    command: /usr/local/bin/run.sh 
+    #command: tail -f /dev/null
+    volumes:
+      - ./vols/data:/data
+      - ./vols/archive:/archive
+      - ./vols/home:/home
+      - ./vols/tmp:/tmp
+    ports:
+      - "2222:22"
+      - "3000:3000"
+      - "5000:5000"
 
-  # apache: 
-  #   container_name: apache
-  #   build:
-  #     context: .
-  #     dockerfile: docker/apache.dockerfile 
-  #   volumes:
-  #     - ./vols/archive:/archive
-  #   command: "apachectl -DFOREGROUND"
-  #   ports:
-  #     - "80:80"
+  apache: 
+    container_name: dae-apache
+    build:
+      context: .
+      dockerfile: docker/apache.dockerfile 
+    volumes:
+      - ./vols/archive:/archive
+    command: "apachectl -DFOREGROUND"
+    ports:
+      - "80:80"
 
   solr:
-    container_name: solr
+    container_name: dae-solr
+    ports:
+      - "8983:8983"
     build:
       context: .
       dockerfile: docker/solr.dockerfile
@@ -38,6 +42,11 @@ services:
     ports:
       - "8983:8983"
 
+  mongodb:
+    container_name: dae-mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
 volumes:
   solr:
 

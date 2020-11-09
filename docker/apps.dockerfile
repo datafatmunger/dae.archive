@@ -2,7 +2,7 @@ FROM debian:latest
 MAINTAINER JBG <jbg@hacker.coffee>
 
 RUN apt-get update -y; \
-  apt-get install -y sqlite3 curl build-essential git sudo openssh-server python3-pip imagemagick vim cron poppler-utils
+  apt-get install -y curl build-essential git sudo openssh-server python3-pip imagemagick vim cron poppler-utils
 
 RUN pip3 install gitpython tensorflow
 
@@ -13,13 +13,11 @@ ADD bin /usr/local/bin
 
 ADD config.json /config.json
 
-ADD init.sql /init.sql
-
 ADD sudoers /etc/sudoers
 
 ADD dae-api /app
 
-RUN cd /app && npm install sqlite3 && npm install
+RUN cd /app && npm install
 
 ADD dae-wiki /wiki
 

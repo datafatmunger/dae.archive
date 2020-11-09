@@ -8,6 +8,7 @@ json_escape () {
 
 find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   #echo "$line"
+  SIZE=$(ls -l $line | awk '{split($0,a," "); print a[5]}')
   USER=$(echo "$line" | awk '{split($0,a,"/"); print a[3]}')
   FILE=$(echo "$line" | xargs -I{} basename {})
   DIR=$(echo "$line"  | xargs -I{} dirname {})
@@ -24,7 +25,8 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   #echo $FILE
   #echo $EXT
   #echo $BASE
-  echo $SUBDIR
+  #echo $SUBDIR
+  #echo $SIZE
 
   DATE=$(ls -l --time-style="+%Y-%m-%dT%H:%M:%SZ" "$line" | awk '{split($0,a," "); print a[6]}')
   #echo $DATE
@@ -93,12 +95,12 @@ find /archive -type f -print0 | while IFS= read -r -d $'\0' line; do
   [ ! -d /tmp/$USER.archive ] && git clone /home/$USER/archive.git $TMP_ARCHIVE
 #  COMMIT_FILE_PATH="$TMP_ARCHIVE$SUBDIR$FILE"
 #  echo $COMMIT_FILE_PATH
-  echo ">>>>>>" $TMP_ARCHIVE $FILE
+#  echo ">>>>>>" $TMP_ARCHIVE $FILE
   COMMITS=$(python3 /usr/local/bin/commits.py $TMP_ARCHIVE $FILE)
   COMMITS_JSON=", \"commits\": $COMMITS"
 #  rm -rf $TMP_ARCHIVE
 
-  JSON="[{\"id\": \"$ID\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON $COMMITS_JSON}]"
+  JSON="[{\"id\": \"$ID\", \"size\": \"$SIZE\", \"date\": \"$DATE\", \"name\": \"$FILE\", \"base\": \"$BASE\", \"ext\": \"$EXT\", \"path\": \"$DIR\", \"type\": \"archive\", \"user\": \"$USER\" $CONTENTS_JSON $TF_JSON $COLOR_JSON $COMMITS_JSON}]"
 
   echo $JSON
 

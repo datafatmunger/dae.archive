@@ -2,7 +2,7 @@
 
 ## Apache configs
 
-### 000-default.conf
+### merged.conf
 
 The site defaults. Proxy definitions, CORs, Index style overlays, css, and js injection.
 

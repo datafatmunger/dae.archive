@@ -73,7 +73,7 @@
   },
   "add-field": {
     "name"        : "department",
-    "type"        : "text_general",
+    "type"        : "string",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
@@ -130,6 +130,14 @@
   "add-field": {
     "name"        : "award",
     "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "cum_laude",
+    "type"        : "boolean",
     "indexed"     : true,
     "stored"      : true,
     "multiValued" : false,
@@ -208,7 +216,7 @@
     "required"    : true 
   },
   "add-field": {
-    "name"        : "url",
+    "name"        : "slug",
     "type"        : "string",
     "indexed"     : true,
     "stored"      : true,

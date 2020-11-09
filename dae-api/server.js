@@ -5,7 +5,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   methodOverride = require('method-override'),
-  SQLiteStore = require('connect-sqlite3')(session),
+  MongoStore = require('connect-mongo')(session),
   fs = require('fs'),
   configParser = require('./config-parser')
   createError = require('http-errors')
@@ -15,6 +15,7 @@ const express = require('express'),
   passport = require('passport')
   OIDCStrategy = require('passport-azure-ad').OIDCStrategy
   graph = require('./graph')
+  auth = require('./authorization')
 
 const config = configParser.getConfig()
 const database = config.dataDir
@@ -35,77 +36,19 @@ const oauth2 = require('simple-oauth2').create({
   }
 })
 
-// Configure passport - JBG
-const users = {}
+passport.serializeUser(auth.serializeUser)
+passport.deserializeUser(auth.deserializeUser)  
 
-// Passport calls serializeUser and deserializeUser to
-// manage users
-passport.serializeUser((user, done) => {
-  // Use the OID property of the user as a key
-  users[user.profile.oid] = user
-  done (null, user.profile.oid)
-})
-
-passport.deserializeUser((id, done) => {
-  done(null, users[id])
-})  
-
-// Callback function called once the sign-in is complete
-// and an access token has been obtained
-async function signInComplete(iss, sub, profile, accessToken, refreshToken, params, done) {
-  if (!profile.oid) {
-    return done(new Error("No OID found in user profile."), null)
-  }
-
-  try {
-    const user = await graph.getUserDetails(accessToken)
-
-    if (user) {
-      // Add properties to profile
-      profile['email'] = user.mail ? user.mail : user.userPrincipalName
-    }
-
-    // Create a simple-oauth2 token from raw tokens
-    let oauthToken = oauth2.accessToken.create(params)
-
-    // Save the profile and tokens in user storage
-    users[profile.oid] = { profile, oauthToken }
-    return done(null, users[profile.oid])
-
-  } catch (err) {
-    console.error(err)
-    done(err, null)
-  }
-
-}
-
-// Configure OIDC strategy
-passport.use(new OIDCStrategy(
-  {
-    identityMetadata: `${process.env.OAUTH_AUTHORITY}${process.env.OAUTH_ID_METADATA}`,
-    clientID: process.env.OAUTH_APP_ID,
-    responseType: 'code id_token',
-    responseMode: 'form_post',
-    redirectUrl: process.env.OAUTH_REDIRECT_URI,
-    allowHttpForRedirectUrl: true,
-    clientSecret: process.env.OAUTH_APP_PASSWORD,
-    validateIssuer: false,
-    passReqToCallback: false,
-    scope: process.env.OAUTH_SCOPES.split(' ')
-  },
-  signInComplete
-))
+// Configure OIDC strategy - JBG
+passport.use(auth.getOIDC())
 
 app = express()
 app.use(express.static('public'))
 app.use(session({
   secret: 'popsecret',
-  store: new SQLiteStore({
-    db: 'dae.db',
-    dir: config.dataDir
-  }),
+  store: new MongoStore({ url: config.mongo.uri }),
   resave: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
   unset: 'destroy'
 }))
 
