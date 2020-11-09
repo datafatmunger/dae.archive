@@ -32,6 +32,12 @@ fi
 # Start sshd - JBG
 /usr/sbin/sshd
 
+# Start wiki - AF
+pushd /wiki/app
+if [ ! -d node_modules ]; then
+  npm install && npm run deploy
+fi
+
 # Start wiki - JBG
 pushd /wiki/public
 if [ ! -d node_modules ]; then
