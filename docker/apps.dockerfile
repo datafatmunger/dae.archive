@@ -21,4 +21,6 @@ RUN cd /app && npm install
 
 ADD dae-wiki /wiki
 
+RUN cd /wiki/app && npm install
+
 RUN cd /wiki/public && npm install
