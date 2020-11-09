@@ -48,7 +48,7 @@ fi
 cd /wiki/public
 # this really deserves its own container,
 # so it can run in the foreground
-npm run start &
+npm run start /home/wiki/wiki 5000
 
 # Start dae-api - JBG
 cd /app

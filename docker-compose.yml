@@ -14,6 +14,7 @@ services:
       - ./vols/archive:/archive
       - ./vols/home:/home
       - ./vols/tmp:/tmp
+      - ./vols/wiki:/home/wiki/wiki
     ports:
       - "2222:22"
       - "3000:3000"
