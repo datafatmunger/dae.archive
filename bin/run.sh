@@ -41,7 +41,7 @@ fi
 # Start wiki - JBG
 pushd /wiki/public
 if [ ! -d node_modules ]; then
-  npm install && npm run start
+  npm install
 fi
 
 # Start dae-wiki - JBG
