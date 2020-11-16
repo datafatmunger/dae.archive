@@ -1,8 +1,8 @@
 # The DAE archive
 
-## Install
+## dae.wiki install
 
-Before building the containers, install the dae-wiki repo by running `./install.sh`. This script clones the git repos and completes installation that is necessary before building docker containers. After running `./install.sh` you can `docker-compose build` and `docker-compose up`. 
+Before building the containers, install the dae-wiki repo by running `./install.sh`. This script clones the git repos and completes installation that is necessary before building docker containers. After running `./bin/install.sh` you can `docker-compose build` and `docker-compose up`. 
 
 ## Start containers
 
