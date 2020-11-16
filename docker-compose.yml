@@ -18,6 +18,18 @@ services:
     ports:
       - "2222:22"
       - "3000:3000"
+
+  apps:
+    container_name: dae-wiki
+    build:
+      context: .
+      dockerfile: docker/dae-wiki.dockerfile
+    working_dir: /app
+    command: /usr/local/bin/dae-wiki-run.sh
+    volumes:
+      - ./vols/home:/home
+      - ./vols/wiki:/home/wiki/wiki
+    ports:
       - "5000:5000"
 
   apache: 
