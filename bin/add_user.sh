@@ -6,12 +6,20 @@ useradd -m $1 -s /bin/bash
 #usermod --password $2 $1
 usermod --password $(openssl passwd -1 $2) $1
 
+#-- dae.archive
 sudo -u $1 -H sh -c "mkdir -p /home/$1/archive.git"
 
 pushd /home/$1/archive.git
 sudo -u $1 -H sh -c "git init --bare"
 cp /usr/local/bin/post-receive /home/$1/archive.git/hooks/
 
+#-- dae.wiki
+sudo -u $1 -H sh -c "mkdir -p /home/$1/wiki"
+
+pushd /home/$1/wiki
+sudo -u $1 -H sh -c "git init"
+
+#-- global git config user settings
 sudo -u $1 -H sh -c "git config --global user.email \"$3\""
 sudo -u $1 -H sh -c "git config --global user.name \"$1\""
 
