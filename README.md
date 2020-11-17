@@ -2,8 +2,13 @@
 
 ## Get submodules
 
+    $ git submodule init
+
     $ git submodule update --recursive --remote
 
+## Environment
+
+You will need to to create a `.env` file for `dae-api`.  See `.env.sample` for fields.
 
 ## Start containers
 

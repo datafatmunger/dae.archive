@@ -4,7 +4,7 @@ docker-compose down
 docker rmi daearchive_apps
 docker rmi daearchive_solr
 docker rmi daearchive_apache
-docker volume rm solr
+docker volume rm dae_solr
 sudo rm -rf vols/home/*
 sudo rm -rf vols/data/*
 sudo rm -rf vols/tmp/*
