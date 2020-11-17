@@ -1,6 +1,6 @@
 FROM solr:latest
 
-ADD bin /dae
+ADD dae-bin /dae
 
 ADD solr/conf /conf
 
