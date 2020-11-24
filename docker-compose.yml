@@ -19,7 +19,7 @@ services:
       - "2222:22"
       - "3000:3000"
 
-  apps:
+  dae_wiki:
     container_name: dae-wiki
     build:
       context: .
