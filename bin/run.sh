@@ -32,19 +32,6 @@ fi
 # Start sshd - JBG
 /usr/sbin/sshd
 
-# Start wiki - JBG
-pushd /wiki/public
-if [ ! -d node_modules ]; then
-  npm install && npm run start
-fi
-
-# Start dae-wiki - JBG
-cd /wiki/public
-# this really deserves its own container,
-# so it can run in the foreground
-npm run start &
-
 # Start dae-api - JBG
 cd /app
 npm start
-

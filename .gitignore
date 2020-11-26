@@ -4,4 +4,9 @@ dae-api/node_modules
 dae-api/package-lock.json
 dae-api/dae.db
 dae-api/cookies
+dae-api/.env
+
+package-lock.json
 .env
+
+.DS_Store

@@ -8,6 +8,14 @@
     "required"    : true
   },
   "add-field": {
+    "name"        : "size",
+    "type"        : "pint",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
     "name"        : "name",
     "type"        : "string",
     "indexed"     : true,

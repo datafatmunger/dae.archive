@@ -9,6 +9,13 @@ npm install
 popd
 echo "Done."
 
+# Deploy Apache conigs - JBG
+echo "Deploying Apache configs ..."
+cp /archive/jbg/apache/apache2.conf /etc/apache2 
+cp /archive/jbg/apache/000-default.conf /etc/apache2/sites-available
+apache2ctl restart
+echo "Done."
+
 # Copy any new systemd service units - JBG
 echo "Deploying new systemd units..."
 cp -r /archive/jbg/systemd/* /etc/systemd/system
@@ -16,14 +23,14 @@ systemctl daemon-reload
 echo "Done."
 
 # Set a new Solr schema, incase there was an update. - JBG
-echo "Setting new Solr schema..."
-cp /archive/jbg/solr/managed-schema /opt/solr/example/files/conf/
-/usr/local/bin/reset_solr.sh
-sleep 10s
-echo "Done."
+#echo "Setting new Solr schema..."
+#cp /archive/jbg/solr/managed-schema /opt/solr/example/files/conf/
+#/usr/local/bin/reset_solr.sh
+#sleep 10s
+#echo "Done."
 
 # Run the index
-echo "Indexing for search..."
-/usr/local/bin/index.sh
-echo "Done."
+#echo "Indexing for search..."
+#/usr/local/bin/index.sh
+#echo "Done."
 

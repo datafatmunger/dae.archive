@@ -1,11 +1,11 @@
 version: "3.1"
 services:
 
-  archive:
-    container_name: archive 
+  apps:
+    container_name: dae-apps 
     build:
       context: .
-      dockerfile: docker/archive.dockerfile 
+      dockerfile: docker/apps.dockerfile 
     working_dir: /app
     command: /usr/local/bin/run.sh 
     #command: tail -f /dev/null
@@ -16,9 +16,25 @@ services:
       - ./vols/tmp:/tmp
     ports:
       - "2222:22"
+      - "3000:3000"
+
+  dae_wiki:
+    container_name: dae-wiki
+    build:
+      context: .
+      dockerfile: docker/dae-wiki.dockerfile
+    working_dir: /wiki
+    command: /usr/local/bin/dae-wiki-run.sh
+    env_file:
+      - .env
+    volumes:
+      - ./vols/home:/home
+      - ./vols/wiki:/home/wiki/wiki
+    ports:
+      - "5000:5000"
 
   apache: 
-    container_name: apache
+    container_name: dae-apache
     build:
       context: .
       dockerfile: docker/apache.dockerfile 
@@ -29,12 +45,35 @@ services:
       - "80:80"
 
   solr:
-    container_name: solr
+    container_name: dae-solr
+    ports:
+      - "8983:8983"
     build:
       context: .
       dockerfile: docker/solr.dockerfile
     volumes:
       - solr:/var/solr
+    ports:
+      - "8983:8983"
+
+  mongodb:
+    container_name: dae-mongodb
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  imgproxywiki:
+    container_name: imgproxywiki
+    image: darthsim/imgproxy:latest
+    restart: always
+    environment:
+      - IMGPROXY_KEY=${KEY}
+      - IMGPROXY_SALT=${SALT}
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/home/wiki/wiki
+    volumes:
+      - ./vols/wiki:/home/wiki/wiki
+    ports:
+      - '6080:6080'
 
 volumes:
   solr:

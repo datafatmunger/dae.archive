@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: aw-ingress
+  namespace: archive-wiki
+  annotations:
+    cert-manager.io/issuer: le-production
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: searchdev.designacademy.nl
+    http:
+      paths:
+      - backend:
+          serviceName: apache
+          servicePort: apache-http
+        path: /(|$)(.*)
+  - host: apidev.designacademy.nl
+    http:
+      paths:
+      - backend:
+          serviceName: apache
+          servicePort: apache-http
+        path: /(|$)(.*)
+  - host: wikidev.designacademy.nl
+    http:
+      paths:
+      - backend:
+          serviceName: apache
+          servicePort: apache-http
+        path: /(|$)(.*)
+  tls:
+  - hosts:
+    - apidev.designacademy.nl
+    secretName: tls-apidev
+  - hosts:
+    - searchdev.designacademy.nl
+    secretName: tls-searchdev
+  - hosts:
+    - wikidev.designacademy.nl
+    secretName: tls-wikidev

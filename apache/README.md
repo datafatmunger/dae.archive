@@ -2,7 +2,7 @@
 
 ## Apache configs
 
-### 000-default.conf
+### merged.conf
 
 The site defaults. Proxy definitions, CORs, Index style overlays, css, and js injection.
 
@@ -14,4 +14,6 @@ Apache webserver config.  Enables Index functionality leveraged for the archive.
 
 The overlay css and html files which style and inject javascript into the archive index page.
 
+### current-setup-on-vps.conf
 
+This is a non-SSL copy of the current setup used in the VPS, for comparison and posterity.

@@ -13,6 +13,6 @@ curl -X POST -H 'Content-type:application/json' --data-binary @/dae/dae.json htt
 /opt/solr/bin/solr delete -p 8983 -c dae-wiki
 /opt/solr/bin/solr create -p 8983 -c dae-wiki -d /conf/
 
-curl -X POST -H 'Content-type:application/json' --data-binary @/dae/daewiki.json http://localhost:8983/solr/dae-wiki/schema
+curl -X POST -H 'Content-type:application/json' --data-binary @/dae/dae-wiki.json http://localhost:8983/solr/dae-wiki/schema
 
 #service solr restart

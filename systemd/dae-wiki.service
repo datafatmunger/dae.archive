@@ -1,0 +1,11 @@
+[Unit]
+Description=DAE-WIKI
+
+[Service]
+User=wiki
+WorkingDirectory=/var/www/dae-wiki/
+ExecStart=/home/andre/.nvm/versions/node/v14.9.0/bin/node server.js ../../../home/wiki/wiki/content 5000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
