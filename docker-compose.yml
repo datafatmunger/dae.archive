@@ -26,6 +26,8 @@ services:
       dockerfile: docker/dae-wiki.dockerfile
     working_dir: /wiki
     command: /usr/local/bin/dae-wiki-run.sh
+    env_file:
+      - .env
     volumes:
       - ./vols/home:/home
       - ./vols/wiki:/home/wiki/wiki
