@@ -4,6 +4,9 @@
 
 Before building the containers, install the dae-wiki repo by running `./install.sh`. This script clones the git repos and completes installation that is necessary before building docker containers. After running `./bin/install.sh` you can `docker-compose build` and `docker-compose up`. 
 
+- populate `.env` correctly
+- populate `./dae-wiki/public/assets/fonts/` with fonts
+
 ## Start containers
 
     $ docker-compose up
