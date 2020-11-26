@@ -73,7 +73,7 @@ services:
     volumes:
       - ./vols/wiki:/home/wiki/wiki
     ports:
-      - '8081:8080'
+      - '6080:6080'
 
 volumes:
   solr:
