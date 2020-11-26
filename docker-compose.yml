@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: docker/dae-wiki.dockerfile
-    working_dir: /app
+    working_dir: /wiki
     command: /usr/local/bin/dae-wiki-run.sh
     volumes:
       - ./vols/home:/home
