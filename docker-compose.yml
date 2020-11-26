@@ -70,9 +70,9 @@ services:
     # https://docs.docker.com/compose/environment-variables/
       - IMGPROXY_KEY=${KEY}
       - IMGPROXY_SALT=${SALT}
-      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=./vols/wiki
+      - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/home/wiki/wiki
     volumes:
-      - ./vols/wiki:/wiki
+      - ./vols/wiki:/home/wiki/wiki
     ports:
       - '8081:8080'
 
