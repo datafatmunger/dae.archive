@@ -8,12 +8,12 @@ Before building the containers, install the dae-wiki repo by running `./install.
 - populate `./dae-wiki/public/assets/fonts/` with fonts
 - put the content of the master wiki folder into `./vols/wiki`
 
-After this, you can do `docker-compose up --build`.
+After this, you can do `docker-compose build`.
 
-Lastly, index the wiki content to solr:
+Lastly, index the whole wiki content to solr:
 
 ```
-node dae-wiki/public/solr-utils/sync-with-solr.js ./vols/wiki /
+SOLRURI=<value from .env> WIKIPATH_IDX=<value from .env> node dae-wiki/public/solr-utils/sync-with-solr.js ./vols/wiki /
 ```
 
 ## Start containers
