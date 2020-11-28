@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "running install.sh"
 
-git config -f .gitmodules submodule.dae-wiki.branch docker
+git config -f .gitmodules submodule.dae-wiki.branch master
 
 git submodule init
-git submodule update -f
+git submodule update --recursive --remote
 
 mkdir -p dae-wiki/public/assets
 

@@ -1,4 +1,4 @@
 [submodule "dae-wiki"]
 	path = dae-wiki
 	url = https://github.com/afincato/dae-wiki
-	branch = docker
+	branch = master
