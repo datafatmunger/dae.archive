@@ -2,10 +2,19 @@
 
 ## dae.wiki install
 
-Before building the containers, install the dae-wiki repo by running `./install.sh`. This script clones the git repos and completes installation that is necessary before building docker containers. After running `./bin/install.sh` you can `docker-compose build` and `docker-compose up`. 
+Before building the containers, install the dae-wiki repo by running `./install.sh`. This script clones the git repos and completes installation that is necessary before building docker containers. 
 
-- populate `.env` correctly
+- move `./dae-wiki/public/.env.example` to the docker root folder, rename it `.env`, and fill it out correctly; there’s instructions in `./dae-wiki/public/README.md`
 - populate `./dae-wiki/public/assets/fonts/` with fonts
+- put the content of the master wiki folder into `./vols/wiki`
+
+After this, you can do `docker-compose up --build`.
+
+Lastly, index the wiki content to solr:
+
+```
+node dae-wiki/public/solr-utils/sync-with-solr.js ./vols/wiki /
+```
 
 ## Start containers
 
