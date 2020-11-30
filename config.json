@@ -1,12 +1,15 @@
 {
   "binDir": "/usr/local/bin",
   "dataDir": "/data",
-  "initPath": "/archive/jbg/dae-app/createUser",
+  "initPath": "/app",
   "initFile": "WelcomeToYourArchive.md",
   "binDir": "/usr/local/bin",
   "dataDir": "/data",
   "mongo": {
     "uri": "mongodb://mongodb:27017/dae"
+  },
+  "solr": {
+    "host": "solr"
   }
 }
 

@@ -9,7 +9,7 @@ RUN pip3 install gitpython tensorflow
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -; \
   apt-get install -y nodejs
 
-ADD bin /usr/local/bin
+ADD dae-bin /usr/local/bin
 
 ADD config.json /config.json
 
