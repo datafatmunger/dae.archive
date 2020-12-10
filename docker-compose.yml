@@ -18,13 +18,13 @@ services:
       - "3000:3000"
       - "5000:5000"
 
-  dae-app:
+  dae-archive-app:
     build:
       context: .
-      dockerfile: docker/dae-app.dockerfile
-    container_name: dae-app
+      dockerfile: docker/dae-archive-app.dockerfile
+    container_name: dae-archive-app
     volumes:
-      - ./dae-app:/usr/src/app
+      - ./dae-archive-app:/usr/src/archive-app
     ports:
       - "4000:4000"
 
