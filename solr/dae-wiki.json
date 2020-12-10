@@ -1,0 +1,234 @@
+{
+  "add-field": {
+    "name"        : "title",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "location",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "core",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "nav",
+    "type"        : "pint",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "menu_toggle",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "menu_pos",
+    "type"        : "pint",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "template",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "category",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "department",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "position_at_dae",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "study_year",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  }, 
+  "add-field": {
+    "name"        : "degree",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "student_name",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "project_title",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "graduation_year",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "award",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "cum_laude",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "visibility",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false 
+  },
+  "add-field": {
+    "name"        : "status",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "text_intro",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "text_full",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "headlines",
+    "type"        : "text_general",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : true,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "image_url",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "image_transclusion",
+    "type"        : "boolean",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "posted_on",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : false
+  },
+  "add-field": {
+    "name"        : "created",
+    "type"        : "pdate",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  },
+  "add-field": {
+    "name"        : "modified",
+    "type"        : "pdate",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true 
+  },
+  "add-field": {
+    "name"        : "url",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  }
+  "add-field": {
+    "name"        : "slug",
+    "type"        : "string",
+    "indexed"     : true,
+    "stored"      : true,
+    "multiValued" : false,
+    "required"    : true
+  }
+}

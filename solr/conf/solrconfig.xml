@@ -299,7 +299,7 @@
          have some sort of hard autoCommit to limit the log size.
       -->
     <autoCommit>
-      <maxTime>15000</maxTime>
+      <maxTime>${solr.autoSoftCommit.maxTime:30000}</maxTime>
       <openSearcher>false</openSearcher>
     </autoCommit>
 
@@ -308,11 +308,10 @@
          but does not ensure that data is synced to disk.  This is
          faster and more near-realtime friendly than a hard commit.
       -->
-    <!--
+    
       <autoSoftCommit>
-        <maxTime>1000</maxTime>
+        <maxTime>${solr.autoSoftCommit.maxTime:1000}</maxTime>
       </autoSoftCommit>
-     -->
 
     <!-- Update Related Event Listeners
 
@@ -1149,7 +1148,7 @@
        See http://wiki.apache.org/solr/GuessingFieldTypes
     -->
   <updateRequestProcessorChain name="files-update-processor">
-    <!-- UUIDUpdateProcessorFactory will generate an id if none is present in the incoming document -->
+    <!-- UUIDUpdate will generate an id if none is present in the incoming document -->
     <processor class="solr.UUIDUpdateProcessorFactory" />
     <processor class="solr.RemoveBlankFieldUpdateProcessorFactory"/>
     <processor class="solr.FieldNameMutatingUpdateProcessorFactory">
