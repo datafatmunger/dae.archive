@@ -1,13 +1,12 @@
 version: "3.1"
 services:
-
   apps:
-    container_name: dae-apps 
+    container_name: dae-apps
     build:
       context: .
-      dockerfile: docker/apps.dockerfile 
+      dockerfile: docker/apps.dockerfile
     working_dir: /app
-    command: /usr/local/bin/run.sh 
+    command: /usr/local/bin/run.sh
     #command: tail -f /dev/null
     volumes:
       - ./vols/data:/data
@@ -33,11 +32,21 @@ services:
     ports:
       - "5000:5000"
 
-  apache: 
+  dae-app:
+    build:
+      context: .
+      dockerfile: docker/dae-app.dockerfile
+    container_name: dae-app
+    volumes:
+      - ./dae-app:/usr/src/app
+    ports:
+      - "4000:4000"
+
+  apache:
     container_name: dae-apache
     build:
       context: .
-      dockerfile: docker/apache.dockerfile 
+      dockerfile: docker/apache.dockerfile
     volumes:
       - ./vols/archive:/archive
     command: "apachectl -DFOREGROUND"
@@ -77,4 +86,3 @@ services:
 
 volumes:
   solr:
-
