@@ -8,6 +8,8 @@ RUN a2enmod autoindex; \
   a2enmod userdir; \
   a2enmod proxy; \ 
   a2enmod proxy_http; \
+  a2enmod proxy_http; \
+  a2enmod rewrite; \
   a2enmod headers
 
 ADD apache/apache2.conf /etc/apache2/apache2.conf
