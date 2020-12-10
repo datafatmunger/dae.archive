@@ -1,3 +1,7 @@
+[submodule "dae-wiki"]
+	path = dae-wiki
+	url = https://github.com/afincato/dae-wiki
+	branch = master
 [submodule "dae-bin"]
 	path = dae-bin
 	url = https://github.com/datafatmunger/dae-bin.git
