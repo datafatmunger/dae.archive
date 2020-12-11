@@ -11,3 +11,6 @@
 [submodule "dae-api"]
 	path = dae-api
 	url = https://github.com/datafatmunger/dae-api.git
+[submodule "dae-archive-app"]
+	path = dae-archive-app
+	url = https://github.com/oortnetwork/dae-archive-app
