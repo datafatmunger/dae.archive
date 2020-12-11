@@ -14,7 +14,7 @@ For `dae.wiki`, copy the keys from `./dae-wiki/public/.env.example` over to `.en
 
 ## dae-wiki setup
 
-- run `./dae-bin/dae-wiki-clean-up.sh`.
+- run `./dae-bin/dae-wiki-cleanup.sh`.
 - populate `./dae-wiki/public/assets/fonts/` with fonts
 - put the content of the master wiki folder into `./vols/wiki`
 
